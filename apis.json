@@ -1,0 +1,71 @@
+{
+    "name": "Centrify",
+    "description": "Centrify delivers Zero Trust Security through the power of Next-Gen Access. Secure access to apps, endpoints & infrastructure. Click for a FREE Trial!",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/19113-centrify-(slackbot).jpg",
+    "tags": [
+        "authentication",
+        "bots",
+        "have api",
+        "identities",
+        "slack"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/centrify\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Centrify",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/19113-centrify-(slackbot).jpg",
+            "humanURL": "https:\/\/www.centrify.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/centrify-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/centrify"
+        },
+        {
+            "type": "Developers",
+            "url": "https:\/\/developer.centrify.com\/"
+        },
+        {
+            "type": "FAQ",
+            "url": "https:\/\/developer.centrify.com\/page\/faq"
+        },
+        {
+            "type": "Forums",
+            "url": "https:\/\/community.centrify.com\/t5\/Centrify-Developers\/ct-p\/CentrifyDevelopers"
+        },
+        {
+            "type": "Privacy",
+            "url": "https:\/\/www.centrify.com\/privacy\/"
+        },
+        {
+            "type": "Support",
+            "url": "https:\/\/developer.centrify.com\/discuss"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/Centrify"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/www.centrify.com"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/docs.centrify.com\/en\/centrify\/appref\/#page\/cloudhelp%2Fo-z%2Fsaas_appref_slack.html%23"
+        }
+    ]
+}
