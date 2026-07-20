@@ -1,0 +1,40 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.delinea.com/docs/getting-access-to-the-api
+docs: https://developer.delinea.com/docs/using-apis
+note: >-
+  Derived from the Centrify Identity Services / Cloud Suite (PAS) developer
+  documentation (served at developer.delinea.com after the Delinea rebrand).
+  No machine-readable OpenAPI is captured in this repo, so this profile is
+  documented from the published auth guides rather than derived from a spec.
+summary:
+  types: [oauth2, http, apiKey]
+  api_key_in: [header, cookie]
+  oauth2_flows: [clientCredentials, authorizationCode, password]
+schemes:
+- name: OAuth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+  - flow: authorizationCode
+  - flow: password
+  description: >-
+    OAuth2 confidential-client flows against the tenant OAuth2 authorization
+    server; used for programmatic / service access to the Centrify REST API.
+- name: BearerToken
+  type: http
+  scheme: bearer
+  description: >-
+    API access tokens (bearer) issued after authentication, sent on subsequent
+    REST calls.
+- name: SessionCookie
+  type: apiKey
+  in: cookie
+  description: >-
+    Authentication cookie established by the interactive/adaptive
+    authentication flow (MFA-aware) for portal-scoped calls.
+- name: SAML
+  type: other
+  description: >-
+    SAML assertions accepted for federated/SSO scenarios into the Identity
+    Platform.
