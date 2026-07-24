@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: searched
+probe: true
+source: https://trust.delinea.com/
+url: https://trust.delinea.com/
+note: >-
+  Centrify is now part of Delinea; the trust center for the Centrify products
+  (Cloud Suite / Privileged Access Service / Identity Platform) is the Delinea
+  Trust Center at trust.delinea.com.
+certifications:
+- SOC 1 Type 2
+- SOC 2 Type 2
+- ISO/IEC 27001:2022
+- PCI DSS v4.0.1
+- GDPR
+- EU-US Data Privacy Framework
+- CCPA
+- FedRAMP
+- DESC Cloud Service Provider
+evidence:
+- source: https://trust.delinea.com/
+  keywords:
+  - soc 2 type 2
+  - iso/iec 27001:2022
+  - pci dss v4.0.1
+  - gdpr
+  - fedramp
+  - trust center

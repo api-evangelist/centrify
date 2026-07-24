@@ -1,8 +1,31 @@
 aid: centrify
 name: Centrify
-description: Centrify is a company surfaced as a portfolio company of accel, mayfield and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Centrify is an identity and privileged access management (PAM) platform now
+  delivered as part of Delinea (the company formed from the Centrify + Thycotic
+  merger). The Centrify Identity Platform / Cloud Suite / Privileged Access
+  Service secures access to applications, servers, network infrastructure, and
+  privileged accounts with adaptive multi-factor authentication, single sign-on,
+  least-privilege enforcement, session auditing, and analytics. The Centrify
+  REST API exposes the full platform programmatically — authentication profiles,
+  users and directories, roles and sets, resources and secrets, privileged
+  access requests, connectors, webhooks, and audit/reporting — authenticated via
+  OAuth2, bearer tokens, or MFA-aware session cookies. centrify.com now redirects
+  to delinea.com and the developer documentation is served at developer.delinea.com.
 url: https://raw.githubusercontent.com/api-evangelist/centrify/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://delinea.com/hubfs/Delinea/images/logos/delinea-logo.svg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -10,12 +33,46 @@ x-backed-by:
 - mayfield
 x-tier: stub
 x-tier-reason: portfolio-lead
+x-successor: delinea
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-apis: []
+- Identity
+- Privileged Access Management
+- Access Management
+- Authentication
+- Single Sign-On
+- Multi-Factor Authentication
+- Security
+- Zero Trust
+- IAM
+apis:
+- name: Centrify Identity Services API
+  description: >-
+    REST API for the Centrify Identity Platform / Cloud Suite (PAS). Programmatic
+    access to authentication profiles, users, directories, roles, sets,
+    resources, secrets, privileged access requests, connectors, and audit data.
+    Calls are made against the customer tenant/pod URL; the operation reference is
+    published at developer.delinea.com.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Identity
+  - Privileged Access Management
+  - Authentication
+  properties:
+  - type: Documentation
+    url: https://developer.delinea.com/docs
+  - type: APIReference
+    url: https://developer.delinea.com/reference
+  - type: GettingStarted
+    url: https://developer.delinea.com/docs/getting-access-to-the-api
+  - type: LLMsTxt
+    url: llms/centrify-llms.txt
+  - type: Authentication
+    url: authentication/centrify-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,4 +80,53 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: http://www.centrify.com/
+  url: https://www.centrify.com/
+- type: DeveloperPortal
+  url: https://developer.delinea.com/
+- type: Documentation
+  url: https://developer.delinea.com/docs
+- type: APIReference
+  url: https://developer.delinea.com/reference
+- type: GettingStarted
+  url: https://developer.delinea.com/docs/getting-access-to-the-api
+- type: DocumentationLibrary
+  url: https://docs.centrify.com/
+- type: Support
+  url: https://support.delinea.com/s/
+- type: Blog
+  url: https://delinea.com/blog
+- type: Pricing
+  url: https://delinea.com/centrify
+- type: GitHubOrganization
+  url: https://github.com/DelineaXPM
+- type: LLMsTxt
+  url: llms/centrify-llms.txt
+- type: Authentication
+  url: authentication/centrify-authentication.yml
+- type: SDKs
+  url: packages/centrify-packages.yml
+- type: Packages
+  url: packages/centrify-packages.yml
+- type: CLI
+  url: cli/centrify-cli.yml
+- type: WellKnown
+  url: well-known/centrify-well-known.yml
+- type: SecurityTxt
+  url: well-known/centrify-security.txt
+- type: DomainSecurity
+  url: security/centrify-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/centrify-vulnerability-disclosure.yml
+- type: Security
+  url: https://trust.delinea.com/
+- type: TrustCenter
+  url: security/centrify-trust-center.yml
+- type: Conformance
+  url: conformance/centrify-conformance.yml
+- type: Compliance
+  url: https://trust.delinea.com/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

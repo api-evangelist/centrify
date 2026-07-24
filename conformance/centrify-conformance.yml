@@ -1,0 +1,48 @@
+generated: '2026-07-18'
+method: searched
+source: https://trust.delinea.com/
+docs: https://developer.delinea.com/docs
+note: >-
+  Standards conformance for the Centrify Identity Platform (now delivered under
+  Delinea). Security/compliance items are evidenced by the Delinea Trust Center;
+  protocol items by the published developer documentation.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: developer docs document OAuth2 clientCredentials/authorizationCode/password flows
+- id: oidc
+  conforms: true
+  evidence: docs describe OpenID Connect / adaptive authentication support
+- id: saml2
+  conforms: true
+  evidence: SAML assertion support documented for federation/SSO
+- id: scim2
+  conforms: false
+  evidence: not documented in the captured developer surface
+- id: soc2-type2
+  conforms: true
+  evidence: SOC 2 Type 2 listed on trust.delinea.com
+- id: iso-27001
+  conforms: true
+  evidence: ISO/IEC 27001:2022 listed on trust.delinea.com
+- id: pci-dss
+  conforms: true
+  evidence: PCI DSS v4.0.1 listed on trust.delinea.com
+- id: gdpr
+  conforms: true
+  evidence: GDPR + EU-US Data Privacy Framework listed on trust.delinea.com
+- id: fedramp
+  conforms: true
+  evidence: FedRAMP referenced for the Centrify/Delinea government offering
+compliance_program:
+  url: https://trust.delinea.com/
+  certifications:
+  - SOC 1 Type 2
+  - SOC 2 Type 2
+  - ISO/IEC 27001:2022
+  - PCI DSS v4.0.1
+  - GDPR
+  - EU-US Data Privacy Framework
+  - CCPA
+  - FedRAMP
+  - DESC Cloud Service Provider

@@ -1,0 +1,44 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/DelineaXPM
+note: >-
+  Centrify is now part of Delinea; first-party tooling is published under the
+  DelineaXPM GitHub organization. The Centrify-specific first-party client is
+  CentrifyCLI (ccli), a .NET command-line client for the Centrify REST API.
+  The broader DelineaXPM SDK family targets sibling Delinea products (Secret
+  Server / DevOps Secrets Vault), not the Centrify Identity Platform, so they
+  are listed as related rather than as Centrify Identity Platform SDKs.
+packages:
+- language: dotnet
+  registry: github
+  name: CentrifyCLI
+  url: https://github.com/DelineaXPM/CentrifyCLI
+  install: dotnet build  # or download from the GitHub Releases section
+  official: true
+  description: >-
+    Centrify CLI (ccli), a .NET cross-platform command-line client for the
+    Centrify REST API. Lists/searches endpoints, exposes JSON Schemas, and
+    handles OAuth or user/password authentication.
+related:
+- note: DelineaXPM SDKs for sibling Delinea products (not Centrify Identity Platform).
+  packages:
+  - language: go
+    name: tss-sdk-go
+    url: https://github.com/DelineaXPM/tss-sdk-go
+    official: true
+    product: Delinea Secret Server
+  - language: python
+    name: python-tss-sdk
+    url: https://github.com/DelineaXPM/python-tss-sdk
+    official: true
+    product: Delinea Secret Server
+  - language: java
+    name: tss-sdk-java
+    url: https://github.com/DelineaXPM/tss-sdk-java
+    official: true
+    product: Delinea Secret Server
+  - language: go
+    name: terraform-provider-dsv
+    url: https://github.com/DelineaXPM/terraform-provider-dsv
+    official: true
+    product: Delinea DevOps Secrets Vault

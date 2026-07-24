@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: searched
+source: https://delinea.com/.well-known/security.txt
+note: >-
+  centrify.com redirects to delinea.com/centrify (Centrify is now part of
+  Delinea). The centrify.com/.well-known/* paths all soft-return the marketing
+  HTML page (200 text/html), so they are not real discovery documents. The only
+  genuine well-known document for this entity is the RFC 9116 security.txt served
+  by delinea.com, saved verbatim below.
+host: https://delinea.com
+documents:
+- path: /.well-known/security.txt
+  status: 200
+  content_type: text/plain
+  file: centrify-security.txt
+- path: /.well-known/openid-configuration
+  status: 200
+  content_type: text/html
+  real: false
+  note: soft-200 marketing HTML, not an OIDC discovery document
+- path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: text/html
+  real: false
+  note: soft-200 marketing HTML, not an RFC 8414 document
+- path: /.well-known/api-catalog
+  status: 200
+  content_type: text/html
+  real: false
+- path: /.well-known/ai-plugin.json
+  status: 200
+  content_type: text/html
+  real: false

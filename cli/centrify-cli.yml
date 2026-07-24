@@ -1,0 +1,23 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/DelineaXPM/CentrifyCLI
+name: Centrify CLI
+binary: ccli
+runtime: .NET 6.0
+repository: https://github.com/DelineaXPM/CentrifyCLI
+docs: https://github.com/centrify/centrifycli/wiki/Centrify-CLI:-Centrify-Command-Line-Interface
+official: true
+summary: >-
+  Cross-platform command-line client for the Centrify REST API. Lists and
+  searches Centrify API endpoints, retrieves JSON Schemas of those endpoints,
+  handles authentication via OAuth or user/password, and invokes REST calls.
+install:
+- method: releases
+  detail: Download the prebuilt binary from the GitHub Releases section.
+- method: build
+  detail: dotnet build (requires the .NET runtime; Visual Studio 2022 also supported)
+capabilities:
+- List and search Centrify API endpoints
+- Retrieve JSON Schemas for Centrify API endpoints
+- Authenticate through OAuth or user/password
+- Invoke Centrify REST API calls from the command line
