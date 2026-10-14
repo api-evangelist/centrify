@@ -1,0 +1,151 @@
+openapi: 3.1.0
+info:
+  title: application-management
+  version: '23.1'
+servers:
+- url: https://example.com/saasManage
+security:
+- {}
+x-readme-fauxas: true
+paths:
+  /GetScript:
+    post:
+      summary: /saasManage/GetScript
+      description: Gets the existing script for the specified application.
+      operationId: saasmanagegetscript
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appkey:
+                  type: string
+                  description: The unique ID of the application to retrieve the script for.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{  \n   \"success\":true,\n   \"Result\":{  \n      \"Modified\":true,\n      \"Script\":\"setIssuer(Issuer);\\nsetSubjectName(UserIdentifier);\\nsetAudience('box.net');\\nsetRecipient('https://sso.services.box.net/sp/ACS.saml2');\\nsetSignatureType('Response');\\nsetServiceUrl('https://sso.services.box.net/sp/ACS.saml2');\\nsetHttpDestination('https://sso.services.box.net/sp/ACS.saml2');\\nsetAttribute('Email Address', UserIdentifier);\"\n   },\n   \"Message\":null,\n   \"MessageID\":null,\n   \"Exception\":null,\n   \"ErrorID\":null,\n   \"ErrorCode\":null,\n   \"InnerExceptions\":null\n}"
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                    default: true
+                  Result:
+                    type: object
+                    properties:
+                      Modified:
+                        type: boolean
+                        example: true
+                        default: true
+                      Script:
+                        type: string
+                        example: 'setIssuer(Issuer);
+
+                          setSubjectName(UserIdentifier);
+
+                          setAudience(''box.net'');
+
+                          setRecipient(''https://sso.services.box.net/sp/ACS.saml2'');
+
+                          setSignatureType(''Response'');
+
+                          setServiceUrl(''https://sso.services.box.net/sp/ACS.saml2'');
+
+                          setHttpDestination(''https://sso.services.box.net/sp/ACS.saml2'');
+
+                          setAttribute(''Email Address'', UserIdentifier);'
+                  Message: {}
+                  MessageID: {}
+                  Exception: {}
+                  ErrorID: {}
+                  ErrorCode: {}
+                  InnerExceptions: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.com/saasManage/GetScript\n\n{\n\t\"appkey\":\"123470ba-c9...\"\n}"
+        samples-languages:
+        - http
+  /SetApplicationPermissions:
+    post:
+      summary: /SaaSManage/SetApplicationPermissions
+      description: Gets the existing script for the specified application.
+      operationId: saasmanagesetapplicationpermissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Grants:
+                  type: object
+                  description: 'Available Ptypes:  User  /  Group  /  Role; Available Rights: Grant,  View,  Admin  (Manage),  Execute  (Run), Automatic  (Automatically  Deploy)'
+                  properties: {}
+                ID:
+                  type: string
+                PVID:
+                  type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"success\":true,\n  \"Result\":null,\n  \"Message\":null,\n  \"MessageID\":null,\n  \"Exception\":null,\n  \"ErrorID\":null,\n  \"ErrorCode\":null,\n  \"InnerExceptions\":null\n}"
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                    default: true
+                  Result: {}
+                  Message: {}
+                  MessageID: {}
+                  Exception: {}
+                  ErrorID: {}
+                  ErrorCode: {}
+                  InnerExceptions: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/saasmanagegetscript.md
+  - https://developer.delinea.com/reference/saasmanagesetapplicationpermissions.md
+  merge:
+    pages: 2
+    deduped: 0
+    conflicts_kept_first: 0

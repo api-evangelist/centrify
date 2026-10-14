@@ -1,0 +1,27 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/centrify-analytics-openapi.yml
+- openapi/centrify-application-management-openapi.yml
+- openapi/centrify-identity-platform-api-openapi.yml
+- openapi/centrify-role-management-openapi.yml
+- openapi/centrify-server-agent-openapi.yml
+- openapi/centrify-server-management-openapi.yml
+- openapi/centrify-server-session-openapi.yml
+- openapi/centrify-uprest-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: null
+coverage:
+  operations: 799
+  statuses_declared: 1
+problems:
+- status: 400
+  title: Bad Request
+  description: '400'
+  operations: 24
+  media_types:
+  - application/json
+  schema: null

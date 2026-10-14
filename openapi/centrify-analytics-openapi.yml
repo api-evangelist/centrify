@@ -1,0 +1,736 @@
+openapi: 3.1.0
+info:
+  title: analytics
+  version: '23.1'
+servers:
+- url: https://example.com/analytics/services/v1.0
+security:
+- {}
+x-readme-fauxas: true
+paths:
+  /apis/access_token/{id}/actiate:
+    put:
+      summary: /apis/access_tokens/{id}/activate
+      description: Activates an Analytics access token.
+      operationId: apisaccess_tokensidactivate
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the access token to activate.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: ''
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: PUT https://mytenant.centrify.io/analytics/services/v1.0/apis/access_tokens/c454f.../activate HTTP/1.1
+        samples-languages:
+        - http
+  /apis/access_token/{id}/inactiate:
+    put:
+      summary: /apis/access_tokens/{id}/inactivate
+      description: Deactivates an Analytics access token.
+      operationId: apisaccess_tokensidinactivate
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the access token to deactivate.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: ''
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: PUT https://mytenant.centrify.io/analytics/services/v1.0/apis/access_tokens/c454f.../inactivate HTTP/1.1
+        samples-languages:
+        - http
+  /apis/access_tokens:
+    post:
+      summary: /apis/access_tokens
+      description: Creates a new access token for use with analytics APIs.
+      operationId: apisaccess_tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name to assign to the token.
+                expiration_time:
+                  type: string
+                  description: The date/time when the token should expire. To allow the access token to last forever (i.e. to not have an expiration time), set this parameter to -1.
+                scopes:
+                  type: array
+                  description: An array strings corresponding to the scopes to authorize access to with the token.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{  \n   \"id\":\"c454fb8...\",\n   \"name\":\"Test 101\",\n   \"user_name\":\"demoabc\",\n   \"token\":\"eyJhbGciOiJIUzI...\",\n   \"status\":\"active\",\n   \"expiration_time\":1529006108650,\n   \"creation_time\":1527879324266,\n   \"scopes\":[  \n      \"sensor_registration\",\n      \"content\"\n   ]\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: c454fb8...
+                  name:
+                    type: string
+                    example: Test 101
+                  user_name:
+                    type: string
+                    example: demoabc
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI...
+                  status:
+                    type: string
+                    example: active
+                  expiration_time:
+                    type: integer
+                    example: 1529006108650
+                    default: 0
+                  creation_time:
+                    type: integer
+                    example: 1527879324266
+                    default: 0
+                  scopes:
+                    type: array
+                    items:
+                      type: string
+                      example: sensor_registration
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.io/analytics/services/v1.0/apis/access_tokens \n\n{\n   \"name\":\"Test 101\",\n   \"expiration_time\":1529006108650,\n   \"scopes\":[  \n      \"sensor_registration\",\n      \"content\"\n   ]\n}"
+        samples-languages:
+        - http
+    get:
+      summary: /apis/access_tokens
+      description: Gets information about the Analytics access tokens for the specified tenant.
+      operationId: apisaccess_tokens-1
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[  \n   {  \n      \"id\":\"00794...\",\n      \"name\":\"oauth_am..450002\",\n      \"user_name\":\"cia\",\n      \"token\":null,\n      \"status\":\"active\",\n      \"expiration_time\":1551939450002,\n      \"creation_time\":1520403429710,\n      \"scopes\":[  \n         \"*\"\n      ]\n   },\n   {  \n      \"id\":\"02ee14...\",\n      \"name\":\"docker_sensor_15163389..\",\n      \"user_name\":\"cia\",\n      \"token\":null,\n      \"status\":\"expired\",\n      \"expiration_time\":1516342577786,\n      \"creation_time\":1516338978167,\n      \"scopes\":[  \n         \"analytics_sensor\"\n      ]\n   },\n   ...\n]"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: 'GET https://mytennt.centrify.io/analytics/services/v1.0/apis/access_tokens '
+        samples-languages:
+        - text
+  /apis/access_tokens/{id}:
+    delete:
+      summary: /apis/access_tokens/{id}
+      description: Revokes (permanently deletes) an Analytics access token. Once revoked, the access token can no longer by used when invoking subsequent Analytics endpoints.
+      operationId: apisaccess_tokensid
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the Analytics access token to revoke.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '
+
+                    '
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+  /apis/scopes:
+    get:
+      summary: /apis/scopes
+      description: Gets the name of scopes defined on the tenant for use with Analytics.
+      operationId: apisscopes
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[  \n   {  \n      \"key\":\"intel_model_management\",\n      \"name\":\"Risk Model Management\"\n   },\n   {  \n      \"key\":\"query\",\n      \"name\":\"Analytics Query\"\n   },\n   {  \n      \"key\":\"content\",\n      \"name\":\"Content Management\"\n   },\n   {  \n      \"key\":\"sensor_registration\",\n      \"name\":\"Sensor Registration\"\n   },\n   {  \n      \"key\":\"analytics_sensor\",\n      \"name\":\"Sensor Management\"\n   },\n   {  \n      \"key\":\"risk_check_cis\",\n      \"name\":\"Risk Check for Application Services\"\n   },\n   {  \n      \"key\":\"risk_check_css\",\n      \"name\":\"Risk Check for Infrastructure Services\"\n   },\n   {  \n      \"key\":\"*\",\n      \"name\":\"All\"\n   }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                      example: intel_model_management
+                    name:
+                      type: string
+                      example: Risk Model Management
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: GET https://mytenant.centrify.io/analytics/services/v1.0/apis/scopes
+        samples-languages:
+        - http
+  /dataset/system/models:
+    get:
+      summary: /dataset/system/models
+      description: Gets the models defined in the Analytics' system.
+      operationId: datasetsystemmodels
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[  \n   {  \n      \"model_mode\":true,\n      \"node_name\":\"event\",\n      \"description\":\"Centrify Event\",\n      \"type\":\"SYSTEM\",\n      \"multiple_snapshot\":false,\n      \"model\":{  \n         \"name\":\"event\",\n         \"description\":\"Centrify Event\",\n         \"columns\":[  \n            {  \n               \"type\":\"STRING\",\n               \"name\":\"reason\"\n            },\n            {  \n               \"type\":\"STRING\",\n               \"name\":\"app_type\"\n            },\n            {  \n               \"type\":\"STRING\",\n               \"name\":\"agent_id\"\n            },\n            ...\n         ],\n         \"query\":null,\n         \"params\":null,\n         \"type\":\"SYSTEM\",\n         \"signature\":null,\n         \"read_only\":true\n      },\n      \"nodes\":[  \n\n      ]\n   },\n   ...\n]"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: GET https://mytenant.centrify.io/analytics/services/v1.0/dataset/system/models
+        samples-languages:
+        - http
+  /file/export/rules/webhook/{name}:
+    post:
+      summary: /file/export/rules/webhook/{name}
+      description: Exports the information for one or more webhooks to JSON. The information is returned in both a .json file attachment and in the response. The exported information can be imported to a tenant using the [/file/import/rules/webhook](https://developer.delinea.com/reference/fileimportruleswebhook).
+      operationId: fileexportruleswebhookname
+      parameters:
+      - name: name
+        in: path
+        description: The base name to assign to the exported file. The endpoint will append ".json" to this name.
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                export_header:
+                  type: boolean
+                  description: Specifies if the webhook's header information should be exported.
+                export_url:
+                  type: boolean
+                  description: Specifies if the webhooks URL should be exported.
+                policy_ids:
+                  type: array
+                  description: The IDs of the webhooks to export. You can get the IDs of each webhook on the tenant by invoking the [/rules](https://developer.delinea.com/reference/rules) endpoint.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: "HTTP/1.1 200 OK\nServer: Apache-Coyote/1.1\nContent-Disposition: attachment; filename=\"MyDemo.json\"\nDate: Fri, 18 May 2018 17:03:33 GMT\nCache-Control: no-cache, no-store, max-age=0, must-revalidate\nPragma: no-cache\nExpires: 0\nStrict-Transport-Security: max-age=31536000 ; includeSubDomains\nX-XSS-Protection: 1; mode=block\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nContent-Type: multipart/form-data\nContent-Length: 3657\n\n{\n  \"ruleActions\": [\n    {\n      \"tenantId\": \"ABC1234\",\n      \"policyId\": \"a5e7...\",\n      \"name\": \"MyDemo\",\n      \"rule\": {\n        \"filterType\": \"com.centrify.platform.notification.rule.filter.EventTypeFilter\",\n        \"filterMetaData\": {\n          \"event_type\": \"Analytics.Server.AdaptiveSessionRecording\"\n        }\n      },\n      \"actions\": [\n        {\n          \"actionType\": \"webhook\",\n          \"actionMetaData\": {\n            \"headers\": \"Token token\\u00...\",\n      \
+                    \      \"method\": \"POST\",\n            \"content_type\": \"application/json\",\n            \"request_body\": \"{\\n  \\\"payload\\\": {\\n    \\\"summary\\\": \\\"${intel_risk_level?cap_first} Risk: \\u003...\",\n            \"url\": \"https://events.pagerduty.com/v2/enqueue\"\n          },\n          \"providerMetaData\": {}\n        }\n      ],\n      \"createdBy\": \"cia\",\n      \"updatedBy\": \"cia\"\n    }\n  ],\n  \"version\": \"0.9\",\n  \"signature\": \"cfd8...\"\n}"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.io/analytics/services/v1.0/file/export/rules/webhook/MyDemo\n\n{  \n   \"policy_ids\":[  \n      \"a5e7...\"\n   ],\n   \"export_url\":true,\n   \"export_header\":true\n}"
+        samples-languages:
+        - http
+  /file/import/rules/webhook:
+    post:
+      summary: /file/import/rules/webhook
+      description: Imports one or more webhooks from a .json file that was exported using the [/file/export/rules/webhook/{name}](https://developer.delinea.com/reference/fileexportruleswebhookname) endpoint.
+      operationId: fileimportruleswebhook
+      responses:
+        '200':
+          description: '200'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: 'HTTP/1.1 200 OK
+
+                    Server: Apache-Coyote/1.1
+
+                    Date: Fri, 18 May 2018 17:03:52 GMT
+
+                    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+                    Pragma: no-cache
+
+                    Expires: 0
+
+                    Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+
+                    X-XSS-Protection: 1; mode=block
+
+                    X-Frame-Options: DENY
+
+                    X-Content-Type-Options: nosniff
+
+                    Content-Length: 0'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.io/analytics/services/v1.0/file/import/rules/webhook\n\nContent-Type: multipart/form-data; boundary=----WebKitFormBoundarykmkpXEKtCNf6UQO0\n\n------WebKitFormBoundarykmkpXEKtCNf6UQO0\nContent-Disposition: form-data; name=\"file\"; filename=\"MyDemo.json\"\nContent-Type: application/json\n\n{  \n   \"ruleActions\":[  \n      {  \n         \"tenantId\":\"ABC1234\",\n         \"policyId\":\"a5e...\",\n         \"name\":\"PageDuty Demo\",\n         \"rule\":{  \n            \"filterType\":\"com.centrify.platform.notification.rule.filter.EventTypeFilter\",\n            \"filterMetaData\":{  \n               \"event_type\":\"Analytics.Server.AdaptiveSessionRecording\"\n            }\n         },\n         \"actions\":[  \n            {  \n               \"actionType\":\"webhook\",\n               \"actionMetaData\":{  \n                  \"headers\":\"Token token=XKup...\",\n                  \"method\":\"POST\",\n                  \"content_type\"\
+            :\"application/json\",\n                  \"request_body\":\"{\\n  \\\"payload\\\": {\\n    \\\"summary\\\": \\\"${intel_risk_level?cap_first} Risk: <#if event_na...\",\n                  \"url\":\"https://events.pagerduty.com/v2/enqueue\"\n               },\n               \"providerMetaData\":{  \n\n               }\n            }\n         ],\n         \"createdBy\":\"cia\",\n         \"updatedBy\":\"cia\"\n      }\n   ],\n   \"version\":\"0.9\",\n   \"signature\":\"cfd8...\"\n}\n------WebKitFormBoundarykmkpXEKtCNf6UQO0--\n"
+        samples-languages:
+        - http
+  /rules:
+    get:
+      summary: /rules
+      description: Gets a list of webhooks on the tenant.
+      operationId: rules
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[  \n   {  \n      \"tenant_id\":\"ABC1234\",\n      \"policy_id\":\"7bb7...\",\n      \"name\":\"My Slack Test WebHook\",\n      \"description\":null,\n      \"rule\":{  \n         \"filter_type\":\"com.centrify.platform.notification.rule.filter.EventTypeFilter\",\n         \"filter_meta_data\":{  \n            \"event_type\":\"Analytics.Server.AdaptiveSessionRecording\"\n         }\n      },\n      \"actions\":[  \n         {  \n            \"action_type\":\"webhook\",\n            \"action_meta_data\":{  \n               \"headers\":\"\",\n               \"method\":\"POST\",\n               \"content_type\":\"application/json\",\n               \"request_body\":\"{\\n  \\\"attachments\\\": [\\n    {\\n      \\\"auth...\",\n               \"url\":\"https://hooks.slack.com/services/T0C3...\"\n            },\n            \"action_provider\":null,\n            \"provider_meta_data\":{  \n\n            }\n         }\n      ],\n      \"status\":0,\n      \"created_by\"\
+                    :\"demo013\",\n      \"updated_by\":\"demo013\",\n      \"created_timestamp\":1526662928102,\n      \"updated_timestamp\":1526662928102,\n      \"new\":false,\n      \"id\":[  \n         \"AAA0004\",\n         \"7bb...c\"\n      ]\n   },\n   ...\n]"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: GET https://mytenant.centrify.io/analytics/services/v1.0/rules
+        samples-languages:
+        - http
+  /rules/webhook:
+    post:
+      summary: /rules/webhook
+      description: Creates a webhook.
+      operationId: ruleswebhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content_type:
+                  type: string
+                  description: Specifies the type of content in the `request_body` parameter.
+                description:
+                  type: string
+                  description: A description of the webhook.
+                enabled:
+                  type: boolean
+                  description: Specifies if the webhook should be enabled or disabled upon creation.
+                event_type:
+                  type: string
+                  description: Specifies the type of Centrify event that will cause the web hook to be invoked. Can be set to "Analytics.Server.AdaptiveSessionRecording" or "SecurityAlert".
+                headers:
+                  type: string
+                  description: Specifies any header information required to invoke the webhook.
+                method:
+                  type: string
+                  description: Specifies the REST verb to use when invoking the webhook (e.g. POST).
+                name:
+                  type: string
+                  description: The name of the webhook.
+                request_body:
+                  type: string
+                  description: The body of the request to send in the webhook.
+                risk_level:
+                  type: string
+                  description: Specifies the risk level to send in the webhook.
+                URL:
+                  type: string
+                  description: The URL of the webhook to invoke.
+      responses:
+        '204':
+          description: '204'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: 'HTTP/1.1 204 No Content
+
+                    Server: Apache-Coyote/1.1
+
+                    Date: Fri, 18 May 2018 17:02:08 GMT
+
+                    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+                    Pragma: no-cache
+
+                    Expires: 0
+
+                    Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+
+                    X-XSS-Protection: 1; mode=block
+
+                    X-Frame-Options: DENY
+
+                    X-Content-Type-Options: nosniff
+
+
+                    '
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.io/analytics/services/v1.0/rules/webhook HTTP/1.1\n\n{  \n   \"name\":\"My Slack WebHook\",\n   \"description\":\"\",\n   \"url\":\"https://hooks.slack.com/services/T1C.../B9...\",\n   \"method\":\"POST\",\n   \"content_type\":\"application/json\",\n   \"headers\":\"\",\n   \"request_body\":\"{\\n  \\\"attachments\\\": [\\n    {\\n      \\\"author_name\\\": \\\"Centrify Analytics\\\",\\n      \\\"author_link\\\": \\\"https://${tenant_id}-${system.podscape}.${system.domain}/analytics\\\",\\n      \\\"author_icon\\\": \\\"https://${tenant_id}-${system.podscape}.${system.domain}/analytics/ui/favicons/favicon.png\\\",\\n      \\\"title\\\": \\\"Anomaly Session Found from Centrify Analytics\\...\",\n   \"enabled\":true,\n   \"event_type\":\"Analytics.Server.AdaptiveSessionRecording\",\n   \"risk_level\":\"Low\"\n}"
+        samples-languages:
+        - http
+  /rules/webhook/test:
+    post:
+      summary: /rules/webhook/test
+      description: Tests the connection for a webhook.
+      operationId: ruleswebhooktest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content_type:
+                  type: string
+                  description: Specifies the type of content in the `request_body` parameter.
+                description:
+                  type: string
+                  description: A description of the webhook.
+                enabled:
+                  type: string
+                  description: Specifies if the webhook should be enabled or disabled upon creation.
+                event_type:
+                  type: string
+                  description: Specifies the type of Centrify event that will cause the webhook to be invoked. Can be set to "Analytics.Server.AdaptiveSessionRecording" or  "SecurityAlert".
+                headers:
+                  type: string
+                  description: Specifies any header information required to invoke the webhook.
+                method:
+                  type: string
+                  description: Specifies the REST verb to use when invoking the webhook (e.g. POST).
+                name:
+                  type: string
+                  description: The name of the webhook.
+                request_body:
+                  type: string
+                  description: The body of the request to send in the webhook.
+                risk_level:
+                  type: string
+                  description: Specifies the risk level to send in the webhook.
+                URL:
+                  type: string
+                  description: The URL of the webhook to invoke.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{  \n   \"result\":true,\n   \"http_status\":200,\n   \"message\":\"ok\"\n}"
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                    default: true
+                  http_status:
+                    type: integer
+                    example: 200
+                    default: 0
+                  message:
+                    type: string
+                    example: ok
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.io/analytics/services/v1.0/rules/webhook/test\n\n{  \n   \"name\":\"My Slack WebHook\",\n   \"description\":\"\",\n   \"url\":\"https://hooks.slack.com/services/T0C...\",\n   \"method\":\"POST\",\n   \"content_type\":\"application/json\",\n   \"headers\":\"\",\n   \"request_body\":\"{\\n  \\\"attachments\\\": [\\n    {\\n      \\\"autho...\",\n   \"enabled\":true,\n   \"event_type\":\"Analytics.Server.AdaptiveSessionRecording\",\n   \"risk_level\":\"Low\"\n}"
+        samples-languages:
+        - http
+  /rules/{id}:
+    delete:
+      summary: /rules/{id}
+      description: ''
+      operationId: rulesid
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the webhook to delete.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: 'HTTP/1.1 204 No Content
+
+                    Server: Apache-Coyote/1.1
+
+                    Date: Fri, 18 May 2018 17:04:46 GMT
+
+                    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+                    Pragma: no-cache
+
+                    Expires: 0
+
+                    Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+
+                    X-XSS-Protection: 1; mode=block
+
+                    X-Frame-Options: DENY
+
+                    X-Content-Type-Options: nosniff
+
+                    '
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: DELETE https://mytenant.centrify.io/analytics/services/v1.0/rules/a5e...
+        samples-languages:
+        - http
+  /rules/{id}/status:
+    post:
+      summary: /rules/{id}/status
+      description: Enables or disables a webhook,
+      operationId: rulesidstatus
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the webhook to enable or disable. You can get the IDs of each webhook on the tenant by invoking the [/rules](https://developer.delinea.com/reference/rules) endpoint.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: 'HTTP/1.1 204 No Content
+
+                    Server: Apache-Coyote/1.1
+
+                    Date: Fri, 18 May 2018 17:03:24 GMT
+
+                    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+                    Pragma: no-cache
+
+                    Expires: 0
+
+                    Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+
+                    X-XSS-Protection: 1; mode=block
+
+                    X-Frame-Options: DENY
+
+                    X-Content-Type-Options: nosniff'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: POST https://mytenant.centrify.io/analytics/services/v1.0/rules/7bb.../status HTTP/1.1
+        samples-languages:
+        - http
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/apisaccess_tokens-1.md
+  - https://developer.delinea.com/reference/apisaccess_tokens.md
+  - https://developer.delinea.com/reference/apisaccess_tokensid.md
+  - https://developer.delinea.com/reference/apisaccess_tokensidactivate.md
+  - https://developer.delinea.com/reference/apisaccess_tokensidinactivate.md
+  - https://developer.delinea.com/reference/apisscopes.md
+  - https://developer.delinea.com/reference/datasetsystemmodels.md
+  - https://developer.delinea.com/reference/fileexportruleswebhookname.md
+  - https://developer.delinea.com/reference/fileimportruleswebhook.md
+  - https://developer.delinea.com/reference/rules.md
+  - https://developer.delinea.com/reference/rulesid.md
+  - https://developer.delinea.com/reference/rulesidstatus.md
+  - https://developer.delinea.com/reference/ruleswebhook.md
+  - https://developer.delinea.com/reference/ruleswebhooktest.md
+  merge:
+    pages: 14
+    deduped: 0
+    conflicts_kept_first: 0

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/centrify/main/json-schema/centrify-core-get-ad-topology-schema.json",
+  "title": "CoreGetAdTopology",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetAdTopology",
+  "properties": {
+    "ErrorID": {
+      "type": "string",
+      "description": "Unique support identifier for this occurrence of an error"
+    },
+    "Result": {
+      "description": "\n                description: \"An EnvironmentInfo object describing the directory service or domain name requested.\",\n                type: \"object\",\n                properties:\n                {\n                    CurrentDtUtc: { description: \"Current UTC time.\", type: \"string\" },\n                    MsSpentForDiscovery: { description: \"The time spent to discover the topology in Milliseconds.\", type: \"integer\" },\n                    CurrentUserDomain: { description: \"Current user domain.\", type: \"string\" },\n                    CurrentForest: { description: \"Forest this environment resides in.\", type: \"string\" },\n                    CurrentDomain: { description: \"Domain of this environment.\", type: \"string\" },\n                    CurrentSite: { description: \"This environment's site.\", type: \"string\" },\n                    MachineSid: { description: \"The machine unique identifier.\", type: \"string\" },\n                    Joined: { description: \"Is the environment domain joined.\" , type: \"boolean\" },\n                    DirectoryServiceUuid: { description: \"The environment's directory service Uuid.\", type: \"string\" },\n                    ProxyUuid: { description: \"The environment's connector Uuid.\", type: \"string\" },\n                    CloudReceiptTimestampUtc: { description: \"The UTC time of cloud reciept.\", type: \"string\" },\n                    Forests \n                    { \n                        description: \"A list of forests in this environment.\",\n                        type: \"array\",\n                        items:\n                        {\n                            description: \"A ForestInfo in this environment.\",\n                            item: \"object\", \n                            properties:\n                            {\n                                Name: { description: \"The forest name.\", item: \"string\" },\n                                IsCurrentForest: { description: \"Is this forest in the current forest.\", item: \"boolean\" },\n                                ForestMode: { description: \"The forest mode.\", item: \"string\" },\n                                RootDomainName: { description: \"The root domain name.\", item: \"string\" },\n                                ForestTrusts: { description: \"List of TrustInfo objects.\", type: \"array\", items: { type: \"object\" },\n                                Domains: { description: \"List of DomainInfo objects.\", type: \"array\", items: { type: \"object\" },\n                                Sites: { description: \"List of SiteInfo objects.\", type: \"array\", items: { type: \"object\" },\n                                Links: { description: \"List of LinkInfo objects.\", type: \"array\", items: { type: \"object\" },\n                                ForestException { description: \"Exception descriptions for this forest.\", item: \"string\" }\n                            }\n                        }\n                    },\n                    HasOnlineWhitelistedController: {description: \"Is there at least one online whitelisted controller for this connector?\", type: \"boolean\" },\n                    EnvironmentInfoException: { description: \"Exception descriptions for this environment.\", item: \"string\" }\n            ",
+      "type": "object"
+    },
+    "Message": {
+      "type": "string",
+      "description": "Error message text on failure, may be null"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Indicates API success or failure"
+    }
+  },
+  "type": "object"
+}

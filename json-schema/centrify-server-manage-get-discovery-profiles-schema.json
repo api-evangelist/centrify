@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/centrify/main/json-schema/centrify-server-manage-get-discovery-profiles-schema.json",
+  "title": "ServerManageGetDiscoveryProfiles",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/ServerManageGetDiscoveryProfiles",
+  "properties": {
+    "ErrorID": {
+      "type": "string",
+      "description": "Unique support identifier for this occurrence of an error"
+    },
+    "Result": {
+      "description": "A list of all active sessions",
+      "type": "object",
+      "properties": {
+        "CurrentConnector": {
+          "type": "boolean",
+          "description": "Determines whether to use the current connector."
+        },
+        "Description": {
+          "type": "string",
+          "description": "Description of the discovery profile."
+        },
+        "DefaultUserName": {
+          "type": "string",
+          "description": "User Name of the default Account"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Name of the discovery profile."
+        },
+        "AddDiscoveryLocalAccount": {
+          "type": "boolean",
+          "description": "Determines if the discovery account needs to be added as the local account."
+        },
+        "Domains": {
+          "properties": {
+            "DomainId": {
+              "type": "string",
+              "description": "Domain ID."
+            },
+            "Enabled": {
+              "type": "boolean",
+              "description": "Is domain enabled."
+            },
+            "NamingContext": {
+              "type": "string",
+              "description": "OUs Naming context"
+            },
+            "Name": {
+              "type": "string",
+              "description": "Domain name."
+            }
+          },
+          "type": "object",
+          "description": "List of domain objects"
+        },
+        "PortScanScope": {
+          "type": "object",
+          "description": "Scope of ports to discover"
+        },
+        "UpdateExistingSystems": {
+          "type": "boolean",
+          "description": "Determines whether existing systems should be updated."
+        },
+        "OSType": {
+          "type": "string",
+          "description": "Operating System type"
+        },
+        "DiscoverLocalAccounts": {
+          "type": "boolean",
+          "description": "Determines if local accounts needs to be discovered."
+        },
+        "DefaultAccountId": {
+          "type": "string",
+          "description": "ID of the default Account"
+        },
+        "ImportSystemsWithoutCredentials": {
+          "type": "boolean",
+          "description": "Determines if the systems needs to be imported without credentials"
+        },
+        "NextRun": {
+          "type": "string",
+          "description": "Next scheduled time of the discovery"
+        },
+        "Status": {
+          "type": "string",
+          "description": "Status of the profile"
+        },
+        "AddAccountToSet": {
+          "type": "string",
+          "description": "Id of the Set to add the discovered accounts to."
+        },
+        "ApplicationType": {
+          "type": "string",
+          "description": "Types of applications to discover eg. WindowsService/Windows Tasks/IIS Application Pools"
+        },
+        "LastRun": {
+          "type": "string",
+          "description": "Lastrun time of the disovery"
+        },
+        "IsSchedulable": {
+          "type": "boolean",
+          "description": "Determines if the discovery is scheduled or not"
+        },
+        "AddSystemsToSet": {
+          "type": "string",
+          "description": "Id of the Set to add the discovered systems to."
+        },
+        "Schedule": {
+          "type": "string",
+          "description": "Discovery schedule"
+        },
+        "IsScheduleRunning": {
+          "type": "boolean",
+          "description": "Determines if the scheduled discovery is running"
+        },
+        "DiscoveryType": {
+          "type": "string",
+          "description": "Type of the Discovery. eg AD / PortScan"
+        },
+        "ScheduleOwnerId": {
+          "type": "string",
+          "description": "Id of the User created the schedule"
+        },
+        "ElapsedTime": {
+          "type": "string",
+          "description": "Elapsed time the discovery ran"
+        },
+        "ID": {
+          "type": "string",
+          "description": "Id of the discovery profile"
+        },
+        "ComputerOUs": {
+          "type": "object",
+          "description": "List of computer Organization Unit names"
+        },
+        "ComputerType": {
+          "type": "string",
+          "description": "Type of computer. eg Server, Workstation"
+        }
+      }
+    },
+    "Message": {
+      "type": "string",
+      "description": "Error message text on failure, may be null"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Indicates API success or failure"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,113 @@
+openapi: 3.1.0
+info:
+  title: uprest
+  version: '23.1'
+servers:
+- url: https://example.com/uprest
+security:
+- {}
+x-readme-fauxas: true
+paths:
+  /HandleAppClick:
+    get:
+      summary: HandleAppClick
+      description: Returns a sample response containing SAML assertions for a configured application.
+      operationId: handleappclick
+      parameters:
+      - name: appkey
+        in: query
+        description: The key GUID of the application whose SAML assert is to be returned.
+        schema:
+          type: string
+      - name: antixss
+        in: query
+        schema:
+          type: string
+      - name: markAppVisited
+        in: query
+        schema:
+          type: boolean
+      - name: challengeId
+        in: query
+        description: The challengeID returned from a previous call to HandleAppClick. Required only when launching an app with an auth profile where  **Pass through duration** is set to **No Pass Through**. This can alternatively be specified in a header called **X-CFY-CHALLENGEID**.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "<html>\n<head>\n</head>\n<body>\n<form name=\"myform\" method=\"post\" action=\"https://sso.services.box.net/sp/ACS.saml2\">\n  <input type=\"hidden\" name=\"SAMLResponse\" value=\"PD94bWwgdmVASDFWEFZvawdcew143...\" />\n  <input type=\"hidden\" name=\"TARGET\" value=\"https://sso.services.box.net/sp/ACS.saml2\"/>\n  \n  \n</form>\n<script type=\"text/JavaScript\">\ndocument.myform.submit();\n</script>\n</body>"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: 'GET /uprest/HandleAppClick?appkey=12341234-f77b-47e7-a519-e3b5b793905a&antixss=AOk1nyB5OyLW0ovo_iiyZw__&markAppVisited=true '
+        samples-languages:
+        - http
+  /getSSOToken?appkey=cb9d75...:
+    get:
+      summary: getSSOToken
+      description: Gets an SSO Token
+      operationId: getssotoken
+      parameters:
+      - name: appkey
+        in: query
+        description: The key for an application to obtain an SSO token for.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/xml:
+              examples:
+                Result:
+                  value: "<t:RequestSecurityTokenResponse xmlns:t=\"http://schemas.xmlsoap.org/ws/2005/02/trust\">\n<t:Lifetime>\n    <wsu:Created xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">2018-06-28T18:08:39.326Z</wsu:Created>\n    <wsu:Expires xmlns:wsu=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd\">2018-06-28T19:11:39.326Z</wsu:Expires>\n</t:Lifetime>\n<wsp:AppliesTo xmlns:wsp=\"http://schemas.xmlsoap.org/ws/2004/09/policy\">\n    <wsa:EndpointReference xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">\n        <wsa:Address>urn:sharepoint:cb9d753...</wsa:Address>\n    </wsa:EndpointReference>\n</wsp:AppliesTo>\n<t:RequestedSecurityToken>\n<saml:Assertion xmlns:e=\"http://www.w3.org/2001/04/xmlenc#\" xmlns:o=\"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd\" MajorVersion=\"1\" MinorVersion=\"1\" AssertionID=\"_e5f0bb...\" Issuer=\"https://mytenant.centrify.com/cb9d75...\"\
+                    \ IssueInstant=\"2018-06-28T18:11:39.326Z\" xmlns:saml=\"urn:oasis:names:tc:SAML:1.0:assertion\">\n    <saml:Conditions NotBefore=\"2018-06-28T18:08:39.326Z\" NotOnOrAfter=\"2018-06-28T19:11:39.326Z\">\n        <saml:AudienceRestrictionCondition>\n            <saml:Audience>urn:sharepoint:cb9d75...</saml:Audience>\n        </saml:AudienceRestrictionCondition>\n    </saml:Conditions>\n    <saml:AttributeStatement>\n        <saml:Subject>\n            <saml:NameIdentifier Format=\"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\">test@centrify.com</saml:NameIdentifier>\n            <saml:SubjectConfirmation>\n                <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:bearer</saml:ConfirmationMethod>\n            </saml:SubjectConfirmation>\n        </saml:Subject>\n        <saml:Attribute AttributeName=\"emailaddress\" AttributeNamespace=\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims\">\n            <saml:AttributeValue>test@centrify.com</saml:AttributeValue>\n\
+                    \        </saml:Attribute>\n        <saml:Attribute AttributeName=\"role\" AttributeNamespace=\"http://schemas.microsoft.com/ws/2008/06/identity/claims\">\n            <saml:AttributeValue>Eng US</saml:AttributeValue>\n            <saml:AttributeValue>Contractors-US</saml:AttributeValue>\n            <saml:AttributeValue>ENGINEERING</saml:AttributeValue>\n            <saml:AttributeValue>Contractors-HQ-Office</saml:AttributeValue>\n            <saml:AttributeValue>Contractors-NA</saml:AttributeValue>\n            <saml:AttributeValue>Contractors</saml:AttributeValue>\n            <saml:AttributeValue>Dept - Research &amp; Development</saml:AttributeValue>\n            <saml:AttributeValue>Jira</saml:AttributeValue>\n            <saml:AttributeValue>Dropbox_Users</saml:AttributeValue>\n            <saml:AttributeValue>Domain Users</saml:AttributeValue>\n            <saml:AttributeValue>bugzilla</saml:AttributeValue>\n            <saml:AttributeValue>Office 365 - E3</saml:AttributeValue>\n\
+                    \            <saml:AttributeValue>SCCM Report User</saml:AttributeValue>\n            <saml:AttributeValue>cfyP_Global_Users</saml:AttributeValue>\n            <saml:AttributeValue>cfyU_s1_Unix_SambaProd_winscp</saml:AttributeValue>\n            <saml:AttributeValue>cfyG_s1_Unix_SambaUsers</saml:AttributeValue>\n            <saml:AttributeValue>confluence</saml:AttributeValue>\n            <saml:AttributeValue>O365 Users</saml:AttributeValue>\n        </saml:Attribute>\n    </saml:AttributeStatement>\n    <saml:AuthenticationStatement AuthenticationMethod=\"urn:federation:authentication:windows\" AuthenticationInstant=\"2018-06-28T18:11:39.326Z\">\n        <saml:Subject>\n            <saml:NameIdentifier Format=\"urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified\">test@centrify.com</saml:NameIdentifier>\n            <saml:SubjectConfirmation>\n                <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:1.0:cm:bearer</saml:ConfirmationMethod>\n            </saml:SubjectConfirmation>\n\
+                    \        </saml:Subject>\n    </saml:AuthenticationStatement>\n    <Signature xmlns=\"http://www.w3.org/2000/09/xmldsig#\">\n        <SignedInfo>\n            <CanonicalizationMethod Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\" />\n            <SignatureMethod Algorithm=\"http://www.w3.org/2001/04/xmldsig-more#rsa-sha256\" />\n            <Reference URI=\"#_e5f0bb9...\">\n                <Transforms>\n                    <Transform Algorithm=\"http://www.w3.org/2000/09/xmldsig#enveloped-signature\" />\n                    <Transform Algorithm=\"http://www.w3.org/2001/10/xml-exc-c14n#\" />\n                </Transforms>\n                <DigestMethod Algorithm=\"http://www.w3.org/2001/04/xmlenc#sha256\" />\n                <DigestValue>********</DigestValue>\n            </Reference>\n        </SignedInfo>\n        <SignatureValue>********</SignatureValue>\n        <KeyInfo>\n            <X509Data>\n                <X509Certificate>MIIDkTCC********lBgv...</X509Certificate>\n\
+                    \            </X509Data>\n        </KeyInfo>\n    </Signature>\n</saml:Assertion>\n</t:RequestedSecurityToken>\n<t:TokenType>urn:oasis:names:tc:SAML:1.0:assertion</t:TokenType>\n<t:RequestType>http://schemas.xmlsoap.org/ws/2005/02/trust/Issue</t:RequestType>\n<t:KeyType>http://schemas.xmlsoap.org/ws/2005/05/identity/NoProofKey</t:KeyType>\n</t:RequestSecurityTokenResponse>"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: GET https://yourtenant.centrify.com/uprest/getSSOToken?appkey=cb9d75...
+        samples-languages:
+        - http
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/getssotoken.md
+  - https://developer.delinea.com/reference/handleappclick.md
+  merge:
+    pages: 2
+    deduped: 0
+    conflicts_kept_first: 0

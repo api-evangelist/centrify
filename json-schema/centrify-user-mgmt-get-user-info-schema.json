@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/centrify/main/json-schema/centrify-user-mgmt-get-user-info-schema.json",
+  "title": "UserMgmtGetUserInfo",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/UserMgmtGetUserInfo",
+  "properties": {
+    "ErrorID": {
+      "type": "string",
+      "description": "Unique support identifier for this occurrence of an error"
+    },
+    "Result": {
+      "description": "User additional information",
+      "type": "object",
+      "properties": {
+        "EmailAddress": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "Id": {
+          "type": "string",
+          "description": "User UUID"
+        },
+        "TenantId": {
+          "type": "string",
+          "description": "Tenant id of the user"
+        },
+        "PasswordExpDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Date/time user's password will expire"
+        },
+        "Name": {
+          "type": "string",
+          "description": "User name"
+        },
+        "MobileNumber": {
+          "type": "string",
+          "description": "User mobile phone number"
+        },
+        "LastPasswordChangeDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Last date/time user changed their password"
+        },
+        "SecurityKeyConfigured": {
+          "type": "boolean",
+          "description": "Has the user configured a U2F Security Key?"
+        },
+        "DirectoryServiceType": {
+          "type": "string",
+          "description": "Directory service type"
+        },
+        "IsSysAdmin": {
+          "type": "boolean",
+          "description": "Is user a system administrator"
+        },
+        "PhonePinLastChangeDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Date/time user last set their phone PIN"
+        },
+        "PasswordChangeHardHours": {
+          "type": "integer",
+          "description": "Hours before a user should be prompted to change an near to expiring password"
+        },
+        "CanChangePassword": {
+          "type": "boolean",
+          "description": "Can user change their password"
+        },
+        "EnablePurchasedLicenseMenu": {
+          "type": "boolean",
+          "description": "Does the user have the right to view licenses?"
+        },
+        "ThirdPartyOathConfigured": {
+          "type": "boolean",
+          "description": "Has a third party OATH token been configured for this user?"
+        },
+        "SecurityQuestion": {
+          "type": "string",
+          "description": "Does user have security questions?  'yes' if so, null if not"
+        },
+        "DisplayName": {
+          "type": "string",
+          "description": "User display name"
+        },
+        "PasswordChangeSoftDays": {
+          "type": "integer",
+          "description": "Days before a user should be warned to change a near to expiring password"
+        },
+        "PasswordResetFlag": {
+          "type": "integer",
+          "description": "Password reset state: 0=no reset needed, 1=Reset required, 2=Reset optional, 3=Reset warning"
+        },
+        "DirectoryServiceName": {
+          "type": "string",
+          "description": "Directory service name"
+        },
+        "PreferredCulture": {
+          "type": "string",
+          "description": "User's preferred culture if any in culture code format (e.g. fr)"
+        },
+        "SecurityQuestionsLastUpdate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Date/time user last updated their security questions"
+        },
+        "DisplayPreferredCulture": {
+          "type": "string",
+          "description": "User's preferred culture if any in display format (e.g. French - français) "
+        },
+        "Settings": {
+          "type": "object",
+          "description": "Contains internal state for the Portal Web UI; this property can be ignored."
+        },
+        "HasPicture": {
+          "type": "boolean",
+          "description": "User has a picture available"
+        },
+        "MfaSetupWizardSettings": {
+          "type": "object",
+          "description": "Contains settings that guide MFA setup"
+        },
+        "DirectoryServiceId": {
+          "type": "string",
+          "description": "Directory service UUID"
+        },
+        "DirectoryServiceLocalizedName": {
+          "type": "string",
+          "description": "Directory service name localized to user's preferred language"
+        },
+        "SqEnabled": {
+          "type": "boolean",
+          "description": "Are security questions enabled for this user"
+        }
+      }
+    },
+    "Message": {
+      "type": "string",
+      "description": "Error message text on failure, may be null"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Indicates API success or failure"
+    }
+  },
+  "type": "object"
+}

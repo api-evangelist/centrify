@@ -2,10 +2,8 @@ generated: '2026-07-18'
 method: searched
 source: https://trust.delinea.com/
 docs: https://developer.delinea.com/docs
-note: >-
-  Standards conformance for the Centrify Identity Platform (now delivered under
-  Delinea). Security/compliance items are evidenced by the Delinea Trust Center;
-  protocol items by the published developer documentation.
+note: Standards conformance for the Centrify Identity Platform (now delivered under Delinea). Security/compliance items are evidenced by the Delinea
+  Trust Center; protocol items by the published developer documentation.
 standards:
 - id: oauth2
   conforms: true
@@ -34,6 +32,18 @@ standards:
 - id: fedramp
   conforms: true
   evidence: FedRAMP referenced for the Centrify/Delinea government offering
+- id: openapi-3.0
+  conforms: true
+  evidence: the document declares 3.0.0
+- id: openapi-3.1
+  conforms: true
+  evidence: the document declares 3.1.0
+- id: rfc9457
+  conforms: false
+  evidence: no response declares application/problem+json
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations
 compliance_program:
   url: https://trust.delinea.com/
   certifications:

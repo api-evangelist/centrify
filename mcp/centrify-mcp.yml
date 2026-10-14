@@ -1,0 +1,220 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/centrify-analytics-openapi.yml
+- openapi/centrify-application-management-openapi.yml
+- openapi/centrify-identity-platform-api-openapi.yml
+- openapi/centrify-role-management-openapi.yml
+- openapi/centrify-server-agent-openapi.yml
+- openapi/centrify-server-management-openapi.yml
+- openapi/centrify-server-session-openapi.yml
+- openapi/centrify-uprest-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 797 operation(s) in the provider's own
+  OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: apisaccess_tokensidactivate
+  operationId: apisaccess_tokensidactivate
+  method: PUT
+  path: /apis/access_token/{id}/actiate
+  description: /apis/access_tokens/{id}/activate
+- name: saasmanagegetscript
+  operationId: saasmanagegetscript
+  method: POST
+  path: /GetScript
+  description: /saasManage/GetScript
+- name: create_acl_checkrowright
+  operationId: POST /Acl/CheckRowRight
+  method: POST
+  path: /Acl/CheckRowRight
+  description: Check row ACLs.
+- name: saasmanagegetroleapps
+  operationId: saasmanagegetroleapps
+  method: POST
+  path: /GetRoleApps
+  description: /SaasManage/GetRoleApps
+- name: serveragentaddenrollmentcode
+  operationId: serveragentaddenrollmentcode
+  method: POST
+  path: /ServerAgent/AddEnrollmentCode
+  description: /ServerAgent/AddEnrollmentCode
+- name: get_discovery_profiles
+  operationId: get-discovery-profiles
+  method: POST
+  path: /GetDiscoveryProfiles
+  description: Get Discovery Profiles
+- name: serversessionjumpterm
+  operationId: serversessionjumpterm
+  method: GET
+  path: /jumpterm
+  description: /serversession/jumpterm
+- name: handleappclick
+  operationId: handleappclick
+  method: GET
+  path: /HandleAppClick
+  description: HandleAppClick
+- name: apisaccess_tokensidinactivate
+  operationId: apisaccess_tokensidinactivate
+  method: PUT
+  path: /apis/access_token/{id}/inactiate
+  description: /apis/access_tokens/{id}/inactivate
+- name: saasmanagesetapplicationpermissions
+  operationId: saasmanagesetapplicationpermissions
+  method: POST
+  path: /SetApplicationPermissions
+  description: /SaaSManage/SetApplicationPermissions
+- name: create_acl_getace
+  operationId: POST /Acl/GetAce
+  method: POST
+  path: /Acl/GetAce
+  description: Gets a users access rights.
+- name: get_discovery_status
+  operationId: get-discovery-status
+  method: POST
+  path: /GetDiscoveryStatus
+  description: Get Discovery Status
+- name: getssotoken
+  operationId: getssotoken
+  method: GET
+  path: /getSSOToken?appkey=cb9d75...
+  description: getSSOToken
+- name: apisaccess_tokens
+  operationId: apisaccess_tokens
+  method: POST
+  path: /apis/access_tokens
+  description: /apis/access_tokens
+- name: create_acl_getcollectionaces
+  operationId: POST /Acl/GetCollectionAces
+  method: POST
+  path: /Acl/GetCollectionAces
+  description: Get a collection of access rights.
+- name: run_discovery
+  operationId: run-discovery
+  method: POST
+  path: /RunDiscovery
+  description: Run Discovery
+- name: apisaccess_tokens_1
+  operationId: apisaccess_tokens-1
+  method: GET
+  path: /apis/access_tokens
+  description: /apis/access_tokens
+- name: create_acl_getdiraces
+  operationId: POST /Acl/GetDirAces
+  method: POST
+  path: /Acl/GetDirAces
+  description: Retrieves a list of who has what rights for the directory.
+- name: apisaccess_tokensid
+  operationId: apisaccess_tokensid
+  method: DELETE
+  path: /apis/access_tokens/{id}
+  description: /apis/access_tokens/{id}
+- name: create_acl_geteffectivedirrights
+  operationId: POST /Acl/GetEffectiveDirRights
+  method: POST
+  path: /Acl/GetEffectiveDirRights
+  description: Gets a list of directory rights.
+- name: apisscopes
+  operationId: apisscopes
+  method: GET
+  path: /apis/scopes
+  description: /apis/scopes
+- name: create_acl_geteffectivefilerights
+  operationId: POST /Acl/GetEffectiveFileRights
+  method: POST
+  path: /Acl/GetEffectiveFileRights
+  description: Gets a list of file rights.
+- name: datasetsystemmodels
+  operationId: datasetsystemmodels
+  method: GET
+  path: /dataset/system/models
+  description: /dataset/system/models
+- name: create_acl_geteffectiverowrights
+  operationId: POST /Acl/GetEffectiveRowRights
+  method: POST
+  path: /Acl/GetEffectiveRowRights
+  description: Gets a list of row rights.
+- name: fileexportruleswebhookname
+  operationId: fileexportruleswebhookname
+  method: POST
+  path: /file/export/rules/webhook/{name}
+  description: /file/export/rules/webhook/{name}
+- name: create_acl_getfileaces
+  operationId: POST /Acl/GetFileAces
+  method: POST
+  path: /Acl/GetFileAces
+  description: Gets ACLs on a file.
+- name: fileimportruleswebhook
+  operationId: fileimportruleswebhook
+  method: POST
+  path: /file/import/rules/webhook
+  description: /file/import/rules/webhook
+- name: create_acl_getrowaces
+  operationId: POST /Acl/GetRowAces
+  method: POST
+  path: /Acl/GetRowAces
+  description: Gets the access rights for a row.
+- name: rules
+  operationId: rules
+  method: GET
+  path: /rules
+  description: /rules
+- name: create_authprofile_deleteprofile
+  operationId: POST /AuthProfile/DeleteProfile
+  method: POST
+  path: /AuthProfile/DeleteProfile
+  description: Deletes an authentication profile.
+- name: ruleswebhook
+  operationId: ruleswebhook
+  method: POST
+  path: /rules/webhook
+  description: /rules/webhook
+- name: create_authprofile_getprofile
+  operationId: POST /AuthProfile/GetProfile
+  method: POST
+  path: /AuthProfile/GetProfile
+  description: Gets an authentication profile.
+- name: ruleswebhooktest
+  operationId: ruleswebhooktest
+  method: POST
+  path: /rules/webhook/test
+  description: /rules/webhook/test
+- name: create_authprofile_getprofilelist
+  operationId: POST /AuthProfile/GetProfileList
+  method: POST
+  path: /AuthProfile/GetProfileList
+  description: Gets a list of Authentication profiles.
+- name: rulesid
+  operationId: rulesid
+  method: DELETE
+  path: /rules/{id}
+  description: /rules/{id}
+- name: create_authprofile_saveprofile
+  operationId: POST /AuthProfile/SaveProfile
+  method: POST
+  path: /AuthProfile/SaveProfile
+  description: Saves an authentication profile.
+- name: rulesidstatus
+  operationId: rulesidstatus
+  method: POST
+  path: /rules/{id}/status
+  description: /rules/{id}/status
+- name: create_aws_addaccesskey
+  operationId: POST /Aws/AddAccessKey
+  method: POST
+  path: /Aws/AddAccessKey
+  description: Add an AWS Access Key and Secret.
+- name: create_aws_deleteaccesskey
+  operationId: POST /Aws/DeleteAccessKey
+  method: POST
+  path: /Aws/DeleteAccessKey
+  description: Deletes an access key for an IAM user.
+- name: create_aws_deployconnector
+  operationId: POST /Aws/DeployConnector
+  method: POST
+  path: /Aws/DeployConnector
+  description: Launch an Ec2 instance and install a connector registered to this tenant.

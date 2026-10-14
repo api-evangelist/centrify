@@ -1,0 +1,415 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/centrify-analytics-openapi.yml
+- openapi/centrify-application-management-openapi.yml
+- openapi/centrify-identity-platform-api-openapi.yml
+- openapi/centrify-role-management-openapi.yml
+- openapi/centrify-server-agent-openapi.yml
+vocabulary:
+  name: Centrify Domain Vocabulary
+  description: 'Terms declared by Centrify''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-14'
+  terms:
+  - term: Core Services
+    definition: Utility functions and basic ops
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Authentication
+    definition: Authenticate to cloud service, MFA
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: User Management
+    definition: Manage users for all Directory Services (AD, Cloud, LDAP, etc)
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Application Management
+    definition: Manage applications and SaaS
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Directory Services
+    definition: Manage directory services
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Cloud User Management
+    definition: Manage users for the Centrify Cloud Directory Service
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Reports
+    definition: Access Cloud Service database
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Role Management
+    definition: Manage roles and admin rights
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Device Management
+    definition: Manage devices
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Resource Management
+    definition: Manage resources and accounts for CPS
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: Workflow Management
+    definition: Manage workflows
+    tags:
+    - Resource Group
+    source: openapi/centrify-identity-platform-api-openapi.yml
+  - term: AuthProfileDeleteProfile
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/AuthProfileDeleteProfile
+  - term: AuthProfileGetProfile
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/AuthProfileGetProfile
+  - term: AuthProfileGetProfileList
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/AuthProfileGetProfileList
+  - term: AuthProfileSaveProfile
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/AuthProfileSaveProfile
+  - term: BrandInfo
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/BrandInfo
+  - term: BrandMyBrand
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/BrandMyBrand
+  - term: CDirectoryServiceGetTechSupportUser
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CDirectoryServiceGetTechSupportUser
+  - term: CDirectoryServiceGrantAccess
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CDirectoryServiceGrantAccess
+  - term: CollectionCreateDynamicCollection
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionCreateDynamicCollection
+  - term: CollectionCreateManualCollection
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionCreateManualCollection
+  - term: CollectionDeleteCollection
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionDeleteCollection
+  - term: CollectionGetBucketContents
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetBucketContents
+  - term: CollectionGetCollection
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetCollection
+  - term: CollectionGetCollectionReferences
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetCollectionReferences
+  - term: CollectionGetCollectionRights
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetCollectionRights
+  - term: CollectionGetCollectionTemplate
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetCollectionTemplate
+  - term: CollectionGetMembers
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetMembers
+  - term: CollectionGetObjectCollections
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetObjectCollections
+  - term: CollectionGetObjectCollectionsAndFilters
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionGetObjectCollectionsAndFilters
+  - term: CollectionIsMember
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionIsMember
+  - term: CollectionUpdateCollection
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionUpdateCollection
+  - term: CollectionUpdateMembersCollection
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CollectionUpdateMembersCollection
+  - term: CoreAddBlockedIpRange
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreAddBlockedIpRange
+  - term: CoreAddPremDetectRange
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreAddPremDetectRange
+  - term: CoreCheckProxyHealth
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreCheckProxyHealth
+  - term: CoreCreateDirectory
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreCreateDirectory
+  - term: CoreCreateTenantReportsDirectory
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreCreateTenantReportsDirectory
+  - term: CoreCreateUserHomeReportsDirectory
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreCreateUserHomeReportsDirectory
+  - term: CoreDelBlockedIpRange
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDelBlockedIpRange
+  - term: CoreDeleteAlias
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteAlias
+  - term: CoreDeleteAliases
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteAliases
+  - term: CoreDeleteCertificate
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteCertificate
+  - term: CoreDeleteDirectory
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteDirectory
+  - term: CoreDeleteFile
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteFile
+  - term: CoreDeleteFiles
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteFiles
+  - term: CoreDeleteProxies
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteProxies
+  - term: CoreDeleteProxy
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteProxy
+  - term: CoreDeleteProxyCode
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteProxyCode
+  - term: CoreDeleteProxyCodes
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteProxyCodes
+  - term: CoreDeleteTenantConfig
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDeleteTenantConfig
+  - term: CoreDelPremDetectRange
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDelPremDetectRange
+  - term: CoreDirectoryExists
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDirectoryExists
+  - term: CoreDownloadCertificate
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDownloadCertificate
+  - term: CoreDownloadFile
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreDownloadFile
+  - term: CoreFileExists
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreFileExists
+  - term: CoreGenerateNewProxyCode
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGenerateNewProxyCode
+  - term: CoreGeneratePassword
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGeneratePassword
+  - term: CoreGetAdLoginSuffixesByForest
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetAdLoginSuffixesByForest
+  - term: CoreGetAdTopology
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetAdTopology
+  - term: CoreGetAliasesForTenant
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetAliasesForTenant
+  - term: CoreGetBlockedIpRanges
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetBlockedIpRanges
+  - term: CoreGetCaCertChain
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetCaCertChain
+  - term: CoreGetCdsAliasesForTenant
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetCdsAliasesForTenant
+  - term: CoreGetCloudCACert
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetCloudCACert
+  - term: CoreGetConnectorLog4NetConfig
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetConnectorLog4NetConfig
+  - term: CoreGetCurrentIwaJsonpUrl
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetCurrentIwaJsonpUrl
+  - term: CoreGetCurrentIwaUrl
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetCurrentIwaUrl
+  - term: CoreGetDefaultGlobalAppSigningCert
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetDefaultGlobalAppSigningCert
+  - term: CoreGetDirectories
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetDirectories
+  - term: CoreGetDirectoryContents
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetDirectoryContents
+  - term: CoreGetDirectoryInfo
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetDirectoryInfo
+  - term: CoreGetDirectoryServices
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetDirectoryServices
+  - term: CoreGetDomainControllersForDomain
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetDomainControllersForDomain
+  - term: CoreGetDownloadUrls
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetDownloadUrls
+  - term: CoreGetFileInfo
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetFileInfo
+  - term: CoreGetIwaTrustRootCert
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetIwaTrustRootCert
+  - term: CoreGetLocTag
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetLocTag
+  - term: CoreGetOUTreeContents
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetOUTreeContents
+  - term: CoreGetPremDetectRanges
+    definition: 'Object declared by the contract with fields: ErrorID, Result, Message, success.'
+    tags:
+    - Object
+    source: openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/CoreGetPremDetectRanges

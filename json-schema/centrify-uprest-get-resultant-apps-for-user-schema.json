@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/centrify/main/json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json",
+  "title": "UPRestGetResultantAppsForUser",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/UPRestGetResultantAppsForUser",
+  "properties": {
+    "ErrorID": {
+      "type": "string",
+      "description": "Unique support identifier for this occurrence of an error"
+    },
+    "Result": {
+      "description": "A list of applications including how the user has access",
+      "type": "object",
+      "properties": {
+        "Intranet": {
+          "type": "boolean",
+          "description": "Whether the application is an intranet app"
+        },
+        "AdminTag": {
+          "type": "string",
+          "description": "Application admin tag"
+        },
+        "Category": {
+          "type": "string",
+          "description": "Application category"
+        },
+        "Shortcut": {
+          "type": "boolean",
+          "description": "Whether the application has been set for optional installation"
+        },
+        "DisplayName": {
+          "type": "string",
+          "description": "Application display name"
+        },
+        "AppType": {
+          "type": "string",
+          "description": "Application type"
+        },
+        "UsernameRO": {
+          "type": "boolean",
+          "description": "Whether user name is read-only"
+        },
+        "ID": {
+          "type": "string",
+          "description": "Application ID"
+        },
+        "PasswordIsSet": {
+          "type": "boolean",
+          "description": "Whether the password has been set"
+        },
+        "AppKey": {
+          "type": "string",
+          "description": "Application key"
+        },
+        "Rank": {
+          "type": "integer",
+          "description": "Application rank"
+        },
+        "WebAppTypeDisplayName": {
+          "type": "string",
+          "description": "Display name of web-app-type"
+        },
+        "Username": {
+          "type": "string",
+          "description": "Application username"
+        },
+        "TemplateName": {
+          "type": "string",
+          "description": "Application template name"
+        },
+        "Icon": {
+          "type": "string",
+          "description": "Path of application icon image"
+        },
+        "AppTypeDisplayName": {
+          "type": "string",
+          "description": "Display name of application type"
+        },
+        "Automatic": {
+          "type": "boolean",
+          "description": "Whether the application has been set for automatic installation"
+        },
+        "AccessList": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array",
+          "description": "How user got acess to the application; each entry is a dictionary including 'Type' (User, Role), 'ID' (role/user UUID), and 'Name' (role name or 'User' if user is granted direct access)"
+        },
+        "Url": {
+          "type": "string",
+          "description": "Application Url"
+        },
+        "WebAppType": {
+          "type": "string",
+          "description": "Application web-app-type"
+        },
+        "Description": {
+          "type": "string",
+          "description": "Application description"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Application name"
+        }
+      }
+    },
+    "Message": {
+      "type": "string",
+      "description": "Error message text on failure, may be null"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Indicates API success or failure"
+    }
+  },
+  "type": "object"
+}

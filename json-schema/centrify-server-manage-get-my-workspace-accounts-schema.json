@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/centrify/main/json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json",
+  "title": "ServerManageGetMyWorkspaceAccounts",
+  "x-generated": "2026-10-14",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/centrify-identity-platform-api-openapi.yml#/components/schemas/ServerManageGetMyWorkspaceAccounts",
+  "properties": {
+    "ErrorID": {
+      "type": "string",
+      "description": "Unique support identifier for this occurrence of an error"
+    },
+    "Result": {
+      "description": "A list of accounts",
+      "type": "object",
+      "properties": {
+        "DiscoveredTime": {
+          "type": "string",
+          "description": "Time account discovered if the account is imported using discover"
+        },
+        "PasswordResetLastError": {
+          "type": "string",
+          "description": "Error in last Reset Run"
+        },
+        "Healthy": {
+          "type": "string",
+          "description": "Health Status of the account e.g. \"OK\" or Failed etc."
+        },
+        "Description": {
+          "type": "string",
+          "description": "Description of the account"
+        },
+        "Name": {
+          "type": "string",
+          "description": "Name of the parent object e.g.  System/Domain/Database"
+        },
+        "DefaultCheckoutTime": {
+          "type": "string",
+          "description": "Default checkout time"
+        },
+        "WorkflowApprovers": {
+          "type": "object",
+          "description": "An array of WorkflowApprover objects. Refer to WorkflowApprover."
+        },
+        "IsManaged": {
+          "type": "boolean",
+          "description": "Determines if the account is managed or unmanaged"
+        },
+        "DatabaseID": {
+          "type": "string",
+          "description": "Id of the database if the account is database account"
+        },
+        "DeviceID": {
+          "type": "string",
+          "description": "Id of the device if the account is device account"
+        },
+        "IsRootAccount": {
+          "type": "boolean",
+          "description": "Determines if this is a root account."
+        },
+        "LastChange": {
+          "type": "string",
+          "description": "Last updated time of the account"
+        },
+        "MPParent": {
+          "type": "string",
+          "description": "Id of the parent multiplex account if the account is part"
+        },
+        "CloudProviderId": {
+          "type": "string",
+          "description": "Cloud Provider Id"
+        },
+        "CredentialId": {
+          "type": "string",
+          "description": "Id of the account used"
+        },
+        "IsServiceAccount": {
+          "type": "boolean",
+          "description": "Determine if this is service account."
+        },
+        "IsQuickStartAccount": {
+          "type": "string",
+          "description": "Determines if this is a quickstart account"
+        },
+        "DueBack": {
+          "type": "string",
+          "description": "Due time of the checkout if the account is checked out"
+        },
+        "UseWheel": {
+          "type": "boolean",
+          "description": "True to use proxy account"
+        },
+        "PasswordResetRetryCount": {
+          "type": "string",
+          "description": "Count of password reset retry done."
+        },
+        "DomainID": {
+          "type": "string",
+          "description": "Id of the domain if the account is domain account"
+        },
+        "HealthError": {
+          "type": "string",
+          "description": "Health status details"
+        },
+        "Host": {
+          "type": "string",
+          "description": "Id of the system if the account is local account"
+        },
+        "WorkflowEnabled": {
+          "type": "string",
+          "description": "Determines if the workflow is enabled"
+        },
+        "User": {
+          "type": "string",
+          "description": "User name for the account"
+        },
+        "ID": {
+          "type": "string",
+          "description": "Id of the account"
+        },
+        "LastHealthCheck": {
+          "type": "string",
+          "description": "Last update health check of the account"
+        }
+      }
+    },
+    "Message": {
+      "type": "string",
+      "description": "Error message text on failure, may be null"
+    },
+    "success": {
+      "type": "boolean",
+      "description": "Indicates API success or failure"
+    }
+  },
+  "type": "object"
+}
