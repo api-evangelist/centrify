@@ -1,0 +1,1641 @@
+openapi: 3.2.0
+info:
+  termsOfService: http://developer.centrify.com/license
+  title: Centrify Identity Platform Directory Services API
+  version: 23.1.261-447315
+  description: This site provides basic reference material for the Centrify Identity Platform API.
+tags:
+- description: Manage directory services
+  name: Directory Services
+paths:
+  /CDirectoryService/GetBulkImportWithExtAtt:
+    post:
+      tags:
+      - Directory Services
+      x-centrify-anon: false
+      summary: Bulk imports users from csv file
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceGetBulkImportWithExtAtt'
+      operationId: postCDirectoryServiceGetBulkImportWithExtAtt
+      x-operation-id-source: derived
+  /CDirectoryService/RefreshToken:
+    post:
+      tags:
+      - Directory Services
+      parameters:
+      - required: true
+        in: query
+        description: User UUID to refresh
+        name: ID
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: UUID of the user's directory service (default=null)
+        name: directoryServiceUuid
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions. User cached identity in the cloud is reloaded from their directory service.
+
+        Useful when user details have changed in their remote directory service, but have not yet been pushed to the cloud.'
+      summary: Refresh a user's cached identity
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceRefreshToken'
+      operationId: postCDirectoryServiceRefreshToken
+      x-operation-id-source: derived
+  /CDirectoryService/StandardJsonResultWithPermissionCheck:
+    post:
+      tags:
+      - Directory Services
+      parameters:
+      - required: true
+        in: query
+        description: The action to be performed.
+        name: action
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Performs the action after confirming permission to do so
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceStandardJsonResultWithPermissionCheck'
+      operationId: postCDirectoryServiceStandardJsonResultWithPermissionCheck
+      x-operation-id-source: derived
+  /LDAPDirectoryService/AddLDAPDirectoryServiceConfig:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload10'
+      x-centrify-anon: false
+      summary: Adds a service to the Lightweight Directory Access Protocol (LDAP) config
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceAddLDAPDirectoryServiceConfig'
+      operationId: postLDAPDirectoryServiceAddLDAPDirectoryServiceConfig
+      x-operation-id-source: derived
+  /LDAPDirectoryService/DeleteLDAPDirectoryServiceConfig:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload20'
+      x-centrify-anon: false
+      summary: Remove a service from the Lightweight Directory Access Protocol (LDAP)
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceDeleteLDAPDirectoryServiceConfig'
+      operationId: postLDAPDirectoryServiceDeleteLDAPDirectoryServiceConfig
+      x-operation-id-source: derived
+  /LDAPDirectoryService/GetCloudConnectors:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload20'
+      x-centrify-anon: false
+      summary: Get a list of cloud connectors that have the LDAP module enabled
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceGetCloudConnectors'
+      operationId: postLDAPDirectoryServiceGetCloudConnectors
+      x-operation-id-source: derived
+  /LDAPDirectoryService/GetDirectoryServiceVersion:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload30'
+      x-centrify-anon: false
+      summary: Gets the directory service version for an LDAP directory service specified by…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceGetDirectoryServiceVersion'
+      operationId: postLDAPDirectoryServiceGetDirectoryServiceVersion
+      x-operation-id-source: derived
+  /LDAPDirectoryService/GetLDAPDirectoryServiceConfig:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload20'
+      x-centrify-anon: false
+      summary: Get the Lightweight Directory Access Protocol (LDAP) config
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceGetLDAPDirectoryServiceConfig'
+      operationId: postLDAPDirectoryServiceGetLDAPDirectoryServiceConfig
+      x-operation-id-source: derived
+  /LDAPDirectoryService/GetLDAPDirectoryServiceUuidByName:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                DirectoryServiceName:
+                  type: string
+                  description: The name assigned to the LDAP directory service.
+              required:
+              - DirectoryServiceName
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Get the Directory Service UUID for a specific LDAP, using the name assigned by…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceGetLDAPDirectoryServiceUuidByName'
+      operationId: postLDAPDirectoryServiceGetLDAPDirectoryServiceUuidByName
+      x-operation-id-source: derived
+  /LDAPDirectoryService/GetMappableAttributeList:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                operation:
+                  type: string
+                  description: Add or Modify, describes the operation for which this list is being generated
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: 'This is intended for UI use, to fill in the prompts for the names of the attributes in the
+
+        customer''s mappings.'
+      summary: Gets the list of mappable LDAP attributes
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceGetMappableAttributeList'
+      operationId: postLDAPDirectoryServiceGetMappableAttributeList
+      x-operation-id-source: derived
+  /LDAPDirectoryService/GetPropertyToAttributeMappings:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload30'
+      x-centrify-anon: false
+      summary: Gets a property to attribute mapping on an LDAP enabled directory service
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceGetPropertyToAttributeMappings'
+      operationId: postLDAPDirectoryServiceGetPropertyToAttributeMappings
+      x-operation-id-source: derived
+  /LDAPDirectoryService/GetScriptingPropertyToAttributeMappings:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload30'
+      x-centrify-anon: false
+      summary: Gets the scripting property to attribute mapping from an LDAP enabled directory…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceGetScriptingPropertyToAttributeMappings'
+      operationId: postLDAPDirectoryServiceGetScriptingPropertyToAttributeMappings
+      x-operation-id-source: derived
+  /LDAPDirectoryService/ModifyLDAPDirectoryServiceConfig:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload10'
+      x-centrify-anon: false
+      summary: Modify a service in the Lightweight Directory Access Protocol (LDAP) config
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceModifyLDAPDirectoryServiceConfig'
+      operationId: postLDAPDirectoryServiceModifyLDAPDirectoryServiceConfig
+      x-operation-id-source: derived
+  /LDAPDirectoryService/SetPropertyToAttributeMappings:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                directoryServiceUuid:
+                  type: string
+                  description: The LDAP service unique identifier.
+                propertyToAttributeMappings:
+                  type: object
+                  description: The property to attribute mapping to set.
+              required:
+              - directoryServiceUuid
+              - propertyToAttributeMappings
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Sets a property to attribute mapping on an LDAP enabled directory service
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceSetPropertyToAttributeMappings'
+      operationId: postLDAPDirectoryServiceSetPropertyToAttributeMappings
+      x-operation-id-source: derived
+  /LDAPDirectoryService/SetScriptingPropertyToAttributeMappings:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                scriptingPropertyToAttributeMappings:
+                  type: object
+                  description: The property to attribute mapping to set.
+                directoryServiceUuid:
+                  type: string
+                  description: The LDAP service unique identifier.
+              required:
+              - scriptingPropertyToAttributeMappings
+              - directoryServiceUuid
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Sets the scripting property to attribute mapping on an LDAP enabled directory…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceSetScriptingPropertyToAttributeMappings'
+      operationId: postLDAPDirectoryServiceSetScriptingPropertyToAttributeMappings
+      x-operation-id-source: derived
+  /LDAPDirectoryService/TestUserLookup:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                DirectoryServiceUuid:
+                  type: string
+                  description: the UUID of the directory service being tested (if known).
+                Version:
+                  type: integer
+                  description: The version number of the configuration being tested.
+                TestUserName:
+                  type: string
+                  description: The user id of the user to be looked up.
+                Settings:
+                  type: string
+                  description: '!!! KNOWN ISSUE - must consult with Tony about how to format this section'
+              required:
+              - Version
+              - TestUserName
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'Using a supplied LDAP configuration OR a the UUID of an existing LDAP directory service (one or the
+
+        other is required), this API will attempt to look up a user (specified by login
+
+        name) and apply the mappings from the configuration. This is intended for UI use to enable the
+
+        customer to validate their mappings prior to saving the server configuration.'
+      summary: Gets the results of the specified mappings by looking up a user by name
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceTestUserLookup'
+      operationId: postLDAPDirectoryServiceTestUserLookup
+      x-operation-id-source: derived
+  /LDAPDirectoryService/VerifyLDAPDirectoryServiceConfig:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        $ref: '#/components/requestBodies/Payload10'
+      x-centrify-anon: false
+      summary: Verify the Lightweight Directory Access Protocol (LDAP) directory service config
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/LDAPDirectoryServiceVerifyLDAPDirectoryServiceConfig'
+      operationId: postLDAPDirectoryServiceVerifyLDAPDirectoryServiceConfig
+      x-operation-id-source: derived
+  /Security/RefreshToken:
+    post:
+      tags:
+      - Directory Services
+      x-centrify-anon: false
+      description: User cached identity in the cloud is reloaded from their directory service. Useful when user details have changed in their remote directory service, but have not yet been pushed to the cloud.
+      summary: Refresh current user's cached identity
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityRefreshToken'
+      operationId: postSecurityRefreshToken
+      x-operation-id-source: derived
+  /UserMgmt/DirectoryServiceQuery:
+    post:
+      tags:
+      - Directory Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                roles:
+                  type: string
+                  description: Json query for the roles table
+                group:
+                  type: string
+                  description: Json query for the dsgroups table
+                directoryServices:
+                  items:
+                    type: object
+                  type: array
+                  description: string list of diretory service uuids to limit search to
+                user:
+                  type: string
+                  description: Json query for the dsusers table
+              required:
+              - roles
+              - group
+              - directoryServices
+              - user
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'Either a ''user'', a ''group'', or a ''role'' query must be specified. If no directoryServices are specified, all available
+
+        directory services will be searched.'
+      summary: Query all directory services for users, groups, and/or roles using a json query…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtDirectoryServiceQuery'
+      operationId: postUserMgmtDirectoryServiceQuery
+      x-operation-id-source: derived
+components:
+  schemas:
+    LDAPDirectoryServiceGetScriptingPropertyToAttributeMappings:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The scripting property to attribute mapping.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceSetScriptingPropertyToAttributeMappings:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The requested property to attribute mapping.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceGetBulkImportWithExtAtt:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard JSON response.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceGetPropertyToAttributeMappings:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The requested property to attribute mapping.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceVerifyLDAPDirectoryServiceConfig:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the LDAP directory service config verify.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceRefreshToken:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceGetLDAPDirectoryServiceConfig:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The requested LDAP service config.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceDeleteLDAPDirectoryServiceConfig:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The LDAP service that was just removed.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceSetPropertyToAttributeMappings:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the property to attribute mapping get set.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceGetDirectoryServiceVersion:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The directory service version.
+          type: integer
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtDirectoryServiceQuery:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Query results
+          type: object
+          properties:
+            Exceptions:
+              properties:
+                Roles:
+                  type: string
+                  description: Exception for role query
+                Group:
+                  type: string
+                  description: Exception for group query
+                User:
+                  type: string
+                  description: Exception for user query
+              type: object
+              description: Any exceptions that occurred
+            Roles:
+              type: object
+              description: Query results for role query
+            Group:
+              type: object
+              description: Query results for group query
+            User:
+              type: object
+              description: Query results for user query
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceTestUserLookup:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: '!!! fix this - it''s not ''description'', this is just a PH !!!'
+          type: integer
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceGetCloudConnectors:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of LDAP enabled cloud connectors for the tenant.
+          type: array
+          items:
+            description: A cloud connector
+            type: object
+            properties:
+              proxyName:
+                description: The name of the connector.
+                type: string
+              name:
+                description: The machine name.
+                type: string
+              version:
+                description: The connectors version.
+                type: string
+              lastPing:
+                description: The last time the connector was seen on the network.
+                type: string
+              proxyId:
+                description: The connectors unique identifier.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceModifyLDAPDirectoryServiceConfig:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The LDAP service that was just added.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceAddLDAPDirectoryServiceConfig:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The LDAP service that was just added.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceGetLDAPDirectoryServiceUuidByName:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The UUID of the requested directory service, or an empty string if not found.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityRefreshToken:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceStandardJsonResultWithPermissionCheck:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The result of the action.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    LDAPDirectoryServiceGetMappableAttributeList:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A collection of attribute descriptions, mappings and other flags.
+          type: object
+          properties:
+            attributeDefaults:
+              items:
+                type: object
+              type: array
+              description: List of attributes along with their default mappings
+            mappableAttributes:
+              items:
+                type: object
+              type: array
+              description: List of attributes along with their current mappings
+            requiredAttributes:
+              items:
+                type: object
+              type: array
+              description: List of attributes along with a flag indicating if they must be mapped
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+  requestBodies:
+    Payload30:
+      content:
+        application/json:
+          schema:
+            properties:
+              directoryServiceUuid:
+                type: string
+                description: The LDAP service unique identifier.
+            required:
+            - directoryServiceUuid
+            type: object
+      required: true
+    Payload10:
+      content:
+        application/json:
+          schema:
+            properties:
+              UniqueIdentifier:
+                type: string
+                description: The unique identifier of the LDAP server.
+              UsePagedSearch:
+                type: boolean
+                description: Use paged search.
+              UseBrokenShadowExpire:
+                type: boolean
+                description: Use broken shadow expire.
+              PropertyToAttributeMap:
+                type: object
+                description: The property to attribute map.
+              ServerType:
+                type: string
+                description: The LDAP server type.
+              ScriptingPropertyToAttributeMap:
+                type: object
+                description: The scripting property to attribute map.
+            required:
+            - UniqueIdentifier
+            - UsePagedSearch
+            - UseBrokenShadowExpire
+            - PropertyToAttributeMap
+            - ServerType
+            - ScriptingPropertyToAttributeMap
+            type: object
+      required: true
+    Payload20:
+      content:
+        application/json:
+          schema:
+            properties:
+              DirectoryServiceUuid:
+                type: string
+                description: The LDAP service unique identifier.
+            required:
+            - DirectoryServiceUuid
+            type: object
+      required: true
+x-explorer-enabled: false
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/post_acl-checkrowright.md
+  - https://developer.delinea.com/reference/post_acl-getace.md
+  - https://developer.delinea.com/reference/post_acl-getcollectionaces.md
+  - https://developer.delinea.com/reference/post_acl-getdiraces.md
+  - https://developer.delinea.com/reference/post_acl-geteffectivedirrights.md
+  - https://developer.delinea.com/reference/post_acl-geteffectivefilerights.md
+  - https://developer.delinea.com/reference/post_acl-geteffectiverowrights.md
+  - https://developer.delinea.com/reference/post_acl-getfileaces.md
+  - https://developer.delinea.com/reference/post_acl-getrowaces.md
+  - https://developer.delinea.com/reference/post_authprofile-deleteprofile.md
+  - https://developer.delinea.com/reference/post_authprofile-getprofile.md
+  - https://developer.delinea.com/reference/post_authprofile-getprofilelist.md
+  - https://developer.delinea.com/reference/post_authprofile-saveprofile.md
+  - https://developer.delinea.com/reference/post_aws-addaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-deleteaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-deployconnector.md
+  - https://developer.delinea.com/reference/post_aws-getaccesskeys.md
+  - https://developer.delinea.com/reference/post_aws-getavailabilityzones.md
+  - https://developer.delinea.com/reference/post_aws-getcentrifyawsaccountinfo.md
+  - https://developer.delinea.com/reference/post_aws-getconnectorsforregions.md
+  - https://developer.delinea.com/reference/post_aws-getec2iamroles.md
+  - https://developer.delinea.com/reference/post_aws-getkeypairs.md
+  - https://developer.delinea.com/reference/post_aws-getregionnames.md
+  - https://developer.delinea.com/reference/post_aws-getregions.md
+  - https://developer.delinea.com/reference/post_aws-getsecuritygroups.md
+  - https://developer.delinea.com/reference/post_aws-getsubnets.md
+  - https://developer.delinea.com/reference/post_aws-getsubnetsforregions.md
+  - https://developer.delinea.com/reference/post_aws-getvpcs.md
+  - https://developer.delinea.com/reference/post_aws-importaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-retrieveaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-verifyaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-verifyaccesskeyforuseraccount.md
+  - https://developer.delinea.com/reference/post_aws-verifyassumeroleconfiguration.md
+  - https://developer.delinea.com/reference/post_aws-verifysqsqueueconfiguration.md
+  - https://developer.delinea.com/reference/post_brand-info.md
+  - https://developer.delinea.com/reference/post_brand-mybrand.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-bulkdeleteusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-changeuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuserbulk.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuserquick.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-delete.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-deleteuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-exemptuserfrommfa.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getbulkimportwithextatt.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-gettechsupportuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuserattributes.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuserbyname.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getusersfromcsvfile.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-grantaccess.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-refreshtoken.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-removeauthsource.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-removefederationauthsource.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-setuserpicture.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-setuserstate.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-standardjsonresultwithpermissioncheck.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_cloudprovider-addcloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-deletecloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-deletecloudproviders.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getallcloudproviders.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudprovidercollectionpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudproviderpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-setcloudprovidercollectionpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-setcloudproviderpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-updatecloudprovider.md
+  - https://developer.delinea.com/reference/post_collection-createdynamiccollection.md
+  - https://developer.delinea.com/reference/post_collection-createmanualcollection.md
+  - https://developer.delinea.com/reference/post_collection-deletecollection.md
+  - https://developer.delinea.com/reference/post_collection-getbucketcontents.md
+  - https://developer.delinea.com/reference/post_collection-getcollection.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionreferences.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionrights.md
+  - https://developer.delinea.com/reference/post_collection-getcollectiontemplate.md
+  - https://developer.delinea.com/reference/post_collection-getmembers.md
+  - https://developer.delinea.com/reference/post_collection-getobjectcollections.md
+  - https://developer.delinea.com/reference/post_collection-getobjectcollectionsandfilters.md
+  - https://developer.delinea.com/reference/post_collection-ismember.md
+  - https://developer.delinea.com/reference/post_collection-setcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_collection-updatecollection.md
+  - https://developer.delinea.com/reference/post_collection-updatememberscollection.md
+  - https://developer.delinea.com/reference/post_core-addblockediprange.md
+  - https://developer.delinea.com/reference/post_core-addpremdetectrange.md
+  - https://developer.delinea.com/reference/post_core-assigndirectoryfilerightstoroles.md
+  - https://developer.delinea.com/reference/post_core-assigndirectoryrightstoroles.md
+  - https://developer.delinea.com/reference/post_core-assignfilerightstoroles.md
+  - https://developer.delinea.com/reference/post_core-checkproxyhealth-1.md
+  - https://developer.delinea.com/reference/post_core-createdirectory.md
+  - https://developer.delinea.com/reference/post_core-createtenantreportsdirectory.md
+  - https://developer.delinea.com/reference/post_core-createuserhomereportsdirectory.md
+  - https://developer.delinea.com/reference/post_core-delblockediprange.md
+  - https://developer.delinea.com/reference/post_core-deletealias.md
+  - https://developer.delinea.com/reference/post_core-deletealiases.md
+  - https://developer.delinea.com/reference/post_core-deletecertificate.md
+  - https://developer.delinea.com/reference/post_core-deletedirectory.md
+  - https://developer.delinea.com/reference/post_core-deletefile.md
+  - https://developer.delinea.com/reference/post_core-deletefiles.md
+  - https://developer.delinea.com/reference/post_core-deleteproxies.md
+  - https://developer.delinea.com/reference/post_core-deleteproxy.md
+  - https://developer.delinea.com/reference/post_core-deleteproxycode.md
+  - https://developer.delinea.com/reference/post_core-deleteproxycodes.md
+  - https://developer.delinea.com/reference/post_core-deletetenantconfig.md
+  - https://developer.delinea.com/reference/post_core-delpremdetectrange.md
+  - https://developer.delinea.com/reference/post_core-directoryexists.md
+  - https://developer.delinea.com/reference/post_core-downloadcertificate.md
+  - https://developer.delinea.com/reference/post_core-downloadfile.md
+  - https://developer.delinea.com/reference/post_core-fileexists.md
+  - https://developer.delinea.com/reference/post_core-generatenewproxycode.md
+  - https://developer.delinea.com/reference/post_core-generatepassword.md
+  - https://developer.delinea.com/reference/post_core-getadloginsuffixesbyforest.md
+  - https://developer.delinea.com/reference/post_core-getadtopology.md
+  - https://developer.delinea.com/reference/post_core-getaliasesfortenant.md
+  - https://developer.delinea.com/reference/post_core-getassignedadministrativerights.md
+  - https://developer.delinea.com/reference/post_core-getblockedipranges.md
+  - https://developer.delinea.com/reference/post_core-getcacertchain.md
+  - https://developer.delinea.com/reference/post_core-getcdsaliasesfortenant.md
+  - https://developer.delinea.com/reference/post_core-getcloudcacert.md
+  - https://developer.delinea.com/reference/post_core-getconnectorlog4netconfig.md
+  - https://developer.delinea.com/reference/post_core-getcurrentiwajsonpurl.md
+  - https://developer.delinea.com/reference/post_core-getcurrentiwaurl.md
+  - https://developer.delinea.com/reference/post_core-getdefaultglobalappsigningcert.md
+  - https://developer.delinea.com/reference/post_core-getdirectories.md
+  - https://developer.delinea.com/reference/post_core-getdirectorycontents.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryfilerolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryinfo.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryrolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryservices.md
+  - https://developer.delinea.com/reference/post_core-getdomaincontrollersfordomain.md
+  - https://developer.delinea.com/reference/post_core-getdownloadurls.md
+  - https://developer.delinea.com/reference/post_core-getfileinfo.md
+  - https://developer.delinea.com/reference/post_core-getfilerolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getiwatrustrootcert.md
+  - https://developer.delinea.com/reference/post_core-getloctag.md
+  - https://developer.delinea.com/reference/post_core-getoutreecontents.md
+  - https://developer.delinea.com/reference/post_core-getpremdetectranges.md
+  - https://developer.delinea.com/reference/post_core-getproxies.md
+  - https://developer.delinea.com/reference/post_core-getproxycode.md
+  - https://developer.delinea.com/reference/post_core-getproxycodes.md
+  - https://developer.delinea.com/reference/post_core-getproxyiwahostcertificatefile.md
+  - https://developer.delinea.com/reference/post_core-getproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-getpurchasedlicenses.md
+  - https://developer.delinea.com/reference/post_core-getreportsdirectorycontents.md
+  - https://developer.delinea.com/reference/post_core-getsupportedcultures-1.md
+  - https://developer.delinea.com/reference/post_core-gettenantcacert.md
+  - https://developer.delinea.com/reference/post_core-gettenantconfig.md
+  - https://developer.delinea.com/reference/post_core-getuniquefilename.md
+  - https://developer.delinea.com/reference/post_core-getusersettings.md
+  - https://developer.delinea.com/reference/post_core-getzsocertauthority.md
+  - https://developer.delinea.com/reference/post_core-getzsohostinfo.md
+  - https://developer.delinea.com/reference/post_core-handletwiliosmsreceipt.md
+  - https://developer.delinea.com/reference/post_core-issueusercert.md
+  - https://developer.delinea.com/reference/post_core-issuezsousercert.md
+  - https://developer.delinea.com/reference/post_core-listdirectory.md
+  - https://developer.delinea.com/reference/post_core-makefile.md
+  - https://developer.delinea.com/reference/post_core-movedirectory.md
+  - https://developer.delinea.com/reference/post_core-notifyenvironment.md
+  - https://developer.delinea.com/reference/post_core-processproxyiwacloudredirect.md
+  - https://developer.delinea.com/reference/post_core-readfile.md
+  - https://developer.delinea.com/reference/post_core-reissueiwahostcertificate.md
+  - https://developer.delinea.com/reference/post_core-renamecertificate.md
+  - https://developer.delinea.com/reference/post_core-setconnectorlog4netconfig.md
+  - https://developer.delinea.com/reference/post_core-setdefaultcertificate.md
+  - https://developer.delinea.com/reference/post_core-setproxyiwahostcertificatefile.md
+  - https://developer.delinea.com/reference/post_core-setproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-settenantconfig.md
+  - https://developer.delinea.com/reference/post_core-startservice.md
+  - https://developer.delinea.com/reference/post_core-stopservice.md
+  - https://developer.delinea.com/reference/post_core-storealias.md
+  - https://developer.delinea.com/reference/post_core-storeuser.md
+  - https://developer.delinea.com/reference/post_core-storeusersetting.md
+  - https://developer.delinea.com/reference/post_core-updatedirectoryservicesprecedence.md
+  - https://developer.delinea.com/reference/post_core-updateproxycode.md
+  - https://developer.delinea.com/reference/post_core-updateproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-uploadcertificate.md
+  - https://developer.delinea.com/reference/post_core-writefile.md
+  - https://developer.delinea.com/reference/post_cssintegration-dzdoexecute.md
+  - https://developer.delinea.com/reference/post_cssintegration-getchallengeprofiles.md
+  - https://developer.delinea.com/reference/post_cssintegration-mfalogin.md
+  - https://developer.delinea.com/reference/post_cssintegration-setchallengeprofiles.md
+  - https://developer.delinea.com/reference/post_dashaccount-adddiscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-canceldiscovery.md
+  - https://developer.delinea.com/reference/post_dashaccount-clearowneraccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-commitdiscoveredaccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-commitdiscoveredaccounts.md
+  - https://developer.delinea.com/reference/post_dashaccount-deletediscoveredaccounts.md
+  - https://developer.delinea.com/reference/post_dashaccount-deletediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-getdiscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-getdiscoveryprofiles.md
+  - https://developer.delinea.com/reference/post_dashaccount-getmydashaaccountswithcheckout.md
+  - https://developer.delinea.com/reference/post_dashaccount-getprofilerights.md
+  - https://developer.delinea.com/reference/post_dashaccount-rundiscovery.md
+  - https://developer.delinea.com/reference/post_dashaccount-setdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_dashaccount-updatediscoveredaccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-updatediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_discovery-adddiscoveryaccount.md
+  - https://developer.delinea.com/reference/post_discovery-anydiscoveryaccountsreferenced.md
+  - https://developer.delinea.com/reference/post_discovery-deleteblacklistedcomputer.md
+  - https://developer.delinea.com/reference/post_discovery-deletediscoveryaccount.md
+  - https://developer.delinea.com/reference/post_discovery-deleteexcludedaccount.md
+  - https://developer.delinea.com/reference/post_discovery-getdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_discovery-getexcludedaccounts.md
+  - https://developer.delinea.com/reference/post_discovery-gethistory.md
+  - https://developer.delinea.com/reference/post_discovery-getreferencedvpcs.md
+  - https://developer.delinea.com/reference/post_discovery-getvpcname.md
+  - https://developer.delinea.com/reference/post_discovery-setdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_discovery-updatediscoveryaccount.md
+  - https://developer.delinea.com/reference/post_extdata-getcolumn.md
+  - https://developer.delinea.com/reference/post_extdata-getcolumns.md
+  - https://developer.delinea.com/reference/post_extdata-getschema.md
+  - https://developer.delinea.com/reference/post_extdata-setcolumn.md
+  - https://developer.delinea.com/reference/post_extdata-setcolumns.md
+  - https://developer.delinea.com/reference/post_extdata-updateschema.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-addcertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-downloadcertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-getcertauthorities.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-removecertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-updatecertauthority.md
+  - https://developer.delinea.com/reference/post_federation-addglobalgroupassertionmapping.md
+  - https://developer.delinea.com/reference/post_federation-createfederation.md
+  - https://developer.delinea.com/reference/post_federation-deletefederation.md
+  - https://developer.delinea.com/reference/post_federation-deleteglobalgroupassertionmapping.md
+  - https://developer.delinea.com/reference/post_federation-federationmetadata.md
+  - https://developer.delinea.com/reference/post_federation-getfederatedgroupmembers.md
+  - https://developer.delinea.com/reference/post_federation-getfederatedgroupsforuser.md
+  - https://developer.delinea.com/reference/post_federation-getfederation.md
+  - https://developer.delinea.com/reference/post_federation-getfederationgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-getfederations.md
+  - https://developer.delinea.com/reference/post_federation-getfederationsignaturetypes.md
+  - https://developer.delinea.com/reference/post_federation-getfederationtypes.md
+  - https://developer.delinea.com/reference/post_federation-getglobalfederationsettings.md
+  - https://developer.delinea.com/reference/post_federation-getglobalgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-getgroups.md
+  - https://developer.delinea.com/reference/post_federation-removeuserfromfederatedgroup.md
+  - https://developer.delinea.com/reference/post_federation-spsigningcertificate.md
+  - https://developer.delinea.com/reference/post_federation-spsigningcertificateauthority.md
+  - https://developer.delinea.com/reference/post_federation-updatefederation.md
+  - https://developer.delinea.com/reference/post_federation-updatefederationgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-updateglobalgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_googledirectory-authcallback.md
+  - https://developer.delinea.com/reference/post_googledirectory-getauthtokenstate.md
+  - https://developer.delinea.com/reference/post_googledirectory-getdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_googledirectory-getserviceloginurlinfo.md
+  - https://developer.delinea.com/reference/post_googledirectory-removedirectoryservice.md
+  - https://developer.delinea.com/reference/post_googledirectory-updatedirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_health-check.md
+  - https://developer.delinea.com/reference/post_health-supportinfo.md
+  - https://developer.delinea.com/reference/post_health-supportinfofile.md
+  - https://developer.delinea.com/reference/post_home-getlogindata.md
+  - https://developer.delinea.com/reference/post_jobflow-deletejob.md
+  - https://developer.delinea.com/reference/post_jobflow-event.md
+  - https://developer.delinea.com/reference/post_jobflow-getjob.md
+  - https://developer.delinea.com/reference/post_jobflow-getjobs.md
+  - https://developer.delinea.com/reference/post_jobflow-getmyjobs.md
+  - https://developer.delinea.com/reference/post_jobflow-startjob.md
+  - https://developer.delinea.com/reference/post_jsmanage-getdashboardrolesandrights.md
+  - https://developer.delinea.com/reference/post_jsmanage-getreportrolesandrights.md
+  - https://developer.delinea.com/reference/post_kmip-configure.md
+  - https://developer.delinea.com/reference/post_kmip-deleteconfig.md
+  - https://developer.delinea.com/reference/post_kmip-getconfig.md
+  - https://developer.delinea.com/reference/post_kmip-passwordstoredremotely.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-addldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-deleteldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getcloudconnectors.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getdirectoryserviceversion.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getldapdirectoryserviceuuidbyname.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getmappableattributelist.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getscriptingpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-modifyldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-setpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-setscriptingpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-testuserlookup.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-verifyldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_libonlyvfs-getfile.md
+  - https://developer.delinea.com/reference/post_mobilepas-deletedevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-disablesso.md
+  - https://developer.delinea.com/reference/post_mobilepas-enablesso.md
+  - https://developer.delinea.com/reference/post_mobilepas-lockclientapp.md
+  - https://developer.delinea.com/reference/post_mobilepas-pingdevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-reapplydevicepolicy.md
+  - https://developer.delinea.com/reference/post_mobilepas-resetclientapplockpin.md
+  - https://developer.delinea.com/reference/post_mobilepas-setdevicepermissions.md
+  - https://developer.delinea.com/reference/post_mobilepas-setprimarydevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-updatedevicepolicy.md
+  - https://developer.delinea.com/reference/post_oath-addorupdateprofile.md
+  - https://developer.delinea.com/reference/post_oath-deleteprofiles.md
+  - https://developer.delinea.com/reference/post_oath-getdatafromcsvfile.md
+  - https://developer.delinea.com/reference/post_oath-getimportprofilelist.md
+  - https://developer.delinea.com/reference/post_oath-getprofilelist.md
+  - https://developer.delinea.com/reference/post_oath-getprofilelistfordevice.md
+  - https://developer.delinea.com/reference/post_oath-resetcentrifyoathprofile.md
+  - https://developer.delinea.com/reference/post_oath-resynchronizeoathtoken.md
+  - https://developer.delinea.com/reference/post_oath-saveprofile.md
+  - https://developer.delinea.com/reference/post_oath-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_oath-updateoathprofilecounter.md
+  - https://developer.delinea.com/reference/post_oath-validateotpcode.md
+  - https://developer.delinea.com/reference/post_oauth2-authorize.md
+  - https://developer.delinea.com/reference/post_oauth2-confirm.md
+  - https://developer.delinea.com/reference/post_oauth2-endsession.md
+  - https://developer.delinea.com/reference/post_oauth2-getmeta.md
+  - https://developer.delinea.com/reference/post_oauth2-introspect.md
+  - https://developer.delinea.com/reference/post_oauth2-keys.md
+  - https://developer.delinea.com/reference/post_oauth2-revoke.md
+  - https://developer.delinea.com/reference/post_oauth2-token.md
+  - https://developer.delinea.com/reference/post_oauth2-userinfo.md
+  - https://developer.delinea.com/reference/post_oauth2man-createclienttoken.md
+  - https://developer.delinea.com/reference/post_pki-login.md
+  - https://developer.delinea.com/reference/post_policy-addauthpolicymodifier.md
+  - https://developer.delinea.com/reference/post_policy-deleteauthpolicymodifier.md
+  - https://developer.delinea.com/reference/post_policy-deletepolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getauthpolicymodifiers.md
+  - https://developer.delinea.com/reference/post_policy-getniceplinks.md
+  - https://developer.delinea.com/reference/post_policy-getnicepolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getoathotpclientname.md
+  - https://developer.delinea.com/reference/post_policy-getpasswordcomplexityrequirements.md
+  - https://developer.delinea.com/reference/post_policy-getplinks.md
+  - https://developer.delinea.com/reference/post_policy-getpolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getpolicybool.md
+  - https://developer.delinea.com/reference/post_policy-getpolicyint.md
+  - https://developer.delinea.com/reference/post_policy-getpolicymetadata.md
+  - https://developer.delinea.com/reference/post_policy-getpolicystring.md
+  - https://developer.delinea.com/reference/post_policy-getrsop.md
+  - https://developer.delinea.com/reference/post_policy-getu2fclientname.md
+  - https://developer.delinea.com/reference/post_policy-getusingcloudmobilegp.md
+  - https://developer.delinea.com/reference/post_policy-policychecks.md
+  - https://developer.delinea.com/reference/post_policy-savepolicyblock2.md
+  - https://developer.delinea.com/reference/post_policy-savepolicyblock3.md
+  - https://developer.delinea.com/reference/post_policy-setplinks.md
+  - https://developer.delinea.com/reference/post_policy-setplinksv2.md
+  - https://developer.delinea.com/reference/post_policy-setusingcloudmobilegp.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-canmanageprivilegeelevation.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getassignmentsbyscope.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getchallenges.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getcommands.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-submitworkflowrequest.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-add.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-addassignment.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-delete.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-deleteassignment.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getassignments.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getprivilegeelevationcommandcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getprivilegeelevationcommandpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-listassignments.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-setprivilegeelevationcommandcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-setprivilegeelevationcommandpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-update.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-updateassignment.md
+  - https://developer.delinea.com/reference/post_quickstart-getstate.md
+  - https://developer.delinea.com/reference/post_quickstart-manageaccounts.md
+  - https://developer.delinea.com/reference/post_quickstart-rundiscovery.md
+  - https://developer.delinea.com/reference/post_quickstart-verifyadminaccount.md
+  - https://developer.delinea.com/reference/post_radius-getclients.md
+  - https://developer.delinea.com/reference/post_radius-getconfig.md
+  - https://developer.delinea.com/reference/post_radius-getservers.md
+  - https://developer.delinea.com/reference/post_radius-getuseridentifierattributes.md
+  - https://developer.delinea.com/reference/post_radius-removeclients.md
+  - https://developer.delinea.com/reference/post_radius-removeservers.md
+  - https://developer.delinea.com/reference/post_radius-setclient.md
+  - https://developer.delinea.com/reference/post_radius-setconfig.md
+  - https://developer.delinea.com/reference/post_radius-setserver.md
+  - https://developer.delinea.com/reference/post_registration-customerinfo.md
+  - https://developer.delinea.com/reference/post_registration-registernewtenant.md
+  - https://developer.delinea.com/reference/post_report-addreport.md
+  - https://developer.delinea.com/reference/post_report-addreports.md
+  - https://developer.delinea.com/reference/post_report-copyreport.md
+  - https://developer.delinea.com/reference/post_report-deletereport.md
+  - https://developer.delinea.com/reference/post_report-deletereports.md
+  - https://developer.delinea.com/reference/post_report-emailreport.md
+  - https://developer.delinea.com/reference/post_report-getdefaultreportcategories.md
+  - https://developer.delinea.com/reference/post_report-getreport.md
+  - https://developer.delinea.com/reference/post_report-getreportcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_report-getreportpermissions.md
+  - https://developer.delinea.com/reference/post_report-getreportrights.md
+  - https://developer.delinea.com/reference/post_report-getreports.md
+  - https://developer.delinea.com/reference/post_report-setreportcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_report-setreportpermissions.md
+  - https://developer.delinea.com/reference/post_report-updatereport.md
+  - https://developer.delinea.com/reference/post_resourceprofile-addresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-deleteresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-exportresourceprofilepackage.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getallresourceprofiles.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofilecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofilepermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-openresourceprofilepackage.md
+  - https://developer.delinea.com/reference/post_resourceprofile-setresourceprofilecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-setresourceprofilepermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-updateresourceprofile.md
+  - https://developer.delinea.com/reference/post_roles-getpagedrolemembers.md
+  - https://developer.delinea.com/reference/post_roles-updaterole-1.md
+  - https://developer.delinea.com/reference/post_saasmanage-addusersandgroupstorole.md
+  - https://developer.delinea.com/reference/post_saasmanage-assignsuperrights.md
+  - https://developer.delinea.com/reference/post_saasmanage-checkifappshaveupdates.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleteapplication.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleterole.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleteroles.md
+  - https://developer.delinea.com/reference/post_saasmanage-getallupdatableapps.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappcreds.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappidbyservicename.md
+  - https://developer.delinea.com/reference/post_saasmanage-getapplication.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappunsupportedlist.md
+  - https://developer.delinea.com/reference/post_saasmanage-getrole.md
+  - https://developer.delinea.com/reference/post_saasmanage-getrolemembers.md
+  - https://developer.delinea.com/reference/post_saasmanage-gettemplatesandcategories.md
+  - https://developer.delinea.com/reference/post_saasmanage-importappfromtemplate.md
+  - https://developer.delinea.com/reference/post_saasmanage-isapplicationavailableincatalog-1.md
+  - https://developer.delinea.com/reference/post_saasmanage-refreshapplicationbinaryfilemetadata.md
+  - https://developer.delinea.com/reference/post_saasmanage-removeusersandgroupsfromrole.md
+  - https://developer.delinea.com/reference/post_saasmanage-requestappuploadurl.md
+  - https://developer.delinea.com/reference/post_saasmanage-setapplicationpermissions.md
+  - https://developer.delinea.com/reference/post_saasmanage-setrolepolicy.md
+  - https://developer.delinea.com/reference/post_saasmanage-storerole.md
+  - https://developer.delinea.com/reference/post_saasmanage-unassignsuperrights.md
+  - https://developer.delinea.com/reference/post_saasmanage-updateapplicationde.md
+  - https://developer.delinea.com/reference/post_saasmanage-updaterole.md
+  - https://developer.delinea.com/reference/post_schedulerhistory-deletejobhistory.md
+  - https://developer.delinea.com/reference/post_schedulerhistory-getjobreport.md
+  - https://developer.delinea.com/reference/post_security-advanceauthentication.md
+  - https://developer.delinea.com/reference/post_security-advanceforgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-amiauthenticated.md
+  - https://developer.delinea.com/reference/post_security-answeroobchallenge.md
+  - https://developer.delinea.com/reference/post_security-challengeuser.md
+  - https://developer.delinea.com/reference/post_security-cleanupauthentication.md
+  - https://developer.delinea.com/reference/post_security-doihaveright.md
+  - https://developer.delinea.com/reference/post_security-forgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-getonetimepassword.md
+  - https://developer.delinea.com/reference/post_security-getriskanalysislevels.md
+  - https://developer.delinea.com/reference/post_security-login.md
+  - https://developer.delinea.com/reference/post_security-logout.md
+  - https://developer.delinea.com/reference/post_security-multiauthlogin.md
+  - https://developer.delinea.com/reference/post_security-ondemandchallenge.md
+  - https://developer.delinea.com/reference/post_security-refreshtoken.md
+  - https://developer.delinea.com/reference/post_security-resumefromextidpauth.md
+  - https://developer.delinea.com/reference/post_security-startauthentication.md
+  - https://developer.delinea.com/reference/post_security-startchallenge.md
+  - https://developer.delinea.com/reference/post_security-startforgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-startsocialauthentication.md
+  - https://developer.delinea.com/reference/post_security-submitoathotpcode.md
+  - https://developer.delinea.com/reference/post_security-taskcheck.md
+  - https://developer.delinea.com/reference/post_security-taskchecks.md
+  - https://developer.delinea.com/reference/post_security-twiliophonechallengecompleted.md
+  - https://developer.delinea.com/reference/post_security-twiliophonechallengenotanswered.md
+  - https://developer.delinea.com/reference/post_security-whoami.md
+  - https://developer.delinea.com/reference/post_serveragent-addconfigfile.md
+  - https://developer.delinea.com/reference/post_serveragent-addenrollmentcode.md
+  - https://developer.delinea.com/reference/post_serveragent-convertmachineaccount.md
+  - https://developer.delinea.com/reference/post_serveragent-cssextension.md
+  - https://developer.delinea.com/reference/post_serveragent-deleteconfigfile-2.md
+  - https://developer.delinea.com/reference/post_serveragent-deleteenrollmentcode.md
+  - https://developer.delinea.com/reference/post_serveragent-disablefeatures.md
+  - https://developer.delinea.com/reference/post_serveragent-enablefeatures.md
+  - https://developer.delinea.com/reference/post_serveragent-enablefeaturesv2.md
+  - https://developer.delinea.com/reference/post_serveragent-enroll.md
+  - https://developer.delinea.com/reference/post_serveragent-enrollv2.md
+  - https://developer.delinea.com/reference/post_serveragent-enrollv3.md
+  - https://developer.delinea.com/reference/post_serveragent-getallconfigfiles-2.md
+  - https://developer.delinea.com/reference/post_serveragent-getallenrollmentcodes.md
+  - https://developer.delinea.com/reference/post_serveragent-getcertificate.md
+  - https://developer.delinea.com/reference/post_serveragent-getconfigsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getdirectauditconfiguration.md
+  - https://developer.delinea.com/reference/post_serveragent-geteffectivelocalgroups.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupbyid.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupbyname.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupmembers.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopeallowedroles.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopenamesforrole-2.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopesforrole.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopesfortype.md
+  - https://developer.delinea.com/reference/post_serveragent-getofflineotpsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getuserbyid.md
+  - https://developer.delinea.com/reference/post_serveragent-getuserbyname.md
+  - https://developer.delinea.com/reference/post_serveragent-getusergroups.md
+  - https://developer.delinea.com/reference/post_serveragent-pushconfigfile.md
+  - https://developer.delinea.com/reference/post_serveragent-register.md
+  - https://developer.delinea.com/reference/post_serveragent-registerv2.md
+  - https://developer.delinea.com/reference/post_serveragent-registerv3.md
+  - https://developer.delinea.com/reference/post_serveragent-setfeaturestate-3.md
+  - https://developer.delinea.com/reference/post_serveragent-unenroll.md
+  - https://developer.delinea.com/reference/post_serveragent-unenrollagents.md
+  - https://developer.delinea.com/reference/post_serveragent-updategroupscopes.md
+  - https://developer.delinea.com/reference/post_serveragent-updateinformation.md
+  - https://developer.delinea.com/reference/post_serveragent-updatesettings.md
+  - https://developer.delinea.com/reference/post_serveragent-validateagent.md
+  - https://developer.delinea.com/reference/post_serveragent-verifypassword.md
+  - https://developer.delinea.com/reference/post_serveragent-verifypasswordv2.md
+  - https://developer.delinea.com/reference/post_serveragent-verifyusercanlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-addaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-addaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-addcomputer.md
+  - https://developer.delinea.com/reference/post_servermanage-adddatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-adddatabases.md
+  - https://developer.delinea.com/reference/post_servermanage-adddomain.md
+  - https://developer.delinea.com/reference/post_servermanage-adddomains.md
+  - https://developer.delinea.com/reference/post_servermanage-addresource.md
+  - https://developer.delinea.com/reference/post_servermanage-addresources.md
+  - https://developer.delinea.com/reference/post_servermanage-addsecret.md
+  - https://developer.delinea.com/reference/post_servermanage-addsecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-addsshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-addsshkeyfile.md
+  - https://developer.delinea.com/reference/post_servermanage-candeletesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-checkinpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-checkofflineotpexist.md
+  - https://developer.delinea.com/reference/post_servermanage-checkoutpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-creatediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-deletedatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-deletedomain.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteresource.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteresources.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesshkeys.md
+  - https://developer.delinea.com/reference/post_servermanage-downloadsecretfileinchunks.md
+  - https://developer.delinea.com/reference/post_servermanage-extendcheckout.md
+  - https://developer.delinea.com/reference/post_servermanage-generatesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-generatesshkeyfile.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsfordatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsforlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsforresource.md
+  - https://developer.delinea.com/reference/post_servermanage-getagentprofile.md
+  - https://developer.delinea.com/reference/post_servermanage-getauditinfo.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputerchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputerrights.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputersforsshkeyaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-getdatabasecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdatabasepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdiscoveryprofiles.md
+  - https://developer.delinea.com/reference/post_servermanage-getdomaincollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdomainpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getmfatokencode.md
+  - https://developer.delinea.com/reference/post_servermanage-getmfatokensettings.md
+  - https://developer.delinea.com/reference/post_servermanage-getmysessions.md
+  - https://developer.delinea.com/reference/post_servermanage-getmyworkspaceaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-getofflineotp.md
+  - https://developer.delinea.com/reference/post_servermanage-getresourcecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getresourcepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getretiredpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-getrsop.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecret.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretapprovers.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretfolderscanmoveto.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsandfolders.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsfolderrights.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsfolderrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecrettobereplaced.md
+  - https://developer.delinea.com/reference/post_servermanage-getsessions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeycollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyinfo.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeypermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeysforlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyusage.md
+  - https://developer.delinea.com/reference/post_servermanage-logjustificationevent-2.md
+  - https://developer.delinea.com/reference/post_servermanage-manageaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-movefolder.md
+  - https://developer.delinea.com/reference/post_servermanage-movesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-multiaccountdelete-1.md
+  - https://developer.delinea.com/reference/post_servermanage-multiaccountpasswordrotation-1.md
+  - https://developer.delinea.com/reference/post_servermanage-patchresource.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckdatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckdomain.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckout.md
+  - https://developer.delinea.com/reference/post_servermanage-provisionreconciliationaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-refreshhealthstatus.md
+  - https://developer.delinea.com/reference/post_servermanage-removemfatoken.md
+  - https://developer.delinea.com/reference/post_servermanage-requestsecretdownloadurl.md
+  - https://developer.delinea.com/reference/post_servermanage-requestsecretuploadurl.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesecretcontents.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesecretmetadata.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-rotatepassword.md
+  - https://developer.delinea.com/reference/post_servermanage-rotatepasswords.md
+  - https://developer.delinea.com/reference/post_servermanage-setaccountcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setaccountpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setconnectorsystem.md
+  - https://developer.delinea.com/reference/post_servermanage-setdatabasecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdatabasepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdomaincollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdomainpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setescrowkeyfromfile.md
+  - https://developer.delinea.com/reference/post_servermanage-setmfatoken.md
+  - https://developer.delinea.com/reference/post_servermanage-setresourcecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setresourcepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretsfolderpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsshkeycollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsshkeypermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-terminatesession.md
+  - https://developer.delinea.com/reference/post_servermanage-updateaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-updatedatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-updatedomain.md
+  - https://developer.delinea.com/reference/post_servermanage-updatepassword.md
+  - https://developer.delinea.com/reference/post_servermanage-updateresource.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesettings.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-uploadsecretfileinchunks.md
+  - https://developer.delinea.com/reference/post_servermanage-verifyaccountpasswordmanagementsettings.md
+  - https://developer.delinea.com/reference/post_serversession-getloginurl.md
+  - https://developer.delinea.com/reference/post_socialauth-facebookauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-googleauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-linkedinauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-microsoftactauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-twitterauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getallcustomconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getapplicationclientsecret.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getcustomconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-resetauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-setauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-setcustomconfig.md
+  - https://developer.delinea.com/reference/post_subscriptions-addsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-creatempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-deletempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-deletesubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-getalllaggers.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccountpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccountrights.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccounts.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptioncollectionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptionrights.md
+  - https://developer.delinea.com/reference/post_subscriptions-pushsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-setmultiplexedaccountpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-setsubscriptioncollectionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-setsubscriptionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-sync.md
+  - https://developer.delinea.com/reference/post_subscriptions-updatempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-updatesubscription.md
+  - https://developer.delinea.com/reference/post_sysinfo-about.md
+  - https://developer.delinea.com/reference/post_sysinfo-dummy.md
+  - https://developer.delinea.com/reference/post_sysinfo-getmysession.md
+  - https://developer.delinea.com/reference/post_sysinfo-version.md
+  - https://developer.delinea.com/reference/post_task-canceljob.md
+  - https://developer.delinea.com/reference/post_task-createonetimejob.md
+  - https://developer.delinea.com/reference/post_task-emailreport.md
+  - https://developer.delinea.com/reference/post_task-getjobhistory.md
+  - https://developer.delinea.com/reference/post_task-getsinglejobhistory.md
+  - https://developer.delinea.com/reference/post_task-jobreport.md
+  - https://developer.delinea.com/reference/post_tenantcnames-get.md
+  - https://developer.delinea.com/reference/post_tenantcnames-getdomaininfo.md
+  - https://developer.delinea.com/reference/post_tenantcnames-register.md
+  - https://developer.delinea.com/reference/post_tenantcnames-setpreferred.md
+  - https://developer.delinea.com/reference/post_tenantcnames-uiget.md
+  - https://developer.delinea.com/reference/post_tenantcnames-unregister.md
+  - https://developer.delinea.com/reference/post_tenantconfig-deleteadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-deleteadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadminsecurityquestions.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getcustomerconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemailtemplates.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemessagetemplate.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemessagetemplates.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getgooglekey.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getmobileconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-gettwilioconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-resetportalconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-sendtestmessagetemplate.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setcustomerconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setgooglekey.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setmobileconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setpasswordpersistance.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-settwilioconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-testsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-testtwilioconfig.md
+  - https://developer.delinea.com/reference/post_u-evaluate.md
+  - https://developer.delinea.com/reference/post_u2f-answerregistrationchallenge.md
+  - https://developer.delinea.com/reference/post_u2f-deleteu2fdevice.md
+  - https://developer.delinea.com/reference/post_u2f-deleteu2fdevices.md
+  - https://developer.delinea.com/reference/post_u2f-facets.md
+  - https://developer.delinea.com/reference/post_u2f-getregistrationchallenge.md
+  - https://developer.delinea.com/reference/post_u2f-getu2fdevices.md
+  - https://developer.delinea.com/reference/post_u2f-getu2fdevicesforuser.md
+  - https://developer.delinea.com/reference/post_unixprofile-getgroupprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-getuserprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-getuserprofilesfromcsvfile.md
+  - https://developer.delinea.com/reference/post_unixprofile-setgroupprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-setuserprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_uprest-getappbykey.md
+  - https://developer.delinea.com/reference/post_uprest-getresultantappsforuser.md
+  - https://developer.delinea.com/reference/post_uprest-gettagsforapp.md
+  - https://developer.delinea.com/reference/post_uprest-getupdata.md
+  - https://developer.delinea.com/reference/post_uprest-setusercredsforapp.md
+  - https://developer.delinea.com/reference/post_uprest-upserttagsforapp.md
+  - https://developer.delinea.com/reference/post_usermgmt-addfavorite.md
+  - https://developer.delinea.com/reference/post_usermgmt-analyzeadaptivemfarisk.md
+  - https://developer.delinea.com/reference/post_usermgmt-canedituserattributes.md
+  - https://developer.delinea.com/reference/post_usermgmt-changeuserattributes-1.md
+  - https://developer.delinea.com/reference/post_usermgmt-changeuserpassword.md
+  - https://developer.delinea.com/reference/post_usermgmt-checkuserprofilechallenge.md
+  - https://developer.delinea.com/reference/post_usermgmt-directoryservicequery.md
+  - https://developer.delinea.com/reference/post_usermgmt-getcachedentity.md
+  - https://developer.delinea.com/reference/post_usermgmt-getcacheduser.md
+  - https://developer.delinea.com/reference/post_usermgmt-getfavorites.md
+  - https://developer.delinea.com/reference/post_usermgmt-getsecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserattributes.md
+  - https://developer.delinea.com/reference/post_usermgmt-getusercertificateinfo.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserhierarchy.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserinfo.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserpicture.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserpreferences.md
+  - https://developer.delinea.com/reference/post_usermgmt-getusersrolesandadministrativerights.md
+  - https://developer.delinea.com/reference/post_usermgmt-inviteusers.md
+  - https://developer.delinea.com/reference/post_usermgmt-isusercloudlocked.md
+  - https://developer.delinea.com/reference/post_usermgmt-isuserlockedoutbypolicy.md
+  - https://developer.delinea.com/reference/post_usermgmt-isusersubjecttocloudlocks.md
+  - https://developer.delinea.com/reference/post_usermgmt-removefavorite.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeuser.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeusercertificate.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeusers.md
+  - https://developer.delinea.com/reference/post_usermgmt-resetsecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-resetuserpassword.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendloginemail.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendloginemails.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendsmsinvite.md
+  - https://developer.delinea.com/reference/post_usermgmt-setcloudlock.md
+  - https://developer.delinea.com/reference/post_usermgmt-setphonepin.md
+  - https://developer.delinea.com/reference/post_usermgmt-setsecurityquestion.md
+  - https://developer.delinea.com/reference/post_usermgmt-uncacheuserpreferences.md
+  - https://developer.delinea.com/reference/post_usermgmt-updatesecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-updateuserpreferences.md
+  - https://developer.delinea.com/reference/post_vault-addvault.md
+  - https://developer.delinea.com/reference/post_vault-deletevault.md
+  - https://developer.delinea.com/reference/post_vault-getallvaults.md
+  - https://developer.delinea.com/reference/post_vault-getallvaultsites.md
+  - https://developer.delinea.com/reference/post_vault-getallvaulttemplates.md
+  - https://developer.delinea.com/reference/post_vault-gethistory.md
+  - https://developer.delinea.com/reference/post_vault-getjobhistory.md
+  - https://developer.delinea.com/reference/post_vault-getvault.md
+  - https://developer.delinea.com/reference/post_vault-getvaultsite.md
+  - https://developer.delinea.com/reference/post_vault-setvaultcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_vault-setvaultpermissions.md
+  - https://developer.delinea.com/reference/post_vault-syncvault.md
+  - https://developer.delinea.com/reference/post_vault-updatevault.md
+  - https://developer.delinea.com/reference/post_vault-verifyvault.md
+  - https://developer.delinea.com/reference/post_vfs-getfile.md
+  - https://developer.delinea.com/reference/post_vfs-getfilelower.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-createassignment.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-deleteexpiredassignments.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getallroles.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getapprovers.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getdomainconfiguration.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getroles.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-refreshresourcezonejoined.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-validaterolerequest.md
+  - https://developer.delinea.com/reference/post_zso-authenticatesession.md
+  - https://developer.delinea.com/reference/post_zso-certlogin.md
+  - https://developer.delinea.com/reference/post_zso-clearmacsafarizsocookie.md
+  - https://developer.delinea.com/reference/post_zso-ismacsafarizsocookieset.md
+  - https://developer.delinea.com/reference/post_zso-issessionauthenticated.md
+  - https://developer.delinea.com/reference/post_zso-setmacsafarizsocookie.md
+  merge:
+    pages: 775
+    deduped: 70
+    conflicts_kept_first: 0

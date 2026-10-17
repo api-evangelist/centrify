@@ -1,0 +1,145 @@
+openapi: 3.2.0
+info:
+  title: analytics File API
+  version: '23.1'
+servers:
+- url: https://example.com/analytics/services/v1.0
+security:
+- {}
+tags:
+- name: File
+paths:
+  /file/export/rules/webhook/{name}:
+    post:
+      summary: /file/export/rules/webhook/{name}
+      description: Exports the information for one or more webhooks to JSON. The information is returned in both a .json file attachment and in the response. The exported information can be imported to a tenant using the /file/import/rules/webhook.
+      operationId: fileexportruleswebhookname
+      parameters:
+      - name: name
+        in: path
+        description: The base name to assign to the exported file. The endpoint will append ".json" to this name.
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                export_header:
+                  type: boolean
+                  description: Specifies if the webhook's header information should be exported.
+                export_url:
+                  type: boolean
+                  description: Specifies if the webhooks URL should be exported.
+                policy_ids:
+                  type: array
+                  description: The IDs of the webhooks to export. You can get the IDs of each webhook on the tenant by invoking the [/rules](https://developer.delinea.com/reference/rules) endpoint.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: "HTTP/1.1 200 OK\nServer: Apache-Coyote/1.1\nContent-Disposition: attachment; filename=\"MyDemo.json\"\nDate: Fri, 18 May 2018 17:03:33 GMT\nCache-Control: no-cache, no-store, max-age=0, must-revalidate\nPragma: no-cache\nExpires: 0\nStrict-Transport-Security: max-age=31536000 ; includeSubDomains\nX-XSS-Protection: 1; mode=block\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nContent-Type: multipart/form-data\nContent-Length: 3657\n\n{\n  \"ruleActions\": [\n    {\n      \"tenantId\": \"ABC1234\",\n      \"policyId\": \"a5e7...\",\n      \"name\": \"MyDemo\",\n      \"rule\": {\n        \"filterType\": \"com.centrify.platform.notification.rule.filter.EventTypeFilter\",\n        \"filterMetaData\": {\n          \"event_type\": \"Analytics.Server.AdaptiveSessionRecording\"\n        }\n      },\n      \"actions\": [\n        {\n          \"actionType\": \"webhook\",\n          \"actionMetaData\": {\n            \"headers\": \"Token token\\u00...\",\n            \"method\": \"POST\",\n            \"content_type\": \"application/json\",\n            \"request_body\": \"{\\n  \\\"payload\\\": {\\n    \\\"summary\\\": \\\"${intel_risk_level?cap_first} Risk: \\u003...\",\n            \"url\": \"https://events.pagerduty.com/v2/enqueue\"\n          },\n          \"providerMetaData\": {}\n        }\n      ],\n      \"createdBy\": \"cia\",\n      \"updatedBy\": \"cia\"\n    }\n  ],\n  \"version\": \"0.9\",\n  \"signature\": \"cfd8...\"\n}"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.io/analytics/services/v1.0/file/export/rules/webhook/MyDemo\n\n{  \n   \"policy_ids\":[  \n      \"a5e7...\"\n   ],\n   \"export_url\":true,\n   \"export_header\":true\n}"
+        samples-languages:
+        - http
+      tags:
+      - File
+  /file/import/rules/webhook:
+    post:
+      summary: /file/import/rules/webhook
+      description: Imports one or more webhooks from a .json file that was exported using the /file/export/rules/webhook/{name} endpoint.
+      operationId: fileimportruleswebhook
+      responses:
+        '200':
+          description: '200'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: 'HTTP/1.1 200 OK
+
+                    Server: Apache-Coyote/1.1
+
+                    Date: Fri, 18 May 2018 17:03:52 GMT
+
+                    Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+                    Pragma: no-cache
+
+                    Expires: 0
+
+                    Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+
+                    X-XSS-Protection: 1; mode=block
+
+                    X-Frame-Options: DENY
+
+                    X-Content-Type-Options: nosniff
+
+                    Content-Length: 0'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "POST https://mytenant.centrify.io/analytics/services/v1.0/file/import/rules/webhook\n\nContent-Type: multipart/form-data; boundary=----WebKitFormBoundarykmkpXEKtCNf6UQO0\n\n------WebKitFormBoundarykmkpXEKtCNf6UQO0\nContent-Disposition: form-data; name=\"file\"; filename=\"MyDemo.json\"\nContent-Type: application/json\n\n{  \n   \"ruleActions\":[  \n      {  \n         \"tenantId\":\"ABC1234\",\n         \"policyId\":\"a5e...\",\n         \"name\":\"PageDuty Demo\",\n         \"rule\":{  \n            \"filterType\":\"com.centrify.platform.notification.rule.filter.EventTypeFilter\",\n            \"filterMetaData\":{  \n               \"event_type\":\"Analytics.Server.AdaptiveSessionRecording\"\n            }\n         },\n         \"actions\":[  \n            {  \n               \"actionType\":\"webhook\",\n               \"actionMetaData\":{  \n                  \"headers\":\"Token token=XKup...\",\n                  \"method\":\"POST\",\n                  \"content_type\":\"application/json\",\n                  \"request_body\":\"{\\n  \\\"payload\\\": {\\n    \\\"summary\\\": \\\"${intel_risk_level?cap_first} Risk: <#if event_na...\",\n                  \"url\":\"https://events.pagerduty.com/v2/enqueue\"\n               },\n               \"providerMetaData\":{  \n\n               }\n            }\n         ],\n         \"createdBy\":\"cia\",\n         \"updatedBy\":\"cia\"\n      }\n   ],\n   \"version\":\"0.9\",\n   \"signature\":\"cfd8...\"\n}\n------WebKitFormBoundarykmkpXEKtCNf6UQO0--\n"
+        samples-languages:
+        - http
+      tags:
+      - File
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/apisaccess_tokens-1.md
+  - https://developer.delinea.com/reference/apisaccess_tokens.md
+  - https://developer.delinea.com/reference/apisaccess_tokensid.md
+  - https://developer.delinea.com/reference/apisaccess_tokensidactivate.md
+  - https://developer.delinea.com/reference/apisaccess_tokensidinactivate.md
+  - https://developer.delinea.com/reference/apisscopes.md
+  - https://developer.delinea.com/reference/datasetsystemmodels.md
+  - https://developer.delinea.com/reference/fileexportruleswebhookname.md
+  - https://developer.delinea.com/reference/fileimportruleswebhook.md
+  - https://developer.delinea.com/reference/rules.md
+  - https://developer.delinea.com/reference/rulesid.md
+  - https://developer.delinea.com/reference/rulesidstatus.md
+  - https://developer.delinea.com/reference/ruleswebhook.md
+  - https://developer.delinea.com/reference/ruleswebhooktest.md
+  merge:
+    pages: 14
+    deduped: 0
+    conflicts_kept_first: 0

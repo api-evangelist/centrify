@@ -1,44 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: server-management
+  title: server-management Get Discovery Status API
   version: '23.1'
 servers:
 - url: https://example.com/ServerManage
 security:
 - {}
-x-readme-fauxas: true
+tags:
+- name: GetDiscoveryStatus
 paths:
-  /GetDiscoveryProfiles:
-    post:
-      summary: Get Discovery Profiles
-      description: Gets the discovery profiles.
-      operationId: get-discovery-profiles
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: "{  \n   \"success\":true,\n   \"Result\":[  \n      {  \n         \"Description\":\"A profile to discover new things\",\n         \"ScheduleOwnerId\":null,\n         \"_RowKey\":\"9abcdefg-533e-4d11-a92b-15401c65bb40\",\n         \"SkipDiscovered\":true,\n         \"OSType\":\"Windows,UnixWithCDC\",\n         \"IsSchedulable\":false,\n         \"ComputerOUs\":[  \n            \"DC=centrify,DC=lab\"\n         ],\n         \"Name\":\"Discover new things\",\n         \"Domains\":[  \n            {  \n               \"NamingContext\":\"DC=centrify,DC=aws\",\n               \"Enabled\":false,\n               \"Name\":\"centrify.aws\",\n               \"DomainId\":\"11111111-5254-495d-b4d4-22fc0f993899\",\n               \"UsingDefaultAccount\":true,\n               \"UserName\":\"jn@centrify.com\"\n            },\n            ...\n         ],\n         \"ApplicationType\":\"WindowsService,ScheduledTask,IISApplicationPool\",\n         \"ID\":\"9abcdefg-533e-4d11-a92b-15401c65bb40\"\
-                    ,\n         \"DefaultUserName\":\"jn@centrify.com\",\n         \"Schedule\":null,\n         \"IsScheduleRunning\":false,\n         \"ComputerType\":\"Server,Workstation\"\n      },\n\n      ...\n   ],\n   \"Message\":null,\n   \"MessageID\":null,\n   \"Exception\":null,\n   \"ErrorID\":null,\n   \"ErrorCode\":null,\n   \"InnerExceptions\":null\n}"
-        '400':
-          description: '400'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: '{}'
-              schema:
-                type: object
-                properties: {}
-      deprecated: false
-      x-readme:
-        code-samples:
-        - language: http
-          code: POST /ServerManage/GetDiscoveryProfiles
-        samples-languages:
-        - http
   /GetDiscoveryStatus:
     post:
       summary: Get Discovery Status
@@ -144,76 +114,9 @@ paths:
           code: POST /ServerManage/GetDiscoveryStatus
         samples-languages:
         - http
-  /RunDiscovery:
-    post:
-      summary: Run Discovery
-      description: Runs a discovery process for a discovery profile.
-      operationId: run-discovery
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                BypassAddAccountCheck:
-                  type: boolean
-                Profiles:
-                  properties:
-                    ID:
-                      type: string
-                      description: The ID of the discovery profile to run a discovery job on.
-                    Passwords:
-                      properties:
-                        Domain:
-                          type: string
-                          description: The domain on which to run discovery
-                        Password:
-                          type: string
-                          description: The password to access the domain.
-                      required: []
-                      type: object
-                  required: []
-                  type: object
-                  description: Lists the profiles to run discoveries on.
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: "{  \n   \"success\":true,\n   \"Result\":null,\n   \"Message\":null,\n   \"MessageID\":null,\n   \"Exception\":null,\n   \"ErrorID\":null,\n   \"ErrorCode\":null,\n   \"InnerExceptions\":null\n}"
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                    default: true
-                  Result: {}
-                  Message: {}
-                  MessageID: {}
-                  Exception: {}
-                  ErrorID: {}
-                  ErrorCode: {}
-                  InnerExceptions: {}
-        '400':
-          description: '400'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: '{}'
-              schema:
-                type: object
-                properties: {}
-      deprecated: false
-      x-readme:
-        code-samples:
-        - language: http
-          code: "POST /ServerManage/RunDiscovery\n\n{  \n   \"Profiles\":[  \n      {  \n         \"ID\":\"9abcdefg-533e-4d11-a92b-15401c65bb40\",\n         \"Passwords\":[  \n            {  \n               \"Domain\":\"centrify.com\",\n               \"Password\":\"MyPassword\"\n            }\n         ]\n      }\n   ],\n   \"BypassAddAccountCheck\":false\n}"
-        samples-languages:
-        - http
+      tags:
+      - GetDiscoveryStatus
+x-readme-fauxas: true
 x-provenance:
   method: searched
   source: https://developer.delinea.com/reference

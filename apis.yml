@@ -172,9 +172,11 @@ common:
 
 apis:
 - name: Centrify Identity Services API
-  description: REST API for the Centrify Identity Platform / Cloud Suite (PAS). Programmatic access to authentication profiles, users, directories,
-    roles, sets, resources, secrets, privileged access requests, connectors, and audit data. Calls are made against the customer tenant/pod URL;
-    the operation reference is published at developer.delinea.com.
+  description: >-
+    REST API for the Centrify Identity Platform / Cloud Suite (PAS). Programmatic access to authentication
+    profiles, users, directories, roles, sets, resources, secrets, privileged access requests, connectors,
+    and audit data. Calls are made against the customer tenant/pod URL; the operation reference is published
+    at developer.delinea.com.
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
@@ -191,36 +193,16 @@ apis:
   - type: Authentication
     url: authentication/centrify-authentication.yml
   aid: centrify:centrify-identity-services-api
-- aid: centrify:centrify-analytics
-  name: Centrify Analytics Openapi.Yml API
-  description: The Analytics Openapi.Yml API from Centrify — 13 operation(s) for analytics openapi.yml.
+- aid: centrify:centrify-apis-api
+  name: Centrify APIs API
+  description: The Apis API from Centrify — 5 operation(s) for apis.
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
-  - Analytics Openapi.Yml
+  - Apis
   properties:
   - type: OpenAPI
-    url: openapi/centrify-analytics-openapi.yml
-- aid: centrify:centrify-application-management
-  name: Centrify Application Management Openapi.Yml API
-  description: The Application Management Openapi.Yml API from Centrify — 2 operation(s) for application management openapi.yml.
-  humanURL: https://developer.delinea.com/docs
-  baseURL: https://developer.delinea.com/reference
-  tags:
-  - Application Management Openapi.Yml
-  properties:
-  - type: OpenAPI
-    url: openapi/centrify-application-management-openapi.yml
-- aid: centrify:centrify-identity-platform-api
-  name: Centrify Core Services API
-  description: Utility functions and basic ops
-  humanURL: https://developer.delinea.com/docs
-  baseURL: https://developer.delinea.com/reference
-  tags:
-  - Core Services
-  properties:
-  - type: OpenAPI
-    url: openapi/centrify-identity-platform-api-openapi.yml
+    url: openapi/centrify-apis-api-openapi.yml
   - type: JSONSchema
     url: json-schema/centrify-core-get-ad-topology-schema.json
   - type: JSONSchema
@@ -233,57 +215,535 @@ apis:
     url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
   - type: JSONSchema
     url: json-schema/centrify-saas-manage-get-application-schema.json
-- aid: centrify:centrify-role-management
-  name: Centrify Role Management Openapi.Yml API
-  description: The Role Management Openapi.Yml API from Centrify — 1 operation(s) for role management openapi.yml.
+- aid: centrify:centrify-application-management-api
+  name: Centrify Application Management API
+  description: Manage applications and SaaS
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
-  - Role Management Openapi.Yml
+  - Application Management
   properties:
   - type: OpenAPI
-    url: openapi/centrify-role-management-openapi.yml
-- aid: centrify:centrify-server-agent
-  name: Centrify Server Agent Openapi.Yml API
-  description: The Server Agent Openapi.Yml API from Centrify — 1 operation(s) for server agent openapi.yml.
+    url: openapi/centrify-application-management-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-authentication-api
+  name: Centrify Authentication API
+  description: Authenticate to cloud service, MFA
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
-  - Server Agent Openapi.Yml
+  - Authentication
   properties:
   - type: OpenAPI
-    url: openapi/centrify-server-agent-openapi.yml
-- aid: centrify:centrify-server-management
-  name: Centrify Server Management Openapi.Yml API
-  description: The Server Management Openapi.Yml API from Centrify — 3 operation(s) for server management openapi.yml.
+    url: openapi/centrify-authentication-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-cloud-user-management-api
+  name: Centrify Cloud User Management API
+  description: Manage users for the Centrify Cloud Directory Service
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
-  - Server Management Openapi.Yml
+  - Cloud User Management
   properties:
   - type: OpenAPI
-    url: openapi/centrify-server-management-openapi.yml
-- aid: centrify:centrify-server-session
-  name: Centrify Server Session Openapi.Yml API
-  description: The Server Session Openapi.Yml API from Centrify — 1 operation(s) for server session openapi.yml.
+    url: openapi/centrify-cloud-user-management-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-core-services-api
+  name: Centrify Core Services API
+  description: Utility functions and basic ops
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
-  - Server Session Openapi.Yml
+  - Core Services
   properties:
   - type: OpenAPI
-    url: openapi/centrify-server-session-openapi.yml
-- aid: centrify:centrify-uprest
-  name: Centrify Uprest Openapi.Yml API
-  description: The Uprest Openapi.Yml API from Centrify — 2 operation(s) for uprest openapi.yml.
+    url: openapi/centrify-core-services-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-dataset-api
+  name: Centrify Dataset API
+  description: The Dataset API from Centrify — 1 operation(s) for dataset.
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
-  - Uprest Openapi.Yml
+  - Dataset
   properties:
   - type: OpenAPI
-    url: openapi/centrify-uprest-openapi.yml
-
+    url: openapi/centrify-dataset-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-device-management-api
+  name: Centrify Device Management API
+  description: Manage devices
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Device Management
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-device-management-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-directory-services-api
+  name: Centrify Directory Services API
+  description: Manage directory services
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Directory Services
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-directory-services-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-file-api
+  name: Centrify File API
+  description: The File API from Centrify — 2 operation(s) for file.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - File
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-file-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-getdiscoveryprofiles-api
+  name: Centrify Get Discovery Profiles API
+  description: The GetDiscoveryProfiles API from Centrify — 1 operation(s) for getdiscoveryprofiles.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - GetDiscoveryProfiles
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-getdiscoveryprofiles-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-getdiscoverystatus-api
+  name: Centrify Get Discovery Status API
+  description: The GetDiscoveryStatus API from Centrify — 1 operation(s) for getdiscoverystatus.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - GetDiscoveryStatus
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-getdiscoverystatus-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-getroleapps-api
+  name: Centrify Get Role Apps API
+  description: The GetRoleApps API from Centrify — 1 operation(s) for getroleapps.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - GetRoleApps
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-getroleapps-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-getscript-api
+  name: Centrify Get Script API
+  description: The GetScript API from Centrify — 1 operation(s) for getscript.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - GetScript
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-getscript-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-getssotoken-api
+  name: Centrify Get SSO Token API
+  description: The GetSSOToken API from Centrify — 1 operation(s) for getssotoken.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - GetSSOToken
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-getssotoken-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-handleappclick-api
+  name: Centrify Handle App Click API
+  description: The HandleAppClick API from Centrify — 1 operation(s) for handleappclick.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - HandleAppClick
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-handleappclick-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-jumpterm-api
+  name: Centrify Jumpterm API
+  description: The Jumpterm API from Centrify — 1 operation(s) for jumpterm.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Jumpterm
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-jumpterm-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-reports-api
+  name: Centrify Reports API
+  description: Access Cloud Service database
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-reports-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-resource-management-api
+  name: Centrify Resource Management API
+  description: Manage resources and accounts for CPS
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Resource Management
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-resource-management-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-role-management-api
+  name: Centrify Role Management API
+  description: Manage roles and admin rights
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Role Management
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-role-management-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-rules-api
+  name: Centrify Rules API
+  description: The Rules API from Centrify — 5 operation(s) for rules.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Rules
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-rules-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-rundiscovery-api
+  name: Centrify Run Discovery API
+  description: The RunDiscovery API from Centrify — 1 operation(s) for rundiscovery.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - RunDiscovery
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-rundiscovery-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-serveragent-api
+  name: Centrify Server Agent API
+  description: The ServerAgent API from Centrify — 1 operation(s) for serveragent.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - ServerAgent
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-serveragent-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-setapplicationpermissions-api
+  name: Centrify Set Application Permissions API
+  description: >-
+    The SetApplicationPermissions API from Centrify — 1 operation(s) for setapplicationpermissions.
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - SetApplicationPermissions
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-setapplicationpermissions-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-user-management-api
+  name: Centrify User Management API
+  description: Manage users for all Directory Services (AD, Cloud, LDAP, etc)
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - User Management
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-user-management-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
+- aid: centrify:centrify-workflow-management-api
+  name: Centrify Workflow Management API
+  description: Manage workflows
+  humanURL: https://developer.delinea.com/docs
+  baseURL: https://developer.delinea.com/reference
+  tags:
+  - Workflow Management
+  properties:
+  - type: OpenAPI
+    url: openapi/centrify-workflow-management-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/centrify-core-get-ad-topology-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-user-mgmt-get-user-info-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-discovery-profiles-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-server-manage-get-my-workspace-accounts-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-uprest-get-resultant-apps-for-user-schema.json
+  - type: JSONSchema
+    url: json-schema/centrify-saas-manage-get-application-schema.json
 x-enrichment:
   date: '2026-07-19'
   status: backfilled

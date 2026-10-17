@@ -1,0 +1,169 @@
+openapi: 3.2.0
+info:
+  title: role-management Get Role Apps API
+  version: '23.1'
+servers:
+- url: https://example.com/SaasManage
+security:
+- {}
+tags:
+- name: GetRoleApps
+paths:
+  /GetRoleApps:
+    post:
+      summary: /SaasManage/GetRoleApps
+      description: Gets information about applications for a specified role.
+      operationId: saasmanagegetroleapps
+      parameters:
+      - name: role
+        in: query
+        description: The name of the role for which applications should be returned.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{  \n   \"success\":true,\n   \"Result\":{  \n      \"IsAggregate\":false,\n      \"Count\":4,\n      \"Columns\":[  \n         {  \n            \"Name\":\"Icon\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"Icon\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":12,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         },\n         {  \n            \"Name\":\"Name\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"Name\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":12,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         },\n         {  \n            \"Name\":\"Description\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"Description\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":12,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         },\n         {  \n            \"Name\":\"AppType\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"AppType\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":12,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         },\n         {  \n            \"Name\":\"AppTypeDisplayName\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"AppTypeDisplayName\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":12,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         },\n         {  \n            \"Name\":\"IsMarketplaceApp\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"IsMarketplaceApp\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":16,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         },\n         {  \n            \"Name\":\"Version\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"Version\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":0,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         },\n         {  \n            \"Name\":\"ID\",\n            \"IsHidden\":false,\n            \"DDName\":null,\n            \"Title\":\"ID\",\n            \"DDTitle\":null,\n            \"Description\":null,\n            \"Type\":12,\n            \"Format\":null,\n            \"Width\":0,\n            \"TableKey\":null,\n            \"ForeignKey\":null,\n            \"TableName\":null\n         }\n      ],\n      \"FullCount\":4,\n      \"Results\":[  \n         {  \n            \"Entities\":[  \n               {  \n                  \"Type\":\"??\",\n                  \"Key\":\"??\",\n                  \"IsForeignKey\":false\n               }\n            ],\n            \"Row\":{  \n               \"IsMarketplaceApp\":false,\n               \"AppTypeDisplayName\":\"Web - Other Type\",\n               \"Name\":\"OAuth2 Client (Preview)\",\n               \"Icon\":\"/vfslow/lib/application/icons/oauth\",\n               \"Description\":\"Use this template to set up an application that is making OAuth secured REST calls to the Centrify Platform\",\n               \"ID\":\"e866c361-8ad7-4a18-b840-0eaea9a36653\",\n               \"Version\":null,\n               \"AppType\":\"Web\"\n            }\n         },\n         {  \n            \"Entities\":[  \n               {  \n                  \"Type\":\"??\",\n                  \"Key\":\"??\",\n                  \"IsForeignKey\":false\n               }\n            ],\n            \"Row\":{  \n               \"IsMarketplaceApp\":false,\n               \"AppTypeDisplayName\":\"Web - Other Type\",\n               \"Name\":\"PowerShell Example OAuth (CCreds)\",\n               \"Icon\":\"/vfslow/lib/application/icons/oauth\",\n               \"Description\":\"Use this template to set up an application that is making OAuth secured REST calls to the Centrify Platform\",\n               \"ID\":\"3e347be4-355e-4d79-9cbc-e306350f8dc7\",\n               \"Version\":null,\n               \"AppType\":\"Web\"\n            }\n         },\n         {  \n            \"Entities\":[  \n               {  \n                  \"Type\":\"??\",\n                  \"Key\":\"??\",\n                  \"IsForeignKey\":false\n               }\n            ],\n            \"Row\":{  \n               \"IsMarketplaceApp\":false,\n               \"AppTypeDisplayName\":\"Web - SAML\",\n               \"Name\":\"SAML SDK - PyBottle\",\n               \"Icon\":\"/vfslow/lib/application/icons/genericsaml\",\n               \"Description\":\"This template enables you to provide single sign-on to a web application that uses SAML (Security Assertion Markup Language) for authentication.\",\n               \"ID\":\"583e4d88-a193-4ea8-b306-e053b7fe2b7b\",\n               \"Version\":null,\n               \"AppType\":\"Web\"\n            }\n         },\n         {  \n            \"Entities\":[  \n               {  \n                  \"Type\":\"??\",\n                  \"Key\":\"??\",\n                  \"IsForeignKey\":false\n               }\n            ],\n            \"Row\":{  \n               \"IsMarketplaceApp\":false,\n               \"AppTypeDisplayName\":\"Web - SAML\",\n               \"Name\":\"SAML SDK - Rails\",\n               \"Icon\":\"/vfslow/lib/application/icons/genericsaml\",\n               \"Description\":\"This template enables you to provide single sign-on to a web application that uses SAML (Security Assertion Markup Language) for authentication.\",\n               \"ID\":\"ac53efff-d0e4-4532-9faf-547bafc1a1f7\",\n               \"Version\":null,\n               \"AppType\":\"Web\"\n            }\n         }\n      ],\n      \"ReturnID\":\"\"\n   },\n   \"Message\":null,\n   \"MessageID\":null,\n   \"Exception\":null,\n   \"ErrorID\":null,\n   \"ErrorCode\":null,\n   \"InnerExceptions\":null\n}"
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                    default: true
+                  Result:
+                    type: object
+                    properties:
+                      IsAggregate:
+                        type: boolean
+                        example: false
+                        default: true
+                      Count:
+                        type: integer
+                        example: 4
+                        default: 0
+                      Columns:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            Name:
+                              type: string
+                              example: Icon
+                            IsHidden:
+                              type: boolean
+                              example: false
+                              default: true
+                            DDName: {}
+                            Title:
+                              type: string
+                              example: Icon
+                            DDTitle: {}
+                            Description: {}
+                            Type:
+                              type: integer
+                              example: 12
+                              default: 0
+                            Format: {}
+                            Width:
+                              type: integer
+                              example: 0
+                              default: 0
+                            TableKey: {}
+                            ForeignKey: {}
+                            TableName: {}
+                      FullCount:
+                        type: integer
+                        example: 4
+                        default: 0
+                      Results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            Entities:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  Type:
+                                    type: string
+                                    example: ??
+                                  Key:
+                                    type: string
+                                    example: ??
+                                  IsForeignKey:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                            Row:
+                              type: object
+                              properties:
+                                IsMarketplaceApp:
+                                  type: boolean
+                                  example: false
+                                  default: true
+                                AppTypeDisplayName:
+                                  type: string
+                                  example: Web - Other Type
+                                Name:
+                                  type: string
+                                  example: OAuth2 Client (Preview)
+                                Icon:
+                                  type: string
+                                  example: /vfslow/lib/application/icons/oauth
+                                Description:
+                                  type: string
+                                  example: Use this template to set up an application that is making OAuth secured REST calls to the Centrify Platform
+                                ID:
+                                  type: string
+                                  example: e866c361-8ad7-4a18-b840-0eaea9a36653
+                                Version: {}
+                                AppType:
+                                  type: string
+                                  example: Web
+                      ReturnID:
+                        type: string
+                        example: ''
+                  Message: {}
+                  MessageID: {}
+                  Exception: {}
+                  ErrorID: {}
+                  ErrorCode: {}
+                  InnerExceptions: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: POST https://tenant.my.centrify.com/SaasManage/GetRoleApps?role=sysadmin
+        samples-languages:
+        - http
+      tags:
+      - GetRoleApps
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/saasmanagegetroleapps.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

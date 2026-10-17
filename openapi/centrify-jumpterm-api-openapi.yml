@@ -1,0 +1,107 @@
+openapi: 3.2.0
+info:
+  title: server-session Jumpterm API
+  version: '23.1'
+servers:
+- url: https://example.com/serversession
+security:
+- {}
+tags:
+- name: Jumpterm
+paths:
+  /jumpterm:
+    get:
+      summary: /serversession/jumpterm
+      description: Generates HTML information to display an SSH/RDP session for a remote system. After constructing the full endpoint URL, you can either redirect your browser to the URL or open a new browser window setting the URL as the source.
+      operationId: serversessionjumpterm
+      parameters:
+      - name: mode
+        in: query
+        description: Specifies the type of remote session. Set to 1 to open a session using credentials for an account specified through the `pvacct` parameter. Set to 3 to open a session for manual login, specifying the `host` parameter instead of `pvacct`. Set to 4 to open a session in which you can watch another session. Set to 5 to open a session using AD login.
+        schema:
+          type: integer
+          format: int32
+      - name: pvacct
+        in: query
+        description: The ID of the login account to use on the remote system.
+        schema:
+          type: string
+      - name: hostname
+        in: query
+        description: The name of the remote system.
+        schema:
+          type: string
+      - name: height
+        in: query
+        description: The height of the window, in pixels.
+        schema:
+          type: integer
+          format: int32
+      - name: width
+        in: query
+        description: The width of the window, in pixels.
+        schema:
+          type: integer
+          format: int32
+      - name: debug
+        in: query
+        schema:
+          type: boolean
+      - name: token
+        in: query
+        schema:
+          type: string
+      - name: host
+        in: query
+        description: The unique ID of the remote system to log in to.
+        schema:
+          type: string
+      - name: colrows
+        in: query
+        schema:
+          type: string
+      - name: Title
+        in: query
+        description: The title that is to appear at the top of the browser session window that is displayed.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "HTTP/1.1 200 OK\nCache-Control: private\nContent-Type: text/html; charset=utf-8\nVary: Accept-Encoding\nX-CFY-TX-PN: Pod9\nX-CFY-TX-ID: 5da94240bbc84fcf8056175b532f634c\nX-CFY-TX-DT: Mi8xMi8yMDE4IDU6MTk6MjUgUE0_\nX-Frame-Options: SAMEORIGIN\nP3P: CP=\"NON COR ADMa CURa DEVa OUR IND COM UNI NAV INT PRE LOC ONL PHY STA ONL\"\nX-CFY-TX-TM: 157\nSet-Cookie: antixss=k7fkHgxR28e_LmPvaWG4Fg__-HWPt3M1f5gWW3BT7bxuDag__-dImPD1A3pR_0xIXnkZ21Tw__-WrUho88cTg_DtvESULbtgA__-LS971c84V3ycyD4qIcxHeQ__-bPcBoJBIzWH3zMb54gPmBA__-n6WNZMK9lcgEq6K_R_Z22w__-ilI45jB0S4IdTwakrYuf7w__; path=/; secure\nSet-Cookie: sessdata=L3dVSF...; path=/; secure; HttpOnly\nSet-Cookie: podloc=eyJkZXZkb2cuY...; domain=centrify.com; expires=Fri, 31-Dec-9999 23:59:59 GMT; path=/; secure\nSet-Cookie: userdata=eyJEYXR...; expires=Wed, 14-Mar-2018 17:19:25 GMT; path=/; secure\nX-Robots-Tag: noindex, nofollow\nDate: Mon, 12 Feb 2018 17:19:25 GMT\nContent-Length: 4346\n\n\n<!DOCTYPE html>\n<html>\n    <head>\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=8,9,10\" />\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />\n        <link rel=\"shortcut icon\"/>\n\n            <link rel=\"stylesheet\" type=\"text/css\" href=\"/vfslow/lib/ui/../uibuild/compiled/centrify/production/resources/centrify-all_01.css?_ver=1518281911\"/>\n            <link rel=\"stylesheet\" type=\"text/css\" href=\"/vfslow/lib/ui/../uibuild/compiled/centrify/production/resources/centrify-all_02.css?_ver=1518281911\"/>\n            <link rel=\"stylesheet\" type=\"text/css\" href=\"/vfslow/lib/ui/../uibuild/compiled/centrify/production/resources/centrify-all_03.css?_ver=1518281911\"/>\n\n        <style>\n            .x-viewport body{\n                overflow: hidden !important;\n                background-color: #000;\n            }\n        </style>\n\n        <script src=\"/vfslow/lib/ui/jsutil/resources/locale/en.js?_ver=1518281911\"></script>\n            <script src=\"/vfslow/lib/ui/jsutil/resources/locale/en.js?_ver=1518281911\"></script>\n        <link href='/vfslow/lib/ui/../uibuild/compiled/jsutil/production/resources/fonts/Roboto.css?_ver=1518281911' rel='stylesheet' type='text/css'>\n        <link href='/vfslow/lib/ui/../uibuild/compiled/centrify/production/resources/fonts/Icon-Set.css?_ver=1518281911' rel='stylesheet' type='text/css'>\n        <script type=\"text/javascript\">\n            var ServerConfig = {\n                ResourceBase: \"/vfslow/lib/ui/\",\n                ExtLocation: \"/vfslow/lib/ui//ext/src\",\n                DisableCacheSetting: false,\n                LoadBase: \"/vfslow/lib/ui/\",\n                Version: \"1518281911\",\n                AppBase:\"1518281911\",\n                SkinDef:  {\"themeColor\":\"#363a40\",\"theme\":\"centrify\",\"adminRegisTxtCSSCls\":\"\",\"cssDirectory\":\"compiled/centrify/production/resources\",\"emailImage\":\"/logos/logo-centrify-1.png\",\"footer\":{\"termsUrl\":\"https://www.centrify.com/eula/\",\"termsText\":\"footer_term\",\"privacyText\":\"footer_policy\",\"copyrightText\":\"&copy; 2004-{0} Centrify Corporation.\",\"privacyUrl\":\"https://www.centrify.com/privacypolicy.asp\"},\"navigationColor\":\"#979797\",\"loginCssDirectory\":\"compiled/jsutil/production/resources\",\"backgroundColor\":\"#FFFFFF\",\"newHelpRoot\":\"{helpRootServer}/\",\"pageIcon\":\"/logos/centrify-16-1.png\",\"proxy\":{\"download64Bit\":\"Cloud-Management-Suite-win64.zip\"},\"helpDirectoryBrandName\":\"\",\"mfa\":{\"waitGif\":\"/ellipses_anim.gif\",\"stepsFolder\":\"/steps/\"},\"loginImage\":\"/logos/centrify-breach-stops-here.png\",\"macEnrollDialogImage\":\"/enroll/centrify-macs.png\",\"brand\":\"centrify\",\"helpRoot\":\"{helpRootServer}/{1}/centrify/{2}/index.html\",\"name\":\"Centrify\",\"portalImage\":\"/logos/centrify-main-logo.png\",\"aboutWindowIcon\":\"/logos/centrify-main-logo.png\"},\n                droppedPacketThreshold: 25,\n                droppedPacketThresholdTime: 120,\n                heartBeatTime: 5,\n                useFastForwardOnDrop: true,\n                continueOnDropped: true,\n                sendFailureCountLimit: 200,\n                challengeSessionId: \"LHUUVpHKsU-8vxxJzcVGNUiuhdNmw4DIKEWfGmW475w1\",\n                MissingBuildFilesFail: false,\n                signalRTransport: \"auto\",\n                ManDef: {}\n            };\n\n            window.Jsutil = window.Jsutil || {};\n            //Do not show login automatically when we utilize jsutil.\n            Jsutil.bypassLogin = true;\n        </script>\n        <script src=\"/vfslow/lib/ui/jsutil/external/term.js?_ver=1518281911\"></script>\n        <script src=\"/vfslow/lib/ui/../uibuild/compiled/jsutil/production/app.js?_ver=1518281911\"></script>\n        <style type=\"text/css\">\n            html {\n                height: 100%;\n            }\n\n            body {\n                height:100%;\n                font-size: 12px;\n                background: black;\n            }\n\n            .no-script-alert {\n                background: #fff;\n                text-align: left;\n                padding: 10px 20px 10px 45px;\n                border-top: 2px solid #ffd324;\n                border-bottom: 2px solid #ffd324;\n            }\n\n        </style>\n    <script type=\"text/javascript\" src=\"/vfslow/lib/ui/terminals/ssh.js?_ver=1518281911\"></script>\n</head>\n<body>\n</body>\n</html>\n\n"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: http
+          code: "\nExample 1: Using Mode 1 to open a session on the system specified by the host parameter and to log in using the credentials of the account specified via pvacct:\nGET /serversession/jumpterm?mode=1&pvacct=dddddddd-1d1d-473b-9ca4-cbc2d53b6061&hostname=csssup-ubuntu&height=480&width=640&debug=false&token=&host=abcdabcd-7461-4be6-982f-afb256770c3e&colrows=&title=Login%20session%20csssup-ubuntu \n\n\nExample 2: Using Mode 3 to open a session and log in manually directly on the system. In this example, the host parameter specifies the system to log in to, but pvacct is not used since login will take place directly on the system:\nGET /serversession/jumpterm?mode=3&host=1c888888-b31c-4c20-89f2-53cea844a930&hostname=204&height=480&width=640&title=Login%20session%20204\n\n\nExample 3: Using Mode 4 to open a session in which you can watch/view another session in realtime. Here the host value is composed of the host ID and the connection ID separated by a pipe character:\nGET /serversession/jumpterm?mode=4&sess=d9754444-822e-4c85-853d-c99046ff0d8e&height=36&width=104&host=1c77357a-b31c-4c20-89f2-53cea844a930&prxid=248c2b5f-398e-47e8-99e0-0206b568a239|3352d893-db9e-4b06-91d9-3e8b409e91a3&title=Watch%20session%20204\n\n\nExample 4: Using Mode 5 to open a session using an AD login:\nGET /serversession/jumpterm?mode=5&host=d7044444-ca2f-48e0-9cb8-c0446a6e2a1f&hostname=206&height=768&width=1024&title=Login%20session%20206"
+        samples-languages:
+        - http
+      tags:
+      - Jumpterm
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/serversessionjumpterm.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

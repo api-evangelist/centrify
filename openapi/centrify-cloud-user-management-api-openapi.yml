@@ -1,0 +1,4173 @@
+openapi: 3.2.0
+info:
+  termsOfService: http://developer.centrify.com/license
+  title: Centrify Identity Platform Cloud User Management API
+  version: 23.1.261-447315
+  description: This site provides basic reference material for the Centrify Identity Platform API.
+tags:
+- description: Manage users for the Centrify Cloud Directory Service
+  name: Cloud User Management
+paths:
+  /Acl/GetEffectiveRowRights:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Rows:
+                  items:
+                    properties:
+                      RowKey:
+                        type: string
+                        description: The unique identifer.
+                      ReduceSysadmin:
+                        type: boolean
+                        description: Prevent generic cloud admin accounts from having access (default=false).
+                      Table:
+                        type: string
+                        description: Database table name.
+                    type: object
+                    description: A row of user rights.
+                  type: array
+                  description: Row rights of the user to look for.
+              required:
+              - Rows
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Only returns value if current user has at least read-rights.
+      summary: Gets a list of row rights
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetEffectiveRowRights'
+      operationId: postAclGetEffectiveRowRights
+      x-operation-id-source: derived
+  /CDirectoryService/ChangeUser:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                HomeNumber:
+                  type: string
+                  description: User home number.
+                AccountExp:
+                  format: date-time
+                  type: string
+                  description: Account expires date/time.  You must be a system administrator or have user management permissions to change this field.
+                ReportsTo:
+                  type: string
+                  description: User reports to this user UUID.  You must be a system administrator or have user management permissions to change this field.
+                DisplayName:
+                  type: string
+                  description: User display name.
+                PasswordNeverExpire:
+                  type: boolean
+                  description: Does user's password expire?  You must be a system administrator or have user management permissions to change this field.
+                ID:
+                  type: string
+                  description: UUID of the cloud user to change (default=current user).
+                OfficeNumber:
+                  type: string
+                  description: User office number.
+                MobileNumber:
+                  type: string
+                  description: User mobile number.
+                InEverybodyRole:
+                  type: boolean
+                  description: Is user in the Everybody role?  You must be a system administrator or have user management permissions to change this field.
+                ServiceUser:
+                  type: boolean
+                  description: User is a service user
+                PreferredCulture:
+                  type: string
+                  description: User preferred culture.
+                Mail:
+                  type: string
+                  description: User email.
+                Description:
+                  type: string
+                  description: User description.
+                Name:
+                  type: string
+                  description: User name.  You must be a system administrator or have user management permissions to change this field.
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'User must be a cloud user.
+
+        Specified user must be you, you must be a system administrator or have user management permissions.
+
+        Specifying ''ServiceUser'' will override the ''InEveryBodyRole'' property if both are provided.'
+      summary: Change cloud user properties
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceChangeUser'
+      operationId: postCDirectoryServiceChangeUser
+      x-operation-id-source: derived
+  /CDirectoryService/CreateUser:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Password:
+                  type: string
+                  description: URL encoded password of the user (default=randomly generated strong password)
+                CmaRedirectedUserUuid:
+                  type: string
+                  description: Centrify mobile authenticator redirected user uuid
+                HomeNumber:
+                  type: string
+                  description: User's home number (default=null)
+                ReportsTo:
+                  type: string
+                  description: Uuid of user this user reports to (default=null)
+                PasswordNeverExpire:
+                  type: boolean
+                  description: User's password never expires (default=false)
+                DisplayName:
+                  type: string
+                  description: Display name of user (default=null)
+                SendSmsInvite:
+                  type: boolean
+                  description: Send user an sms invite to enroll their mobile device in the protal (default=false)
+                OfficeNumber:
+                  type: string
+                  description: User's office number (default=null)
+                ForcePasswordChangeNext:
+                  type: boolean
+                  description: Force password change at first login (default=true)
+                InSysAdminRole:
+                  type: boolean
+                  description: Place user in System Adminstrator role (default=false)
+                MobileNumber:
+                  type: string
+                  description: User's mobile number (default=null); note this field is required if SendSmsInvite is true
+                InEverybodyRole:
+                  type: boolean
+                  description: Place user in Everybody role (default=true)
+                ServiceUser:
+                  type: boolean
+                  description: User is a service user (default=false)
+                Mail:
+                  type: string
+                  description: Email of user (default=null); note this field is required if 'SendEmailInvite' is true.
+                SendEmailInvite:
+                  type: boolean
+                  description: Send user an email invite to the portal (default=true)
+                Description:
+                  type: string
+                  description: Description of user (default=null)
+                Name:
+                  type: string
+                  description: Name of user
+              required:
+              - Name
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions.
+
+        Specifying ''ServiceUser'' will override the ''InEveryBodyRole'' property if both are provided.'
+      summary: Create a new user in the Cloud Directory Service
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceCreateUser'
+      operationId: postCDirectoryServiceCreateUser
+      x-operation-id-source: derived
+  /CDirectoryService/CreateUserQuick:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                HomeNumber:
+                  type: string
+                  description: User home phone number (default=null)
+                AccountExp:
+                  format: date-time
+                  type: string
+                  description: Date/time account expires (default=never)
+                ReportsTo:
+                  type: string
+                  description: User reports to user UUID (default=null)
+                PasswordNeverExpire:
+                  type: string
+                  description: Does the user's password never expire (must be 'True' or 'False)? (default=False)
+                DisplayName:
+                  type: string
+                  description: User display name (default=null)
+                OfficeNumber:
+                  type: string
+                  description: User office phone number (default=null)
+                MobileNumber:
+                  type: string
+                  description: User mobile phone number (default=null)
+                InEverybodyRole:
+                  type: string
+                  description: Is user in the Everybody role (must be 'True' or 'False)? (default=True)
+                Mail:
+                  type: string
+                  description: Email of user
+                Description:
+                  type: string
+                  description: User description (default=null)
+                Name:
+                  type: string
+                  description: Name of user
+              required:
+              - Mail
+              - Name
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: You must be a system administrator or have user management permissions.
+      summary: Create a new user in the Cloud Directory Service using minimal user information
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceCreateUserQuick'
+      operationId: postCDirectoryServiceCreateUserQuick
+      x-operation-id-source: derived
+  /CDirectoryService/CreateUsers:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Rows:
+                  items:
+                    properties:
+                      Password:
+                        type: string
+                        description: URL encoded password of the user (default=randomly generated strong password).
+                      CmaRedirectedUserUuid:
+                        type: string
+                        description: Centrify mobile authenticator redirected user uuid.
+                      HomeNumber:
+                        type: string
+                        description: User's home number (default=null).
+                      ReportsTo:
+                        type: string
+                        description: Uuid of user this user reports to (default=null).
+                      PasswordNeverExpire:
+                        type: boolean
+                        description: User's password never expires (default=false).
+                      DisplayName:
+                        type: string
+                        description: Display name of user (default=null).
+                      SendSmsInvite:
+                        type: boolean
+                        description: Send user an sms invite to enroll their mobile device in the protal (default=false).
+                      OfficeNumber:
+                        type: string
+                        description: User's office number (default=null).
+                      ForcePasswordChangeNext:
+                        type: boolean
+                        description: Force password change at first login (default=true).
+                      InSysAdminRole:
+                        type: boolean
+                        description: Place user in System Adminstrator role (default=false).
+                      MobileNumber:
+                        type: string
+                        description: User's mobile number (default=null); note this field is required if SendSmsInvite is true.
+                      InEverybodyRole:
+                        type: boolean
+                        description: Place user in Everybody role (default=true).
+                      ServiceUser:
+                        type: boolean
+                        description: User is a service user (default=false).
+                      Mail:
+                        type: string
+                        description: Email of user (default=null); note this field is required if 'SendEmailInvite' is true.
+                      SendEmailInvite:
+                        type: boolean
+                        description: Send user an email invite to the portal (default=true).
+                      Description:
+                        type: string
+                        description: Description of user (default=null).
+                      Name:
+                        type: string
+                        description: Name of user.
+                    type: object
+                    description: Information describing the user to be created.
+                  type: array
+                  description: List of users to create.
+              required:
+              - Rows
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions.
+
+        Specifying ''ServiceUser'' will override the ''InEveryBodyRole'' property if both are provided.'
+      summary: Create new users in the Cloud Directory Service
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceCreateUsers'
+      operationId: postCDirectoryServiceCreateUsers
+      x-operation-id-source: derived
+  /CDirectoryService/DeleteUser:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: User UUID or Name to delete
+        name: ID
+        schema:
+          type: string
+      x-centrify-anon: false
+      deprecated: true
+      description: '(Deprecated - use UserMgmt/RemoveUser instead.)
+
+        You must be a system administrator or have user management permissions. User must exist, and cannot be the current user.
+
+        Cloud users will be deleted; users from other directory services will be removed from the cloud.'
+      summary: Delete a cloud user. (DEPRECATED)
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceDeleteUser'
+      operationId: postCDirectoryServiceDeleteUser
+      x-operation-id-source: derived
+  /CDirectoryService/ExemptUserFromMfa:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: User UUID to except from MFA
+        name: ID
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: Amount of time to exempt the user from MFA (default=10 minutes)
+        name: timespan
+        schema:
+          type: integer
+      x-centrify-anon: false
+      description: You must be a system administrator or have user management permissions. User is exempt from MFA login for a specified amount of time.
+      summary: Exempt a specified user from MFA login for a period of time
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceExemptUserFromMfa'
+      operationId: postCDirectoryServiceExemptUserFromMfa
+      x-operation-id-source: derived
+  /CDirectoryService/GetBulkImportWithExtAtt:
+    post:
+      tags:
+      - Cloud User Management
+      x-centrify-anon: false
+      summary: Bulk imports users from csv file
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceGetBulkImportWithExtAtt'
+      operationId: postCDirectoryServiceGetBulkImportWithExtAtt
+      x-operation-id-source: derived
+  /CDirectoryService/GetUser:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  type: string
+                  description: UUID of the cloud user to fetch (default=current user).
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Specified user must be you, you must be a system administrator, or have user management permissions.
+      summary: Get details for a specified cloud user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceGetUser'
+      operationId: postCDirectoryServiceGetUser
+      x-operation-id-source: derived
+  /CDirectoryService/GetUserAttributes:
+    post:
+      tags:
+      - Cloud User Management
+      x-centrify-anon: false
+      summary: Get details for the current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceGetUserAttributes'
+      operationId: postCDirectoryServiceGetUserAttributes
+      x-operation-id-source: derived
+  /CDirectoryService/GetUserByName:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: User name of the cloud user to fetch (default=current user).
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Specified user must be you, you must be a system administrator, or have user management permissions.
+      summary: Get details for a specified user by name
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceGetUserByName'
+      operationId: postCDirectoryServiceGetUserByName
+      x-operation-id-source: derived
+  /CDirectoryService/GetUsers:
+    post:
+      tags:
+      - Cloud User Management
+      x-centrify-anon: false
+      summary: Get all cloud users
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceGetUsers'
+      operationId: postCDirectoryServiceGetUsers
+      x-operation-id-source: derived
+  /CDirectoryService/RefreshToken:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: User UUID to refresh
+        name: ID
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: UUID of the user's directory service (default=null)
+        name: directoryServiceUuid
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions. User cached identity in the cloud is reloaded from their directory service.
+
+        Useful when user details have changed in their remote directory service, but have not yet been pushed to the cloud.'
+      summary: Refresh a user's cached identity
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceRefreshToken'
+      operationId: postCDirectoryServiceRefreshToken
+      x-operation-id-source: derived
+  /CDirectoryService/RemoveAuthSource:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                SendInvites:
+                  type: boolean
+                  description: Send email invitation to updated users (default=false)
+                Users:
+                  items:
+                    type: string
+                  type: array
+                  description: List of user UUIDs/names to to remove Auth Source from
+              required:
+              - Users
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions.
+
+        May perform the updates to users asyncronously if list of users is large (will return before updates are complete).'
+      summary: Removes AuthSource for list of users
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceRemoveAuthSource'
+      operationId: postCDirectoryServiceRemoveAuthSource
+      x-operation-id-source: derived
+  /CDirectoryService/RemoveFederationAuthSource:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: Federation UUID to remove from Auth Source for all users.
+        name: federationUuid
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: Send email invitation to updated users (default=false)
+        name: sendInvites
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions.
+
+        Will perform the updates to users asyncronously (will return before updates are complete).'
+      summary: Removes AuthSource from all users for a given Federation
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceRemoveFederationAuthSource'
+      operationId: postCDirectoryServiceRemoveFederationAuthSource
+      x-operation-id-source: derived
+  /CDirectoryService/SetUserPicture:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: User UUID
+        name: ID
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                File:
+                  type: object
+                  description: File containing the users picture, in the form-data.  (Not as a parameter.)
+              required:
+              - File
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'Specified user must be you, you must be a system administrator or have user management permissions.
+
+        The file is attached to the call so need to figure out how to document that without bodyargs'
+      summary: Set a cloud user's picture file
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceSetUserPicture'
+      operationId: postCDirectoryServiceSetUserPicture
+      x-operation-id-source: derived
+  /CDirectoryService/SetUserState:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  type: string
+                  description: UUID of the cloud user to change.
+                state:
+                  type: string
+                  description: New state of the user.
+              required:
+              - ID
+              - state
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions. Specified cloud user may not be the default system adminstrator.
+
+        Specified new state may either be ''None'' or include one or more of the following values (comma separated): Locked, Disabled, or Expired.'
+      summary: Set user State (locked, disabled, expired) for a specified cloud user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceSetUserState'
+      operationId: postCDirectoryServiceSetUserState
+      x-operation-id-source: derived
+  /Security/AnswerOOBChallenge:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: The answer to verify against.
+        name: answer
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      description: 'Invoked by 3rd party services for answering out of band challenges.
+
+        (text messages or email, not PhoneFactor)
+
+        Supports the click on link scenario.'
+      summary: 'MultiFactor Auth support: answer out of band challenge'
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityAnswerOOBChallenge'
+      operationId: postSecurityAnswerOOBChallenge
+      x-operation-id-source: derived
+  /Security/ChallengeUser:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: What authentication profile to use.
+        name: profileName
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'ie. a challenge based on the passed authentication profile.
+
+        Pattern: Allow AuthChallengeHelper to check challenge and throw an AuthChallengeException if challenge is needed
+
+        JsonRest.StandardJsonResult will catch the exception and transform it to a challenge response.'
+      summary: Determines if user needs step-up authentication
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityChallengeUser'
+      operationId: postSecurityChallengeUser
+      x-operation-id-source: derived
+  /Security/GetOneTimePassword:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: What's the password being used for.
+        name: use
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Fetches a one-time passcode for the specified use
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityGetOneTimePassword'
+      operationId: postSecurityGetOneTimePassword
+      x-operation-id-source: derived
+  /Security/Login:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: The customer processing the login.
+        name: systemID
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: The user trying to login.
+        name: user
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: The user password.
+        name: password
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: The persist state given to the cookie.
+        name: persist
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      deprecated: true
+      description: Please use StartAuthentication/AdvanceAuthentication.
+      summary: Deprecated -- User login
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityLogin'
+      operationId: postSecurityLogin
+      x-operation-id-source: derived
+  /Security/Logout:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: Where to go next.
+        name: redirectUrl
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: Allow windows authentication.
+        name: allowIWA
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      description: 'The user will be redirected to redirectUrl if it is present.
+
+        RedirectUrl can be external or relative.'
+      summary: Logout current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityLogout'
+      operationId: postSecurityLogout
+      x-operation-id-source: derived
+  /Security/RefreshToken:
+    post:
+      tags:
+      - Cloud User Management
+      x-centrify-anon: false
+      description: User cached identity in the cloud is reloaded from their directory service. Useful when user details have changed in their remote directory service, but have not yet been pushed to the cloud.
+      summary: Refresh current user's cached identity
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityRefreshToken'
+      operationId: postSecurityRefreshToken
+      x-operation-id-source: derived
+  /Security/StartSocialAuthentication:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                PostExtIdpAuthCallbackUrl:
+                  type: string
+                  description: Where the Idp should send the user after authentication.
+                IdpName:
+                  type: string
+                  description: The identity provider name (Facebook, Google, Twitter, LinkedIn, Microsoft).
+              required:
+              - PostExtIdpAuthCallbackUrl
+              - IdpName
+              type: object
+        required: true
+      x-centrify-anon: true
+      summary: Start social authentication
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityStartSocialAuthentication'
+      operationId: postSecurityStartSocialAuthentication
+      x-operation-id-source: derived
+  /Security/TaskCheck:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: The task.
+        name: Task
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Checks to see if user has execute rights on the task
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTaskCheck'
+      operationId: postSecurityTaskCheck
+      x-operation-id-source: derived
+  /Security/TaskChecks:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tasks:
+                  items:
+                    type: string
+                  type: array
+                  description: A list of tasks.
+              required:
+              - tasks
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Checks to see if user has execute rights on a list of tasks
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTaskChecks'
+      operationId: postSecurityTaskChecks
+      x-operation-id-source: derived
+  /Security/TwilioPhoneChallengeCompleted:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        $ref: '#/components/requestBodies/Payload14'
+      x-centrify-anon: true
+      description: Invoked by 3rd party services answering twilio messages.
+      summary: Looks for the multi auth customer response
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTwilioPhoneChallengeCompleted'
+      operationId: postSecurityTwilioPhoneChallengeCompleted
+      x-operation-id-source: derived
+  /Security/TwilioPhoneChallengeNotAnswered:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        $ref: '#/components/requestBodies/Payload14'
+      x-centrify-anon: true
+      description: Invoked by 3rd party services answering twilio messages.
+      summary: Looks for the multi auth customer response
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTwilioPhoneChallengeNotAnswered'
+      operationId: postSecurityTwilioPhoneChallengeNotAnswered
+      x-operation-id-source: derived
+  /Security/WhoAmI:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: Not used.
+        name: challenge
+        schema:
+          type: string
+      x-centrify-anon: true
+      summary: Confirms user authentication state
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityWhoAmI'
+      operationId: postSecurityWhoAmI
+      x-operation-id-source: derived
+  /UPRest/GetResultantAppsForUser:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: Target user uuid.
+        name: userUuid
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: Your must have user management rights to invoke this API. This call caches the list of applications and roles. Personal apps are not included in the result.
+      summary: Return a user's portal applications and how the user has access to each…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetResultantAppsForUser'
+      operationId: postUPRestGetResultantAppsForUser
+      x-operation-id-source: derived
+  /UnixProfile/GetGroupProfile:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  type: string
+                  description: Role UUID or name to get Unix Profile for
+              required:
+              - ID
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Get the unix profile info for cloud role/group
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnixProfileGetGroupProfile'
+      operationId: postUnixProfileGetGroupProfile
+      x-operation-id-source: derived
+  /UnixProfile/GetUserProfile:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  type: string
+                  description: User UUID or name to get Unix Profile for
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Get the unix profile info for cloud user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnixProfileGetUserProfile'
+      operationId: postUnixProfileGetUserProfile
+      x-operation-id-source: derived
+  /UnixProfile/SetGroupProfile:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                UnixProfile:
+                  properties:
+                    UnixMapped:
+                      type: boolean
+                    ScopeProfiles:
+                      items:
+                        properties:
+                          Scope:
+                            type: string
+                          UnixName:
+                            type: string
+                          Gid:
+                            type: string
+                        type: object
+                        description: object of scope based group profile
+                      type: array
+                      description: array of objects for scope based group profiles
+                    UnixName:
+                      type: string
+                    GroupVisibilitySet:
+                      type: boolean
+                    Gid:
+                      type: string
+                  type: object
+                  description: Unix profile data
+                ID:
+                  type: string
+                  description: Role UUID or name to set Unix Profile for
+              required:
+              - UnixProfile
+              - ID
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Set unix profile for cloud group/role
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnixProfileSetGroupProfile'
+      operationId: postUnixProfileSetGroupProfile
+      x-operation-id-source: derived
+  /UnixProfile/SetUserProfile:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                UnixProfile:
+                  properties:
+                    Gecos:
+                      type: string
+                    Home:
+                      type: string
+                    UnixName:
+                      type: string
+                    Shell:
+                      type: string
+                    Uid:
+                      type: string
+                    Gid:
+                      type: string
+                    UPN:
+                      type: string
+                  type: object
+                  description: Unix profile data
+                ID:
+                  type: string
+                  description: User UUID or name to set Unix Profile for
+              required:
+              - UnixProfile
+              - ID
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Set unix profile for cloud user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UnixProfileSetUserProfile'
+      operationId: postUnixProfileSetUserProfile
+      x-operation-id-source: derived
+  /UserMgmt/AnalyzeAdaptiveMfaRisk:
+    post:
+      tags:
+      - Cloud User Management
+      x-centrify-anon: false
+      description: You must be logged in and the tenant must have the Adaptive MFA entitlement enabled.
+      summary: Runs a risk check for the current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtAnalyzeAdaptiveMfaRisk'
+      operationId: postUserMgmtAnalyzeAdaptiveMfaRisk
+      x-operation-id-source: derived
+  /UserMgmt/CanEditUserAttributes:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: false
+        in: query
+        description: User UUID or name to check (default=current user)
+        name: ID
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: Directory service UUID of the user (default=null)
+        name: directoryServiceUuid
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Check to see if a user can edit attributes
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtCanEditUserAttributes'
+      operationId: postUserMgmtCanEditUserAttributes
+      x-operation-id-source: derived
+  /UserMgmt/ChangeUserAttributes:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                CmaRedirectedUserUuid:
+                  type: string
+                  description: Reidrected user uuid
+                ID:
+                  type: string
+                  description: User UUID or name to set redirection for
+              required:
+              - ID
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Update user attributes
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtChangeUserAttributes'
+      operationId: postUserMgmtChangeUserAttributes
+      x-operation-id-source: derived
+  /UserMgmt/ChangeUserPassword:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                oldPassword:
+                  type: string
+                  description: Current password
+                newPassword:
+                  type: string
+                  description: New password
+              required:
+              - oldPassword
+              - newPassword
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Change the password for the current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtChangeUserPassword'
+      operationId: postUserMgmtChangeUserPassword
+      x-operation-id-source: derived
+  /UserMgmt/CheckUserProfileChallenge:
+    post:
+      tags:
+      - Cloud User Management
+      x-centrify-anon: false
+      description: 'Responds with challenge exception if a challenge is necessary, or success: true if it is not.'
+      summary: Check if a user profile challenge is required for the current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtCheckUserProfileChallenge'
+      operationId: postUserMgmtCheckUserProfileChallenge
+      x-operation-id-source: derived
+  /UserMgmt/GetCachedEntity:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: Unique identifier or name of entity.
+        name: uuidOrName
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Get the cached entity
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetCachedEntity'
+      operationId: postUserMgmtGetCachedEntity
+      x-operation-id-source: derived
+  /UserMgmt/GetCachedUser:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: Unique identifier or name of user.
+        name: uuidOrName
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Get the cached user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetCachedUser'
+      operationId: postUserMgmtGetCachedUser
+      x-operation-id-source: derived
+  /UserMgmt/GetSecurityQuestions:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: User id
+        name: id
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: are admin questions to be added
+        name: addAdminQuestions
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                addAdminQuestions:
+                  default: false
+                  type: boolean
+                  description: Add list of available administrator questions in response
+                Id:
+                  type: string
+                  description: User UUID or name to get security questions for
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Specified user must be you or you must have user management permissions.
+      summary: Get security questions for the current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetSecurityQuestions'
+      operationId: postUserMgmtGetSecurityQuestions
+      x-operation-id-source: derived
+  /UserMgmt/GetUserAttributes:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: false
+        in: query
+        description: User UUID to fetch attributes for (default=current user)
+        name: ID
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: Directory service UUID of the user (default=null)
+        name: directoryServiceUuid
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: Attributes will vary depending on the type of the directory service the user belongs to.
+      summary: Fetch attributes for a specified user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetUserAttributes'
+      operationId: postUserMgmtGetUserAttributes
+      x-operation-id-source: derived
+  /UserMgmt/GetUserCertificateInfo:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: The name or uuid of the user to fetch certificate info for.
+        name: user
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'Returns Thumbprint and certificate type information for all certificates issued to the user.
+
+        Specified user must be you or you must be a system administrator or have user management permissions.'
+      summary: Get certificate info for a given user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetUserCertificateInfo'
+      operationId: postUserMgmtGetUserCertificateInfo
+      x-operation-id-source: derived
+  /UserMgmt/GetUserHierarchy:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: false
+        in: query
+        description: User UUID to fetch hierarchy for (default=current user)
+        name: ID
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: Attributes will vary depending on the type of the directory service the user belongs to.
+      summary: Fetch the reporting hierarchy for a specified user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetUserHierarchy'
+      operationId: postUserMgmtGetUserHierarchy
+      x-operation-id-source: derived
+  /UserMgmt/GetUserInfo:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: false
+        in: query
+        description: User UUID to fetch attributes for (default=current user)
+        name: ID
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: Specified user must be you or you must be a system administrator or have user management permissions. Note that this call is somewhat costly and its use should be minimized (cache the results as needed).
+      summary: Get additional info for a specified user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetUserInfo'
+      operationId: postUserMgmtGetUserInfo
+      x-operation-id-source: derived
+  /UserMgmt/GetUserPicture:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: User UUID or name to fetch picture for
+        name: ID
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: UUID of the user's directory service (default=null)
+        name: directoryServiceUuid
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: Specified user must be you or you must be a system administrator or have user management permissions.
+      summary: Fetch a cloud user's picture
+      responses:
+        '200':
+          description: API-Result
+          content:
+            file:
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetUserPicture'
+      operationId: postUserMgmtGetUserPicture
+      x-operation-id-source: derived
+  /UserMgmt/GetUserPreferences:
+    post:
+      tags:
+      - Cloud User Management
+      x-centrify-anon: false
+      summary: Get the user preferences
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetUserPreferences'
+      operationId: postUserMgmtGetUserPreferences
+      x-operation-id-source: derived
+  /UserMgmt/GetUsersRolesAndAdministrativeRights:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: UUID of User
+        name: id
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: The list consists of all user roles and associated administrative rights associated with a role.
+      summary: Gets user roles and administrative rights
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtGetUsersRolesAndAdministrativeRights'
+      operationId: postUserMgmtGetUsersRolesAndAdministrativeRights
+      x-operation-id-source: derived
+  /UserMgmt/InviteUsers:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                SmsInvite:
+                  type: boolean
+                  description: Send SMS invitations to invited entities if possible (default=false)
+                Entities:
+                  items:
+                    type: object
+                  type: array
+                  description: Users or groups to invite; each entry is a dictionary including 'Type' (User, Group, Role), 'Guid' (entity UUID), and 'Name' (entity name, only applicable to User entities)
+                Role:
+                  type: string
+                  description: Add each invited user to this role name if specified (default=null)
+                GroupInvite:
+                  type: boolean
+                  description: For invited groups, send a single email invitation to the group rather than to each user within the group (default=true)
+                EmailInvite:
+                  type: boolean
+                  description: Send email invitations to invited entities if possible (default=true)
+              required:
+              - Entities
+              - EmailInvite
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: You must be a system administrator or have user management permissions.
+      summary: Invite one or more users to the cloud portal
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtInviteUsers'
+      operationId: postUserMgmtInviteUsers
+      x-operation-id-source: derived
+  /UserMgmt/RemoveUser:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: The name or UUID of the user to remove.
+        name: ID
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions. Will delete cloud users. Users for other directory services are only removed from the cloud.
+
+        This API will fail if the id specified is the current user.'
+      summary: Remove a user from the cloud
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtRemoveUser'
+      operationId: postUserMgmtRemoveUser
+      x-operation-id-source: derived
+  /UserMgmt/RemoveUserCertificate:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: The name or uuid of the user to remove certificate(s) for.
+        name: user
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: Thumbprint of the certificate to remove.
+        name: thumbprint
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: Type of certificates to remove.
+        name: certType
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'Specified user must be you or you must be a system administrator or have user management permissions.
+
+        ''certType'' will be ignored if ''thumbprint'' is specified.
+
+        If ''thumbprint'' is null, all certs of ''cerType'' for the user are removed.
+
+        If both ''thumbprint'' and ''certType'' are null, all certificates for the user are removed.'
+      summary: Remove one or more certificates for a given user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtRemoveUserCertificate'
+      operationId: postUserMgmtRemoveUserCertificate
+      x-operation-id-source: derived
+  /UserMgmt/RemoveUsers:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Users:
+                  items:
+                    type: string
+                  type: array
+                  description: List of user UUIDs to send invitations to
+              required:
+              - Users
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions. Will delete cloud users. Users for other directory services are only removed from the cloud.
+
+        This API will fail if any of the ids specified are the current user.'
+      summary: Remove one or more users
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtRemoveUsers'
+      operationId: postUserMgmtRemoveUsers
+      x-operation-id-source: derived
+  /UserMgmt/ResetSecurityQuestions:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Id:
+                  type: string
+                  description: User UUID or name to reset security questions for
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Specified user must be you or you must have user management permissions.
+      summary: Resets (clears) security questions for a user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtResetSecurityQuestions'
+      operationId: postUserMgmtResetSecurityQuestions
+      x-operation-id-source: derived
+  /UserMgmt/ResetUserPassword:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  type: string
+                  description: User UUID or name to set password for
+                newPassword:
+                  type: string
+                  description: New password
+              required:
+              - ID
+              - newPassword
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Specified user must be you or you must be a system administrator or have user management permissions.
+      summary: Reset the password for a specified user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtResetUserPassword'
+      operationId: postUserMgmtResetUserPassword
+      x-operation-id-source: derived
+  /UserMgmt/SendLoginEmail:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: User UUID to send invitation to
+        name: ID
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: You must be a system administrator.
+      summary: Send email invitation to a specified user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtSendLoginEmail'
+      operationId: postUserMgmtSendLoginEmail
+      x-operation-id-source: derived
+  /UserMgmt/SendLoginEmails:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  items:
+                    type: string
+                  type: array
+                  description: List of user UUIDs to send invitations to
+              required:
+              - ID
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: You must be a system administrator.
+      summary: Send invitation emails to one or more users
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtSendLoginEmails'
+      operationId: postUserMgmtSendLoginEmails
+      x-operation-id-source: derived
+  /UserMgmt/SetPhonePin:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  type: string
+                  description: User UUID or name to set security question for
+                phonepin:
+                  type: string
+                  description: Phone pin
+              required:
+              - ID
+              - phonepin
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Set the phone pin for a user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtSetPhonePin'
+      operationId: postUserMgmtSetPhonePin
+      x-operation-id-source: derived
+  /UserMgmt/SetSecurityQuestion:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: false
+      deprecated: true
+      description: Please use UpdateSecurityQuestions and/or ResetSecurityQuestions instead.
+      summary: DEPRECATED -- This API is deprecated and should not be used
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtSetSecurityQuestion'
+      operationId: postUserMgmtSetSecurityQuestion
+      x-operation-id-source: derived
+  /UserMgmt/UncacheUserPreferences:
+    post:
+      tags:
+      - Cloud User Management
+      parameters:
+      - required: true
+        in: query
+        description: Unique identifier or name of user.
+        name: userUuidOrName
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Uncache the user preferences
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtUncacheUserPreferences'
+      operationId: postUserMgmtUncacheUserPreferences
+      x-operation-id-source: derived
+  /UserMgmt/UpdateSecurityQuestions:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Added:
+                  items:
+                    type: object
+                  type: array
+                  description: 'List of entities specifying questions to add.  Each question entity has the following properties: ''Uuid'' (string, uuid of admin question) -OR- ''QuestionText'' (string, text of user question), ''Answer'' (string, text of answer)'
+                Id:
+                  type: string
+                  description: User UUID or name to update security questions for
+                Deleted:
+                  items:
+                    type: string
+                  type: array
+                  description: List of Uuids of questions to delete
+                Replace:
+                  default: false
+                  type: boolean
+                  description: Replace all existing questions with this update.
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Updates security questions for a user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtUpdateSecurityQuestions'
+      operationId: postUserMgmtUpdateSecurityQuestions
+      x-operation-id-source: derived
+  /UserMgmt/UpdateUserPreferences:
+    post:
+      tags:
+      - Cloud User Management
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                PreferredCulture:
+                  type: string
+                  description: Centrify supported culture code. Use Core/GetSupportedCultures for a list. Set to an empty string to remove the user's preferred culture.
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Updates various user preferences for the currently logged in user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UserMgmtUpdateUserPreferences'
+      operationId: postUserMgmtUpdateUserPreferences
+      x-operation-id-source: derived
+components:
+  schemas:
+    CDirectoryServiceSetUserPicture:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: URI path to the user's picture.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTaskCheck:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Does the user have execute rights on the task.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtSetSecurityQuestion:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Resulting object, if any, of the call
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetUserPreferences:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The user preferences.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtResetUserPassword:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceCreateUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: UUID of the created user.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetCachedEntity:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The cached entity.
+          type: object
+          properties:
+            Uuid:
+              type: string
+              description: The entities unique identifier.
+            Email:
+              type: string
+              description: The entities email address.
+            CanonicalName:
+              type: string
+              description: The entities canonical name.
+            Sid:
+              type: string
+              description: The entities sid.
+            DistinguishedName:
+              type: string
+              description: The entities distinguished name.
+            type:
+              type: string
+              description: The entities classification.
+            SamAccountName:
+              type: string
+              description: The entities sam account name.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceGetBulkImportWithExtAtt:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard JSON response.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtCheckUserProfileChallenge:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UnixProfileSetGroupProfile:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtSetPhonePin:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtAnalyzeAdaptiveMfaRisk:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Risk level returned by the risk check, 'SystemUnavailable' indicates an error of some kind.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityChallengeUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Has the user satisfied the required security mechanisms.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetEffectiveRowRights:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of user rights.
+          type: array
+          items:
+            type: object
+            description: A user right.
+            properties:
+              Table:
+                description: Database table name.
+                type: string
+              RowKey:
+                description: The unique identifier.
+                type: string
+              GrantStr:
+                description: The right being granted.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceExemptUserFromMfa:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetSecurityQuestions:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: DataEntity with user security questions data
+          type: object
+          properties:
+            AnswerMinLength:
+              type: integer
+              description: Minimum length in characters of answers
+            Questions:
+              properties:
+                Uuid:
+                  type: string
+                  description: Question identifier
+                QuestionText:
+                  type: string
+                  description: Question text
+              type: object
+              description: Security questions for user; list of entities with following properties.
+            MaxQuestions:
+              type: integer
+              description: Max questions allowed for user
+            MinAdminQuestions:
+              type: integer
+              description: Minimum admin questions required for user
+            AdminQuestions:
+              properties:
+                Culture:
+                  type: string
+                  description: Culture of the question, 'all' implies all cultures
+                Uuid:
+                  type: string
+                  description: Question Uuid
+                Question:
+                  type: string
+                  description: Text of the question
+              type: object
+              description: Available administrator questions; list of entities with following properties.
+            MinUserQuestions:
+              type: integer
+              description: Minimum user questions required for user
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceRefreshToken:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtChangeUserPassword:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtSendLoginEmail:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetUserInfo:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: User additional information
+          type: object
+          properties:
+            EmailAddress:
+              type: string
+              description: User email address
+            Id:
+              type: string
+              description: User UUID
+            TenantId:
+              type: string
+              description: Tenant id of the user
+            PasswordExpDate:
+              format: date-time
+              type: string
+              description: Date/time user's password will expire
+            Name:
+              type: string
+              description: User name
+            MobileNumber:
+              type: string
+              description: User mobile phone number
+            LastPasswordChangeDate:
+              format: date-time
+              type: string
+              description: Last date/time user changed their password
+            SecurityKeyConfigured:
+              type: boolean
+              description: Has the user configured a U2F Security Key?
+            DirectoryServiceType:
+              type: string
+              description: Directory service type
+            IsSysAdmin:
+              type: boolean
+              description: Is user a system administrator
+            PhonePinLastChangeDate:
+              format: date-time
+              type: string
+              description: Date/time user last set their phone PIN
+            PasswordChangeHardHours:
+              type: integer
+              description: Hours before a user should be prompted to change an near to expiring password
+            CanChangePassword:
+              type: boolean
+              description: Can user change their password
+            EnablePurchasedLicenseMenu:
+              type: boolean
+              description: Does the user have the right to view licenses?
+            ThirdPartyOathConfigured:
+              type: boolean
+              description: Has a third party OATH token been configured for this user?
+            SecurityQuestion:
+              type: string
+              description: Does user have security questions?  'yes' if so, null if not
+            DisplayName:
+              type: string
+              description: User display name
+            PasswordChangeSoftDays:
+              type: integer
+              description: Days before a user should be warned to change a near to expiring password
+            PasswordResetFlag:
+              type: integer
+              description: 'Password reset state: 0=no reset needed, 1=Reset required, 2=Reset optional, 3=Reset warning'
+            DirectoryServiceName:
+              type: string
+              description: Directory service name
+            PreferredCulture:
+              type: string
+              description: User's preferred culture if any in culture code format (e.g. fr)
+            SecurityQuestionsLastUpdate:
+              format: date-time
+              type: string
+              description: Date/time user last updated their security questions
+            DisplayPreferredCulture:
+              type: string
+              description: 'User''s preferred culture if any in display format (e.g. French - français) '
+            Settings:
+              type: object
+              description: Contains internal state for the Portal Web UI; this property can be ignored.
+            HasPicture:
+              type: boolean
+              description: User has a picture available
+            MfaSetupWizardSettings:
+              type: object
+              description: Contains settings that guide MFA setup
+            DirectoryServiceId:
+              type: string
+              description: Directory service UUID
+            DirectoryServiceLocalizedName:
+              type: string
+              description: Directory service name localized to user's preferred language
+            SqEnabled:
+              type: boolean
+              description: Are security questions enabled for this user
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceGetUserAttributes:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Cloud user details
+          type: object
+          properties:
+            HomeNumber:
+              type: string
+              description: User home phone number
+            Alias:
+              type: string
+              description: Login suffix of the user
+            ReportsTo:
+              type: string
+              description: User reports to user UUID.
+            PasswordNeverExpire:
+              type: boolean
+              description: Does the user's password never expire?
+            PictureUri:
+              type: string
+              description: File system path to user picture file
+            DisplayName:
+              type: string
+              description: User display name
+            Uuid:
+              type: string
+              description: User UUID
+            OfficeNumber:
+              type: string
+              description: User office phone number
+            LastPasswordChangeDate:
+              format: date-time
+              type: string
+              description: Date/time user last changed their password
+            MobileNumber:
+              type: string
+              description: User mobile phone number
+            InEverybodyRole:
+              type: boolean
+              description: Is user in the Everybody role?
+            State:
+              type: string
+              description: User state (locked, enabled, expired)
+            Mail:
+              type: string
+              description: User email
+            Description:
+              type: string
+              description: User description
+            Name:
+              type: string
+              description: User name
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceGetUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Cloud user details.
+          type: object
+          properties:
+            HomeNumber:
+              type: string
+              description: User home phone number
+            Alias:
+              type: string
+              description: Login suffix of the user
+            ReportsTo:
+              type: string
+              description: User reports to user UUID.
+            PasswordNeverExpire:
+              type: boolean
+              description: Does the user's password never expire?
+            PictureUri:
+              type: string
+              description: File system path to user picture file
+            DisplayName:
+              type: string
+              description: User display name
+            Uuid:
+              type: string
+              description: User UUID
+            OfficeNumber:
+              type: string
+              description: User office phone number
+            LastPasswordChangeDate:
+              format: date-time
+              type: string
+              description: Date/time user last changed their password
+            MobileNumber:
+              type: string
+              description: User mobile phone number
+            InEverybodyRole:
+              type: boolean
+              description: Is user in the Everybody role?
+            PreferredCulture:
+              type: string
+              description: User preferred culture
+            State:
+              type: string
+              description: User state (locked, enabled, expired)
+            Mail:
+              type: string
+              description: User email
+            Description:
+              type: string
+              description: User description
+            Name:
+              type: string
+              description: User name
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceDeleteUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UnixProfileGetGroupProfile:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The group unix profile
+          type: object
+          properties:
+            _RowKey:
+              type: string
+            UnixMapped:
+              type: boolean
+            Uuid:
+              type: string
+            ScopeProfiles:
+              type: array
+              description: see SetGroupProfile
+              items: {}
+            UnixName:
+              type: string
+            GroupVisibilitySet:
+              type: boolean
+            Gid:
+              type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetUserHierarchy:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: User Attributes results
+          type: object
+          properties:
+            propertyn:
+              type: object
+              description: nth property of the user (name varies)
+            property2:
+              type: object
+              description: Second property of the user (name varies)
+            directoryServiceUuid:
+              type: string
+              description: UUID of the directory service the user is from
+            '...':
+              type: object
+              description: More properties (name varies)
+            property1:
+              type: object
+              description: First property of the user (name varies)
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetUserAttributes:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: User Attributes results
+          type: object
+          properties:
+            propertyn:
+              type: object
+              description: nth property of the user (name varies)
+            property2:
+              type: object
+              description: Second property of the user (name varies)
+            directoryServiceUuid:
+              type: string
+              description: UUID of the directory service the user is from
+            '...':
+              type: object
+              description: More properties (name varies)
+            property1:
+              type: object
+              description: First property of the user (name varies)
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetCachedUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The cached user.
+          type: object
+          properties:
+            Uuid:
+              type: string
+              description: The user unique identifier.
+            Email:
+              type: string
+              description: The user email address.
+            CanonicalName:
+              type: string
+              description: The user canonical name.
+            Sid:
+              type: string
+              description: The user sid.
+            DistinguishedName:
+              type: string
+              description: The user distinguished name.
+            type:
+              type: string
+              description: The user classification.
+            SamAccountName:
+              type: string
+              description: The user sam account name.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceRemoveFederationAuthSource:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard reponse with 'Completed' is run syncronously, or the Job Id if run asyncronously.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtUpdateUserPreferences:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtChangeUserAttributes:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTwilioPhoneChallengeNotAnswered:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The response xml found in the request.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetUserPicture:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: User's picture file if one is available
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtUpdateSecurityQuestions:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityStartSocialAuthentication:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the social authentication start.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UPRestGetResultantAppsForUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of applications including how the user has access
+          type: object
+          properties:
+            Intranet:
+              type: boolean
+              description: Whether the application is an intranet app
+            AdminTag:
+              type: string
+              description: Application admin tag
+            Category:
+              type: string
+              description: Application category
+            Shortcut:
+              type: boolean
+              description: Whether the application has been set for optional installation
+            DisplayName:
+              type: string
+              description: Application display name
+            AppType:
+              type: string
+              description: Application type
+            UsernameRO:
+              type: boolean
+              description: Whether user name is read-only
+            ID:
+              type: string
+              description: Application ID
+            PasswordIsSet:
+              type: boolean
+              description: Whether the password has been set
+            AppKey:
+              type: string
+              description: Application key
+            Rank:
+              type: integer
+              description: Application rank
+            WebAppTypeDisplayName:
+              type: string
+              description: Display name of web-app-type
+            Username:
+              type: string
+              description: Application username
+            TemplateName:
+              type: string
+              description: Application template name
+            Icon:
+              type: string
+              description: Path of application icon image
+            AppTypeDisplayName:
+              type: string
+              description: Display name of application type
+            Automatic:
+              type: boolean
+              description: Whether the application has been set for automatic installation
+            AccessList:
+              items:
+                type: object
+              type: array
+              description: How user got acess to the application; each entry is a dictionary including 'Type' (User, Role), 'ID' (role/user UUID), and 'Name' (role name or 'User' if user is granted direct access)
+            Url:
+              type: string
+              description: Application Url
+            WebAppType:
+              type: string
+              description: Application web-app-type
+            Description:
+              type: string
+              description: Application description
+            Name:
+              type: string
+              description: Application name
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtSendLoginEmails:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceCreateUsers:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: List of users with their UUID's.
+          type: array
+          items:
+            type: object
+            description: User name and UUID.
+            properties:
+              Name:
+                description: Name of user.
+                type: string
+              UUID:
+                description: UUID of user.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UnixProfileGetUserProfile:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The user unix profile
+          type: object
+          properties:
+            _RowKey:
+              type: string
+            Gecos:
+              type: string
+            Uuid:
+              type: string
+            Home:
+              type: string
+            UnixName:
+              type: string
+            Shell:
+              type: string
+            Uid:
+              type: string
+            Gid:
+              type: string
+            UPN:
+              type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceChangeUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Success or failure of the change.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityAnswerOOBChallenge:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Redirect to answer challenge page.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityLogin:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the user login succeed.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtResetSecurityQuestions:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetUsersRolesAndAdministrativeRights:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: "\n             Standard Redrock data format, with the following columns:\n                 ID : The role UUID\n                 Name: The role name\n                 Description: The role description\n                 AdministrativeRights : List of objects that have\n                   Description: localized name of the administrative right\n                   Path: file that describes the administrative right\n            \n                 ** Obsolete columns - Exist for backward compatibility **\n                 Role : The role UUID\n                 RoleName: The role name\n             "
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtRemoveUsers:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityGetOneTimePassword:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The password.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceRemoveAuthSource:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard reponse with 'Completed' is run syncronously, or the Job Id if run asyncronously.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceGetUserByName:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Cloud user details.
+          type: object
+          properties:
+            HomeNumber:
+              type: string
+              description: User home phone number.
+            Alias:
+              type: string
+              description: Login suffix of the user.
+            ReportsTo:
+              type: string
+              description: User reports to user UUID.
+            PasswordNeverExpire:
+              type: boolean
+              description: Does the user's password never expire.
+            PictureUri:
+              type: string
+              description: File system path to user picture file.
+            DisplayName:
+              type: string
+              description: User display name.
+            Uuid:
+              type: string
+              description: User UUID.
+            OfficeNumber:
+              type: string
+              description: User office phone number.
+            LastPasswordChangeDate:
+              format: date-time
+              type: string
+              description: Date/time user last changed their password.
+            MobileNumber:
+              type: string
+              description: User mobile phone number.
+            InEverybodyRole:
+              type: boolean
+              description: Is user in the Everybody role.
+            PreferredCulture:
+              type: string
+              description: User preferred culture.
+            State:
+              type: string
+              description: User state (locked, enabled, expired).
+            Mail:
+              type: string
+              description: User email.
+            Description:
+              type: string
+              description: User description.
+            Name:
+              type: string
+              description: User name.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UnixProfileSetUserProfile:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtRemoveUserCertificate:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtUncacheUserPreferences:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the user preferences cache get flushed.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityWhoAmI:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Is the user authenticated.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTwilioPhoneChallengeCompleted:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The response xml found in the request.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtRemoveUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceCreateUserQuick:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: UUID of the created user.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceSetUserState:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Success or fail for the user state attempt.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtGetUserCertificateInfo:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: User certificate information.  Dictionary of string key to string value, where keys are the certificate thumbprint and values are the certificate type.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityRefreshToken:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceGetUsers:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: List of all cloud users.
+          type: array
+          items:
+            type: object
+            description: A cloud user.
+            properties:
+              Uuid:
+                description: User UUID.
+                type: string
+              Name:
+                description: User name.
+                type: string
+              DisplayName:
+                description: User display name.
+                type: string
+              Description:
+                description: User description.
+                type: string
+              Mail:
+                description: User email.
+                type: string
+              OfficeNumber:
+                description: User office phone number.
+                type: string
+              MobileNumber:
+                description: User mobile phone number.
+                type: string
+              HomeNumber:
+                description: User home phone number.
+                type: string
+              ReportsTo:
+                description: User reports to user UUID.
+                type: string
+              PictureUri:
+                description: File system path to user picture file.
+                type: string
+              PreferredCulture:
+                description: User preferred culture.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtCanEditUserAttributes:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityLogout:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the user logout succeed.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    UserMgmtInviteUsers:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTaskChecks:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The list of tasks with the task check result.
+          type: object
+          properties:
+            execute:
+              type: boolean
+              description: Does user have execute rights on this task.
+            task:
+              type: string
+              description: A task.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+  requestBodies:
+    Payload15:
+      content:
+        application/json:
+          schema:
+            properties: {}
+            type: object
+      required: true
+    Payload14:
+      content:
+        application/json:
+          schema:
+            properties:
+              ResponseXml:
+                type: string
+                description: The multi auth digit response from the customer.
+            type: object
+      required: true
+x-explorer-enabled: false
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/post_acl-checkrowright.md
+  - https://developer.delinea.com/reference/post_acl-getace.md
+  - https://developer.delinea.com/reference/post_acl-getcollectionaces.md
+  - https://developer.delinea.com/reference/post_acl-getdiraces.md
+  - https://developer.delinea.com/reference/post_acl-geteffectivedirrights.md
+  - https://developer.delinea.com/reference/post_acl-geteffectivefilerights.md
+  - https://developer.delinea.com/reference/post_acl-geteffectiverowrights.md
+  - https://developer.delinea.com/reference/post_acl-getfileaces.md
+  - https://developer.delinea.com/reference/post_acl-getrowaces.md
+  - https://developer.delinea.com/reference/post_authprofile-deleteprofile.md
+  - https://developer.delinea.com/reference/post_authprofile-getprofile.md
+  - https://developer.delinea.com/reference/post_authprofile-getprofilelist.md
+  - https://developer.delinea.com/reference/post_authprofile-saveprofile.md
+  - https://developer.delinea.com/reference/post_aws-addaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-deleteaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-deployconnector.md
+  - https://developer.delinea.com/reference/post_aws-getaccesskeys.md
+  - https://developer.delinea.com/reference/post_aws-getavailabilityzones.md
+  - https://developer.delinea.com/reference/post_aws-getcentrifyawsaccountinfo.md
+  - https://developer.delinea.com/reference/post_aws-getconnectorsforregions.md
+  - https://developer.delinea.com/reference/post_aws-getec2iamroles.md
+  - https://developer.delinea.com/reference/post_aws-getkeypairs.md
+  - https://developer.delinea.com/reference/post_aws-getregionnames.md
+  - https://developer.delinea.com/reference/post_aws-getregions.md
+  - https://developer.delinea.com/reference/post_aws-getsecuritygroups.md
+  - https://developer.delinea.com/reference/post_aws-getsubnets.md
+  - https://developer.delinea.com/reference/post_aws-getsubnetsforregions.md
+  - https://developer.delinea.com/reference/post_aws-getvpcs.md
+  - https://developer.delinea.com/reference/post_aws-importaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-retrieveaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-verifyaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-verifyaccesskeyforuseraccount.md
+  - https://developer.delinea.com/reference/post_aws-verifyassumeroleconfiguration.md
+  - https://developer.delinea.com/reference/post_aws-verifysqsqueueconfiguration.md
+  - https://developer.delinea.com/reference/post_brand-info.md
+  - https://developer.delinea.com/reference/post_brand-mybrand.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-bulkdeleteusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-changeuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuserbulk.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuserquick.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-delete.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-deleteuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-exemptuserfrommfa.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getbulkimportwithextatt.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-gettechsupportuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuserattributes.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuserbyname.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getusersfromcsvfile.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-grantaccess.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-refreshtoken.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-removeauthsource.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-removefederationauthsource.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-setuserpicture.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-setuserstate.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-standardjsonresultwithpermissioncheck.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_cloudprovider-addcloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-deletecloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-deletecloudproviders.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getallcloudproviders.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudprovidercollectionpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudproviderpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-setcloudprovidercollectionpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-setcloudproviderpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-updatecloudprovider.md
+  - https://developer.delinea.com/reference/post_collection-createdynamiccollection.md
+  - https://developer.delinea.com/reference/post_collection-createmanualcollection.md
+  - https://developer.delinea.com/reference/post_collection-deletecollection.md
+  - https://developer.delinea.com/reference/post_collection-getbucketcontents.md
+  - https://developer.delinea.com/reference/post_collection-getcollection.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionreferences.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionrights.md
+  - https://developer.delinea.com/reference/post_collection-getcollectiontemplate.md
+  - https://developer.delinea.com/reference/post_collection-getmembers.md
+  - https://developer.delinea.com/reference/post_collection-getobjectcollections.md
+  - https://developer.delinea.com/reference/post_collection-getobjectcollectionsandfilters.md
+  - https://developer.delinea.com/reference/post_collection-ismember.md
+  - https://developer.delinea.com/reference/post_collection-setcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_collection-updatecollection.md
+  - https://developer.delinea.com/reference/post_collection-updatememberscollection.md
+  - https://developer.delinea.com/reference/post_core-addblockediprange.md
+  - https://developer.delinea.com/reference/post_core-addpremdetectrange.md
+  - https://developer.delinea.com/reference/post_core-assigndirectoryfilerightstoroles.md
+  - https://developer.delinea.com/reference/post_core-assigndirectoryrightstoroles.md
+  - https://developer.delinea.com/reference/post_core-assignfilerightstoroles.md
+  - https://developer.delinea.com/reference/post_core-checkproxyhealth-1.md
+  - https://developer.delinea.com/reference/post_core-createdirectory.md
+  - https://developer.delinea.com/reference/post_core-createtenantreportsdirectory.md
+  - https://developer.delinea.com/reference/post_core-createuserhomereportsdirectory.md
+  - https://developer.delinea.com/reference/post_core-delblockediprange.md
+  - https://developer.delinea.com/reference/post_core-deletealias.md
+  - https://developer.delinea.com/reference/post_core-deletealiases.md
+  - https://developer.delinea.com/reference/post_core-deletecertificate.md
+  - https://developer.delinea.com/reference/post_core-deletedirectory.md
+  - https://developer.delinea.com/reference/post_core-deletefile.md
+  - https://developer.delinea.com/reference/post_core-deletefiles.md
+  - https://developer.delinea.com/reference/post_core-deleteproxies.md
+  - https://developer.delinea.com/reference/post_core-deleteproxy.md
+  - https://developer.delinea.com/reference/post_core-deleteproxycode.md
+  - https://developer.delinea.com/reference/post_core-deleteproxycodes.md
+  - https://developer.delinea.com/reference/post_core-deletetenantconfig.md
+  - https://developer.delinea.com/reference/post_core-delpremdetectrange.md
+  - https://developer.delinea.com/reference/post_core-directoryexists.md
+  - https://developer.delinea.com/reference/post_core-downloadcertificate.md
+  - https://developer.delinea.com/reference/post_core-downloadfile.md
+  - https://developer.delinea.com/reference/post_core-fileexists.md
+  - https://developer.delinea.com/reference/post_core-generatenewproxycode.md
+  - https://developer.delinea.com/reference/post_core-generatepassword.md
+  - https://developer.delinea.com/reference/post_core-getadloginsuffixesbyforest.md
+  - https://developer.delinea.com/reference/post_core-getadtopology.md
+  - https://developer.delinea.com/reference/post_core-getaliasesfortenant.md
+  - https://developer.delinea.com/reference/post_core-getassignedadministrativerights.md
+  - https://developer.delinea.com/reference/post_core-getblockedipranges.md
+  - https://developer.delinea.com/reference/post_core-getcacertchain.md
+  - https://developer.delinea.com/reference/post_core-getcdsaliasesfortenant.md
+  - https://developer.delinea.com/reference/post_core-getcloudcacert.md
+  - https://developer.delinea.com/reference/post_core-getconnectorlog4netconfig.md
+  - https://developer.delinea.com/reference/post_core-getcurrentiwajsonpurl.md
+  - https://developer.delinea.com/reference/post_core-getcurrentiwaurl.md
+  - https://developer.delinea.com/reference/post_core-getdefaultglobalappsigningcert.md
+  - https://developer.delinea.com/reference/post_core-getdirectories.md
+  - https://developer.delinea.com/reference/post_core-getdirectorycontents.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryfilerolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryinfo.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryrolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryservices.md
+  - https://developer.delinea.com/reference/post_core-getdomaincontrollersfordomain.md
+  - https://developer.delinea.com/reference/post_core-getdownloadurls.md
+  - https://developer.delinea.com/reference/post_core-getfileinfo.md
+  - https://developer.delinea.com/reference/post_core-getfilerolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getiwatrustrootcert.md
+  - https://developer.delinea.com/reference/post_core-getloctag.md
+  - https://developer.delinea.com/reference/post_core-getoutreecontents.md
+  - https://developer.delinea.com/reference/post_core-getpremdetectranges.md
+  - https://developer.delinea.com/reference/post_core-getproxies.md
+  - https://developer.delinea.com/reference/post_core-getproxycode.md
+  - https://developer.delinea.com/reference/post_core-getproxycodes.md
+  - https://developer.delinea.com/reference/post_core-getproxyiwahostcertificatefile.md
+  - https://developer.delinea.com/reference/post_core-getproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-getpurchasedlicenses.md
+  - https://developer.delinea.com/reference/post_core-getreportsdirectorycontents.md
+  - https://developer.delinea.com/reference/post_core-getsupportedcultures-1.md
+  - https://developer.delinea.com/reference/post_core-gettenantcacert.md
+  - https://developer.delinea.com/reference/post_core-gettenantconfig.md
+  - https://developer.delinea.com/reference/post_core-getuniquefilename.md
+  - https://developer.delinea.com/reference/post_core-getusersettings.md
+  - https://developer.delinea.com/reference/post_core-getzsocertauthority.md
+  - https://developer.delinea.com/reference/post_core-getzsohostinfo.md
+  - https://developer.delinea.com/reference/post_core-handletwiliosmsreceipt.md
+  - https://developer.delinea.com/reference/post_core-issueusercert.md
+  - https://developer.delinea.com/reference/post_core-issuezsousercert.md
+  - https://developer.delinea.com/reference/post_core-listdirectory.md
+  - https://developer.delinea.com/reference/post_core-makefile.md
+  - https://developer.delinea.com/reference/post_core-movedirectory.md
+  - https://developer.delinea.com/reference/post_core-notifyenvironment.md
+  - https://developer.delinea.com/reference/post_core-processproxyiwacloudredirect.md
+  - https://developer.delinea.com/reference/post_core-readfile.md
+  - https://developer.delinea.com/reference/post_core-reissueiwahostcertificate.md
+  - https://developer.delinea.com/reference/post_core-renamecertificate.md
+  - https://developer.delinea.com/reference/post_core-setconnectorlog4netconfig.md
+  - https://developer.delinea.com/reference/post_core-setdefaultcertificate.md
+  - https://developer.delinea.com/reference/post_core-setproxyiwahostcertificatefile.md
+  - https://developer.delinea.com/reference/post_core-setproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-settenantconfig.md
+  - https://developer.delinea.com/reference/post_core-startservice.md
+  - https://developer.delinea.com/reference/post_core-stopservice.md
+  - https://developer.delinea.com/reference/post_core-storealias.md
+  - https://developer.delinea.com/reference/post_core-storeuser.md
+  - https://developer.delinea.com/reference/post_core-storeusersetting.md
+  - https://developer.delinea.com/reference/post_core-updatedirectoryservicesprecedence.md
+  - https://developer.delinea.com/reference/post_core-updateproxycode.md
+  - https://developer.delinea.com/reference/post_core-updateproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-uploadcertificate.md
+  - https://developer.delinea.com/reference/post_core-writefile.md
+  - https://developer.delinea.com/reference/post_cssintegration-dzdoexecute.md
+  - https://developer.delinea.com/reference/post_cssintegration-getchallengeprofiles.md
+  - https://developer.delinea.com/reference/post_cssintegration-mfalogin.md
+  - https://developer.delinea.com/reference/post_cssintegration-setchallengeprofiles.md
+  - https://developer.delinea.com/reference/post_dashaccount-adddiscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-canceldiscovery.md
+  - https://developer.delinea.com/reference/post_dashaccount-clearowneraccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-commitdiscoveredaccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-commitdiscoveredaccounts.md
+  - https://developer.delinea.com/reference/post_dashaccount-deletediscoveredaccounts.md
+  - https://developer.delinea.com/reference/post_dashaccount-deletediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-getdiscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-getdiscoveryprofiles.md
+  - https://developer.delinea.com/reference/post_dashaccount-getmydashaaccountswithcheckout.md
+  - https://developer.delinea.com/reference/post_dashaccount-getprofilerights.md
+  - https://developer.delinea.com/reference/post_dashaccount-rundiscovery.md
+  - https://developer.delinea.com/reference/post_dashaccount-setdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_dashaccount-updatediscoveredaccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-updatediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_discovery-adddiscoveryaccount.md
+  - https://developer.delinea.com/reference/post_discovery-anydiscoveryaccountsreferenced.md
+  - https://developer.delinea.com/reference/post_discovery-deleteblacklistedcomputer.md
+  - https://developer.delinea.com/reference/post_discovery-deletediscoveryaccount.md
+  - https://developer.delinea.com/reference/post_discovery-deleteexcludedaccount.md
+  - https://developer.delinea.com/reference/post_discovery-getdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_discovery-getexcludedaccounts.md
+  - https://developer.delinea.com/reference/post_discovery-gethistory.md
+  - https://developer.delinea.com/reference/post_discovery-getreferencedvpcs.md
+  - https://developer.delinea.com/reference/post_discovery-getvpcname.md
+  - https://developer.delinea.com/reference/post_discovery-setdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_discovery-updatediscoveryaccount.md
+  - https://developer.delinea.com/reference/post_extdata-getcolumn.md
+  - https://developer.delinea.com/reference/post_extdata-getcolumns.md
+  - https://developer.delinea.com/reference/post_extdata-getschema.md
+  - https://developer.delinea.com/reference/post_extdata-setcolumn.md
+  - https://developer.delinea.com/reference/post_extdata-setcolumns.md
+  - https://developer.delinea.com/reference/post_extdata-updateschema.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-addcertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-downloadcertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-getcertauthorities.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-removecertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-updatecertauthority.md
+  - https://developer.delinea.com/reference/post_federation-addglobalgroupassertionmapping.md
+  - https://developer.delinea.com/reference/post_federation-createfederation.md
+  - https://developer.delinea.com/reference/post_federation-deletefederation.md
+  - https://developer.delinea.com/reference/post_federation-deleteglobalgroupassertionmapping.md
+  - https://developer.delinea.com/reference/post_federation-federationmetadata.md
+  - https://developer.delinea.com/reference/post_federation-getfederatedgroupmembers.md
+  - https://developer.delinea.com/reference/post_federation-getfederatedgroupsforuser.md
+  - https://developer.delinea.com/reference/post_federation-getfederation.md
+  - https://developer.delinea.com/reference/post_federation-getfederationgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-getfederations.md
+  - https://developer.delinea.com/reference/post_federation-getfederationsignaturetypes.md
+  - https://developer.delinea.com/reference/post_federation-getfederationtypes.md
+  - https://developer.delinea.com/reference/post_federation-getglobalfederationsettings.md
+  - https://developer.delinea.com/reference/post_federation-getglobalgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-getgroups.md
+  - https://developer.delinea.com/reference/post_federation-removeuserfromfederatedgroup.md
+  - https://developer.delinea.com/reference/post_federation-spsigningcertificate.md
+  - https://developer.delinea.com/reference/post_federation-spsigningcertificateauthority.md
+  - https://developer.delinea.com/reference/post_federation-updatefederation.md
+  - https://developer.delinea.com/reference/post_federation-updatefederationgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-updateglobalgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_googledirectory-authcallback.md
+  - https://developer.delinea.com/reference/post_googledirectory-getauthtokenstate.md
+  - https://developer.delinea.com/reference/post_googledirectory-getdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_googledirectory-getserviceloginurlinfo.md
+  - https://developer.delinea.com/reference/post_googledirectory-removedirectoryservice.md
+  - https://developer.delinea.com/reference/post_googledirectory-updatedirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_health-check.md
+  - https://developer.delinea.com/reference/post_health-supportinfo.md
+  - https://developer.delinea.com/reference/post_health-supportinfofile.md
+  - https://developer.delinea.com/reference/post_home-getlogindata.md
+  - https://developer.delinea.com/reference/post_jobflow-deletejob.md
+  - https://developer.delinea.com/reference/post_jobflow-event.md
+  - https://developer.delinea.com/reference/post_jobflow-getjob.md
+  - https://developer.delinea.com/reference/post_jobflow-getjobs.md
+  - https://developer.delinea.com/reference/post_jobflow-getmyjobs.md
+  - https://developer.delinea.com/reference/post_jobflow-startjob.md
+  - https://developer.delinea.com/reference/post_jsmanage-getdashboardrolesandrights.md
+  - https://developer.delinea.com/reference/post_jsmanage-getreportrolesandrights.md
+  - https://developer.delinea.com/reference/post_kmip-configure.md
+  - https://developer.delinea.com/reference/post_kmip-deleteconfig.md
+  - https://developer.delinea.com/reference/post_kmip-getconfig.md
+  - https://developer.delinea.com/reference/post_kmip-passwordstoredremotely.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-addldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-deleteldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getcloudconnectors.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getdirectoryserviceversion.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getldapdirectoryserviceuuidbyname.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getmappableattributelist.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getscriptingpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-modifyldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-setpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-setscriptingpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-testuserlookup.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-verifyldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_libonlyvfs-getfile.md
+  - https://developer.delinea.com/reference/post_mobilepas-deletedevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-disablesso.md
+  - https://developer.delinea.com/reference/post_mobilepas-enablesso.md
+  - https://developer.delinea.com/reference/post_mobilepas-lockclientapp.md
+  - https://developer.delinea.com/reference/post_mobilepas-pingdevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-reapplydevicepolicy.md
+  - https://developer.delinea.com/reference/post_mobilepas-resetclientapplockpin.md
+  - https://developer.delinea.com/reference/post_mobilepas-setdevicepermissions.md
+  - https://developer.delinea.com/reference/post_mobilepas-setprimarydevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-updatedevicepolicy.md
+  - https://developer.delinea.com/reference/post_oath-addorupdateprofile.md
+  - https://developer.delinea.com/reference/post_oath-deleteprofiles.md
+  - https://developer.delinea.com/reference/post_oath-getdatafromcsvfile.md
+  - https://developer.delinea.com/reference/post_oath-getimportprofilelist.md
+  - https://developer.delinea.com/reference/post_oath-getprofilelist.md
+  - https://developer.delinea.com/reference/post_oath-getprofilelistfordevice.md
+  - https://developer.delinea.com/reference/post_oath-resetcentrifyoathprofile.md
+  - https://developer.delinea.com/reference/post_oath-resynchronizeoathtoken.md
+  - https://developer.delinea.com/reference/post_oath-saveprofile.md
+  - https://developer.delinea.com/reference/post_oath-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_oath-updateoathprofilecounter.md
+  - https://developer.delinea.com/reference/post_oath-validateotpcode.md
+  - https://developer.delinea.com/reference/post_oauth2-authorize.md
+  - https://developer.delinea.com/reference/post_oauth2-confirm.md
+  - https://developer.delinea.com/reference/post_oauth2-endsession.md
+  - https://developer.delinea.com/reference/post_oauth2-getmeta.md
+  - https://developer.delinea.com/reference/post_oauth2-introspect.md
+  - https://developer.delinea.com/reference/post_oauth2-keys.md
+  - https://developer.delinea.com/reference/post_oauth2-revoke.md
+  - https://developer.delinea.com/reference/post_oauth2-token.md
+  - https://developer.delinea.com/reference/post_oauth2-userinfo.md
+  - https://developer.delinea.com/reference/post_oauth2man-createclienttoken.md
+  - https://developer.delinea.com/reference/post_pki-login.md
+  - https://developer.delinea.com/reference/post_policy-addauthpolicymodifier.md
+  - https://developer.delinea.com/reference/post_policy-deleteauthpolicymodifier.md
+  - https://developer.delinea.com/reference/post_policy-deletepolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getauthpolicymodifiers.md
+  - https://developer.delinea.com/reference/post_policy-getniceplinks.md
+  - https://developer.delinea.com/reference/post_policy-getnicepolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getoathotpclientname.md
+  - https://developer.delinea.com/reference/post_policy-getpasswordcomplexityrequirements.md
+  - https://developer.delinea.com/reference/post_policy-getplinks.md
+  - https://developer.delinea.com/reference/post_policy-getpolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getpolicybool.md
+  - https://developer.delinea.com/reference/post_policy-getpolicyint.md
+  - https://developer.delinea.com/reference/post_policy-getpolicymetadata.md
+  - https://developer.delinea.com/reference/post_policy-getpolicystring.md
+  - https://developer.delinea.com/reference/post_policy-getrsop.md
+  - https://developer.delinea.com/reference/post_policy-getu2fclientname.md
+  - https://developer.delinea.com/reference/post_policy-getusingcloudmobilegp.md
+  - https://developer.delinea.com/reference/post_policy-policychecks.md
+  - https://developer.delinea.com/reference/post_policy-savepolicyblock2.md
+  - https://developer.delinea.com/reference/post_policy-savepolicyblock3.md
+  - https://developer.delinea.com/reference/post_policy-setplinks.md
+  - https://developer.delinea.com/reference/post_policy-setplinksv2.md
+  - https://developer.delinea.com/reference/post_policy-setusingcloudmobilegp.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-canmanageprivilegeelevation.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getassignmentsbyscope.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getchallenges.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getcommands.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-submitworkflowrequest.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-add.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-addassignment.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-delete.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-deleteassignment.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getassignments.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getprivilegeelevationcommandcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getprivilegeelevationcommandpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-listassignments.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-setprivilegeelevationcommandcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-setprivilegeelevationcommandpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-update.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-updateassignment.md
+  - https://developer.delinea.com/reference/post_quickstart-getstate.md
+  - https://developer.delinea.com/reference/post_quickstart-manageaccounts.md
+  - https://developer.delinea.com/reference/post_quickstart-rundiscovery.md
+  - https://developer.delinea.com/reference/post_quickstart-verifyadminaccount.md
+  - https://developer.delinea.com/reference/post_radius-getclients.md
+  - https://developer.delinea.com/reference/post_radius-getconfig.md
+  - https://developer.delinea.com/reference/post_radius-getservers.md
+  - https://developer.delinea.com/reference/post_radius-getuseridentifierattributes.md
+  - https://developer.delinea.com/reference/post_radius-removeclients.md
+  - https://developer.delinea.com/reference/post_radius-removeservers.md
+  - https://developer.delinea.com/reference/post_radius-setclient.md
+  - https://developer.delinea.com/reference/post_radius-setconfig.md
+  - https://developer.delinea.com/reference/post_radius-setserver.md
+  - https://developer.delinea.com/reference/post_registration-customerinfo.md
+  - https://developer.delinea.com/reference/post_registration-registernewtenant.md
+  - https://developer.delinea.com/reference/post_report-addreport.md
+  - https://developer.delinea.com/reference/post_report-addreports.md
+  - https://developer.delinea.com/reference/post_report-copyreport.md
+  - https://developer.delinea.com/reference/post_report-deletereport.md
+  - https://developer.delinea.com/reference/post_report-deletereports.md
+  - https://developer.delinea.com/reference/post_report-emailreport.md
+  - https://developer.delinea.com/reference/post_report-getdefaultreportcategories.md
+  - https://developer.delinea.com/reference/post_report-getreport.md
+  - https://developer.delinea.com/reference/post_report-getreportcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_report-getreportpermissions.md
+  - https://developer.delinea.com/reference/post_report-getreportrights.md
+  - https://developer.delinea.com/reference/post_report-getreports.md
+  - https://developer.delinea.com/reference/post_report-setreportcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_report-setreportpermissions.md
+  - https://developer.delinea.com/reference/post_report-updatereport.md
+  - https://developer.delinea.com/reference/post_resourceprofile-addresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-deleteresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-exportresourceprofilepackage.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getallresourceprofiles.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofilecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofilepermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-openresourceprofilepackage.md
+  - https://developer.delinea.com/reference/post_resourceprofile-setresourceprofilecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-setresourceprofilepermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-updateresourceprofile.md
+  - https://developer.delinea.com/reference/post_roles-getpagedrolemembers.md
+  - https://developer.delinea.com/reference/post_roles-updaterole-1.md
+  - https://developer.delinea.com/reference/post_saasmanage-addusersandgroupstorole.md
+  - https://developer.delinea.com/reference/post_saasmanage-assignsuperrights.md
+  - https://developer.delinea.com/reference/post_saasmanage-checkifappshaveupdates.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleteapplication.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleterole.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleteroles.md
+  - https://developer.delinea.com/reference/post_saasmanage-getallupdatableapps.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappcreds.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappidbyservicename.md
+  - https://developer.delinea.com/reference/post_saasmanage-getapplication.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappunsupportedlist.md
+  - https://developer.delinea.com/reference/post_saasmanage-getrole.md
+  - https://developer.delinea.com/reference/post_saasmanage-getrolemembers.md
+  - https://developer.delinea.com/reference/post_saasmanage-gettemplatesandcategories.md
+  - https://developer.delinea.com/reference/post_saasmanage-importappfromtemplate.md
+  - https://developer.delinea.com/reference/post_saasmanage-isapplicationavailableincatalog-1.md
+  - https://developer.delinea.com/reference/post_saasmanage-refreshapplicationbinaryfilemetadata.md
+  - https://developer.delinea.com/reference/post_saasmanage-removeusersandgroupsfromrole.md
+  - https://developer.delinea.com/reference/post_saasmanage-requestappuploadurl.md
+  - https://developer.delinea.com/reference/post_saasmanage-setapplicationpermissions.md
+  - https://developer.delinea.com/reference/post_saasmanage-setrolepolicy.md
+  - https://developer.delinea.com/reference/post_saasmanage-storerole.md
+  - https://developer.delinea.com/reference/post_saasmanage-unassignsuperrights.md
+  - https://developer.delinea.com/reference/post_saasmanage-updateapplicationde.md
+  - https://developer.delinea.com/reference/post_saasmanage-updaterole.md
+  - https://developer.delinea.com/reference/post_schedulerhistory-deletejobhistory.md
+  - https://developer.delinea.com/reference/post_schedulerhistory-getjobreport.md
+  - https://developer.delinea.com/reference/post_security-advanceauthentication.md
+  - https://developer.delinea.com/reference/post_security-advanceforgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-amiauthenticated.md
+  - https://developer.delinea.com/reference/post_security-answeroobchallenge.md
+  - https://developer.delinea.com/reference/post_security-challengeuser.md
+  - https://developer.delinea.com/reference/post_security-cleanupauthentication.md
+  - https://developer.delinea.com/reference/post_security-doihaveright.md
+  - https://developer.delinea.com/reference/post_security-forgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-getonetimepassword.md
+  - https://developer.delinea.com/reference/post_security-getriskanalysislevels.md
+  - https://developer.delinea.com/reference/post_security-login.md
+  - https://developer.delinea.com/reference/post_security-logout.md
+  - https://developer.delinea.com/reference/post_security-multiauthlogin.md
+  - https://developer.delinea.com/reference/post_security-ondemandchallenge.md
+  - https://developer.delinea.com/reference/post_security-refreshtoken.md
+  - https://developer.delinea.com/reference/post_security-resumefromextidpauth.md
+  - https://developer.delinea.com/reference/post_security-startauthentication.md
+  - https://developer.delinea.com/reference/post_security-startchallenge.md
+  - https://developer.delinea.com/reference/post_security-startforgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-startsocialauthentication.md
+  - https://developer.delinea.com/reference/post_security-submitoathotpcode.md
+  - https://developer.delinea.com/reference/post_security-taskcheck.md
+  - https://developer.delinea.com/reference/post_security-taskchecks.md
+  - https://developer.delinea.com/reference/post_security-twiliophonechallengecompleted.md
+  - https://developer.delinea.com/reference/post_security-twiliophonechallengenotanswered.md
+  - https://developer.delinea.com/reference/post_security-whoami.md
+  - https://developer.delinea.com/reference/post_serveragent-addconfigfile.md
+  - https://developer.delinea.com/reference/post_serveragent-addenrollmentcode.md
+  - https://developer.delinea.com/reference/post_serveragent-convertmachineaccount.md
+  - https://developer.delinea.com/reference/post_serveragent-cssextension.md
+  - https://developer.delinea.com/reference/post_serveragent-deleteconfigfile-2.md
+  - https://developer.delinea.com/reference/post_serveragent-deleteenrollmentcode.md
+  - https://developer.delinea.com/reference/post_serveragent-disablefeatures.md
+  - https://developer.delinea.com/reference/post_serveragent-enablefeatures.md
+  - https://developer.delinea.com/reference/post_serveragent-enablefeaturesv2.md
+  - https://developer.delinea.com/reference/post_serveragent-enroll.md
+  - https://developer.delinea.com/reference/post_serveragent-enrollv2.md
+  - https://developer.delinea.com/reference/post_serveragent-enrollv3.md
+  - https://developer.delinea.com/reference/post_serveragent-getallconfigfiles-2.md
+  - https://developer.delinea.com/reference/post_serveragent-getallenrollmentcodes.md
+  - https://developer.delinea.com/reference/post_serveragent-getcertificate.md
+  - https://developer.delinea.com/reference/post_serveragent-getconfigsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getdirectauditconfiguration.md
+  - https://developer.delinea.com/reference/post_serveragent-geteffectivelocalgroups.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupbyid.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupbyname.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupmembers.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopeallowedroles.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopenamesforrole-2.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopesforrole.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopesfortype.md
+  - https://developer.delinea.com/reference/post_serveragent-getofflineotpsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getuserbyid.md
+  - https://developer.delinea.com/reference/post_serveragent-getuserbyname.md
+  - https://developer.delinea.com/reference/post_serveragent-getusergroups.md
+  - https://developer.delinea.com/reference/post_serveragent-pushconfigfile.md
+  - https://developer.delinea.com/reference/post_serveragent-register.md
+  - https://developer.delinea.com/reference/post_serveragent-registerv2.md
+  - https://developer.delinea.com/reference/post_serveragent-registerv3.md
+  - https://developer.delinea.com/reference/post_serveragent-setfeaturestate-3.md
+  - https://developer.delinea.com/reference/post_serveragent-unenroll.md
+  - https://developer.delinea.com/reference/post_serveragent-unenrollagents.md
+  - https://developer.delinea.com/reference/post_serveragent-updategroupscopes.md
+  - https://developer.delinea.com/reference/post_serveragent-updateinformation.md
+  - https://developer.delinea.com/reference/post_serveragent-updatesettings.md
+  - https://developer.delinea.com/reference/post_serveragent-validateagent.md
+  - https://developer.delinea.com/reference/post_serveragent-verifypassword.md
+  - https://developer.delinea.com/reference/post_serveragent-verifypasswordv2.md
+  - https://developer.delinea.com/reference/post_serveragent-verifyusercanlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-addaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-addaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-addcomputer.md
+  - https://developer.delinea.com/reference/post_servermanage-adddatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-adddatabases.md
+  - https://developer.delinea.com/reference/post_servermanage-adddomain.md
+  - https://developer.delinea.com/reference/post_servermanage-adddomains.md
+  - https://developer.delinea.com/reference/post_servermanage-addresource.md
+  - https://developer.delinea.com/reference/post_servermanage-addresources.md
+  - https://developer.delinea.com/reference/post_servermanage-addsecret.md
+  - https://developer.delinea.com/reference/post_servermanage-addsecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-addsshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-addsshkeyfile.md
+  - https://developer.delinea.com/reference/post_servermanage-candeletesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-checkinpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-checkofflineotpexist.md
+  - https://developer.delinea.com/reference/post_servermanage-checkoutpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-creatediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-deletedatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-deletedomain.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteresource.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteresources.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesshkeys.md
+  - https://developer.delinea.com/reference/post_servermanage-downloadsecretfileinchunks.md
+  - https://developer.delinea.com/reference/post_servermanage-extendcheckout.md
+  - https://developer.delinea.com/reference/post_servermanage-generatesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-generatesshkeyfile.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsfordatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsforlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsforresource.md
+  - https://developer.delinea.com/reference/post_servermanage-getagentprofile.md
+  - https://developer.delinea.com/reference/post_servermanage-getauditinfo.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputerchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputerrights.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputersforsshkeyaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-getdatabasecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdatabasepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdiscoveryprofiles.md
+  - https://developer.delinea.com/reference/post_servermanage-getdomaincollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdomainpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getmfatokencode.md
+  - https://developer.delinea.com/reference/post_servermanage-getmfatokensettings.md
+  - https://developer.delinea.com/reference/post_servermanage-getmysessions.md
+  - https://developer.delinea.com/reference/post_servermanage-getmyworkspaceaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-getofflineotp.md
+  - https://developer.delinea.com/reference/post_servermanage-getresourcecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getresourcepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getretiredpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-getrsop.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecret.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretapprovers.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretfolderscanmoveto.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsandfolders.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsfolderrights.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsfolderrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecrettobereplaced.md
+  - https://developer.delinea.com/reference/post_servermanage-getsessions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeycollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyinfo.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeypermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeysforlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyusage.md
+  - https://developer.delinea.com/reference/post_servermanage-logjustificationevent-2.md
+  - https://developer.delinea.com/reference/post_servermanage-manageaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-movefolder.md
+  - https://developer.delinea.com/reference/post_servermanage-movesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-multiaccountdelete-1.md
+  - https://developer.delinea.com/reference/post_servermanage-multiaccountpasswordrotation-1.md
+  - https://developer.delinea.com/reference/post_servermanage-patchresource.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckdatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckdomain.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckout.md
+  - https://developer.delinea.com/reference/post_servermanage-provisionreconciliationaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-refreshhealthstatus.md
+  - https://developer.delinea.com/reference/post_servermanage-removemfatoken.md
+  - https://developer.delinea.com/reference/post_servermanage-requestsecretdownloadurl.md
+  - https://developer.delinea.com/reference/post_servermanage-requestsecretuploadurl.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesecretcontents.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesecretmetadata.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-rotatepassword.md
+  - https://developer.delinea.com/reference/post_servermanage-rotatepasswords.md
+  - https://developer.delinea.com/reference/post_servermanage-setaccountcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setaccountpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setconnectorsystem.md
+  - https://developer.delinea.com/reference/post_servermanage-setdatabasecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdatabasepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdomaincollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdomainpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setescrowkeyfromfile.md
+  - https://developer.delinea.com/reference/post_servermanage-setmfatoken.md
+  - https://developer.delinea.com/reference/post_servermanage-setresourcecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setresourcepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretsfolderpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsshkeycollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsshkeypermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-terminatesession.md
+  - https://developer.delinea.com/reference/post_servermanage-updateaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-updatedatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-updatedomain.md
+  - https://developer.delinea.com/reference/post_servermanage-updatepassword.md
+  - https://developer.delinea.com/reference/post_servermanage-updateresource.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesettings.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-uploadsecretfileinchunks.md
+  - https://developer.delinea.com/reference/post_servermanage-verifyaccountpasswordmanagementsettings.md
+  - https://developer.delinea.com/reference/post_serversession-getloginurl.md
+  - https://developer.delinea.com/reference/post_socialauth-facebookauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-googleauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-linkedinauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-microsoftactauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-twitterauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getallcustomconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getapplicationclientsecret.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getcustomconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-resetauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-setauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-setcustomconfig.md
+  - https://developer.delinea.com/reference/post_subscriptions-addsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-creatempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-deletempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-deletesubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-getalllaggers.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccountpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccountrights.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccounts.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptioncollectionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptionrights.md
+  - https://developer.delinea.com/reference/post_subscriptions-pushsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-setmultiplexedaccountpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-setsubscriptioncollectionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-setsubscriptionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-sync.md
+  - https://developer.delinea.com/reference/post_subscriptions-updatempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-updatesubscription.md
+  - https://developer.delinea.com/reference/post_sysinfo-about.md
+  - https://developer.delinea.com/reference/post_sysinfo-dummy.md
+  - https://developer.delinea.com/reference/post_sysinfo-getmysession.md
+  - https://developer.delinea.com/reference/post_sysinfo-version.md
+  - https://developer.delinea.com/reference/post_task-canceljob.md
+  - https://developer.delinea.com/reference/post_task-createonetimejob.md
+  - https://developer.delinea.com/reference/post_task-emailreport.md
+  - https://developer.delinea.com/reference/post_task-getjobhistory.md
+  - https://developer.delinea.com/reference/post_task-getsinglejobhistory.md
+  - https://developer.delinea.com/reference/post_task-jobreport.md
+  - https://developer.delinea.com/reference/post_tenantcnames-get.md
+  - https://developer.delinea.com/reference/post_tenantcnames-getdomaininfo.md
+  - https://developer.delinea.com/reference/post_tenantcnames-register.md
+  - https://developer.delinea.com/reference/post_tenantcnames-setpreferred.md
+  - https://developer.delinea.com/reference/post_tenantcnames-uiget.md
+  - https://developer.delinea.com/reference/post_tenantcnames-unregister.md
+  - https://developer.delinea.com/reference/post_tenantconfig-deleteadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-deleteadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadminsecurityquestions.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getcustomerconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemailtemplates.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemessagetemplate.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemessagetemplates.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getgooglekey.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getmobileconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-gettwilioconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-resetportalconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-sendtestmessagetemplate.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setcustomerconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setgooglekey.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setmobileconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setpasswordpersistance.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-settwilioconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-testsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-testtwilioconfig.md
+  - https://developer.delinea.com/reference/post_u-evaluate.md
+  - https://developer.delinea.com/reference/post_u2f-answerregistrationchallenge.md
+  - https://developer.delinea.com/reference/post_u2f-deleteu2fdevice.md
+  - https://developer.delinea.com/reference/post_u2f-deleteu2fdevices.md
+  - https://developer.delinea.com/reference/post_u2f-facets.md
+  - https://developer.delinea.com/reference/post_u2f-getregistrationchallenge.md
+  - https://developer.delinea.com/reference/post_u2f-getu2fdevices.md
+  - https://developer.delinea.com/reference/post_u2f-getu2fdevicesforuser.md
+  - https://developer.delinea.com/reference/post_unixprofile-getgroupprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-getuserprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-getuserprofilesfromcsvfile.md
+  - https://developer.delinea.com/reference/post_unixprofile-setgroupprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-setuserprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_uprest-getappbykey.md
+  - https://developer.delinea.com/reference/post_uprest-getresultantappsforuser.md
+  - https://developer.delinea.com/reference/post_uprest-gettagsforapp.md
+  - https://developer.delinea.com/reference/post_uprest-getupdata.md
+  - https://developer.delinea.com/reference/post_uprest-setusercredsforapp.md
+  - https://developer.delinea.com/reference/post_uprest-upserttagsforapp.md
+  - https://developer.delinea.com/reference/post_usermgmt-addfavorite.md
+  - https://developer.delinea.com/reference/post_usermgmt-analyzeadaptivemfarisk.md
+  - https://developer.delinea.com/reference/post_usermgmt-canedituserattributes.md
+  - https://developer.delinea.com/reference/post_usermgmt-changeuserattributes-1.md
+  - https://developer.delinea.com/reference/post_usermgmt-changeuserpassword.md
+  - https://developer.delinea.com/reference/post_usermgmt-checkuserprofilechallenge.md
+  - https://developer.delinea.com/reference/post_usermgmt-directoryservicequery.md
+  - https://developer.delinea.com/reference/post_usermgmt-getcachedentity.md
+  - https://developer.delinea.com/reference/post_usermgmt-getcacheduser.md
+  - https://developer.delinea.com/reference/post_usermgmt-getfavorites.md
+  - https://developer.delinea.com/reference/post_usermgmt-getsecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserattributes.md
+  - https://developer.delinea.com/reference/post_usermgmt-getusercertificateinfo.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserhierarchy.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserinfo.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserpicture.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserpreferences.md
+  - https://developer.delinea.com/reference/post_usermgmt-getusersrolesandadministrativerights.md
+  - https://developer.delinea.com/reference/post_usermgmt-inviteusers.md
+  - https://developer.delinea.com/reference/post_usermgmt-isusercloudlocked.md
+  - https://developer.delinea.com/reference/post_usermgmt-isuserlockedoutbypolicy.md
+  - https://developer.delinea.com/reference/post_usermgmt-isusersubjecttocloudlocks.md
+  - https://developer.delinea.com/reference/post_usermgmt-removefavorite.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeuser.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeusercertificate.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeusers.md
+  - https://developer.delinea.com/reference/post_usermgmt-resetsecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-resetuserpassword.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendloginemail.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendloginemails.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendsmsinvite.md
+  - https://developer.delinea.com/reference/post_usermgmt-setcloudlock.md
+  - https://developer.delinea.com/reference/post_usermgmt-setphonepin.md
+  - https://developer.delinea.com/reference/post_usermgmt-setsecurityquestion.md
+  - https://developer.delinea.com/reference/post_usermgmt-uncacheuserpreferences.md
+  - https://developer.delinea.com/reference/post_usermgmt-updatesecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-updateuserpreferences.md
+  - https://developer.delinea.com/reference/post_vault-addvault.md
+  - https://developer.delinea.com/reference/post_vault-deletevault.md
+  - https://developer.delinea.com/reference/post_vault-getallvaults.md
+  - https://developer.delinea.com/reference/post_vault-getallvaultsites.md
+  - https://developer.delinea.com/reference/post_vault-getallvaulttemplates.md
+  - https://developer.delinea.com/reference/post_vault-gethistory.md
+  - https://developer.delinea.com/reference/post_vault-getjobhistory.md
+  - https://developer.delinea.com/reference/post_vault-getvault.md
+  - https://developer.delinea.com/reference/post_vault-getvaultsite.md
+  - https://developer.delinea.com/reference/post_vault-setvaultcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_vault-setvaultpermissions.md
+  - https://developer.delinea.com/reference/post_vault-syncvault.md
+  - https://developer.delinea.com/reference/post_vault-updatevault.md
+  - https://developer.delinea.com/reference/post_vault-verifyvault.md
+  - https://developer.delinea.com/reference/post_vfs-getfile.md
+  - https://developer.delinea.com/reference/post_vfs-getfilelower.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-createassignment.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-deleteexpiredassignments.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getallroles.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getapprovers.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getdomainconfiguration.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getroles.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-refreshresourcezonejoined.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-validaterolerequest.md
+  - https://developer.delinea.com/reference/post_zso-authenticatesession.md
+  - https://developer.delinea.com/reference/post_zso-certlogin.md
+  - https://developer.delinea.com/reference/post_zso-clearmacsafarizsocookie.md
+  - https://developer.delinea.com/reference/post_zso-ismacsafarizsocookieset.md
+  - https://developer.delinea.com/reference/post_zso-issessionauthenticated.md
+  - https://developer.delinea.com/reference/post_zso-setmacsafarizsocookie.md
+  merge:
+    pages: 775
+    deduped: 70
+    conflicts_kept_first: 0

@@ -1,0 +1,3719 @@
+openapi: 3.2.0
+info:
+  termsOfService: http://developer.centrify.com/license
+  title: Centrify Identity Platform Authentication API
+  version: 23.1.261-447315
+  description: This site provides basic reference material for the Centrify Identity Platform API.
+tags:
+- description: Authenticate to cloud service, MFA
+  name: Authentication
+paths:
+  /Acl/CheckRowRight:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                RowKey:
+                  type: string
+                  description: The unique identifier.
+                Rights:
+                  type: boolean
+                  description: The right on the item.
+                Table:
+                  items:
+                    type: string
+                  type: array
+                  description: Sql table to examine.
+              required:
+              - RowKey
+              - Rights
+              - Table
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Check row ACLs
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclCheckRowRight'
+      operationId: postAclCheckRowRight
+      x-operation-id-source: derived
+  /Acl/GetAce:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ID:
+                  type: integer
+                  description: The ace item ID.
+              required:
+              - ID
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Gets a users access rights
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetAce'
+      operationId: postAclGetAce
+      x-operation-id-source: derived
+  /Acl/GetCollectionAces:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                RowKey:
+                  type: string
+                  description: Unique identifier.
+                ReduceSysadmin:
+                  type: boolean
+                  description: Prevent generic cloud admin accounts from having access (default=false).
+                Table:
+                  items:
+                    type: string
+                  type: array
+                  description: The table to access.
+              required:
+              - RowKey
+              - ReduceSysadmin
+              - Table
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Get a collection of access rights
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetCollectionAces'
+      operationId: postAclGetCollectionAces
+      x-operation-id-source: derived
+  /Acl/GetDirAces:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Path:
+                  type: string
+                  description: Path to the folder being examined.
+                Inherit:
+                  type: boolean
+                  description: Use inheritance (default=true).
+              required:
+              - Path
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Retrieves a list of who has what rights for the directory
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetDirAces'
+      operationId: postAclGetDirAces
+      x-operation-id-source: derived
+  /Acl/GetEffectiveDirRights:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Paths:
+                  items:
+                    type: string
+                    description: A directory path.
+                  type: array
+                  description: A list of directories.
+              required:
+              - Paths
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Gets a list of directory rights
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetEffectiveDirRights'
+      operationId: postAclGetEffectiveDirRights
+      x-operation-id-source: derived
+  /Acl/GetEffectiveFileRights:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Paths:
+                  items:
+                    type: string
+                    description: A file.
+                  type: array
+                  description: List of files to examine for rights.
+              required:
+              - Paths
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Gets a list of file rights
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetEffectiveFileRights'
+      operationId: postAclGetEffectiveFileRights
+      x-operation-id-source: derived
+  /Acl/GetEffectiveRowRights:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Rows:
+                  items:
+                    properties:
+                      RowKey:
+                        type: string
+                        description: The unique identifer.
+                      ReduceSysadmin:
+                        type: boolean
+                        description: Prevent generic cloud admin accounts from having access (default=false).
+                      Table:
+                        type: string
+                        description: Database table name.
+                    type: object
+                    description: A row of user rights.
+                  type: array
+                  description: Row rights of the user to look for.
+              required:
+              - Rows
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Only returns value if current user has at least read-rights.
+      summary: Gets a list of row rights
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetEffectiveRowRights'
+      operationId: postAclGetEffectiveRowRights
+      x-operation-id-source: derived
+  /Acl/GetFileAces:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Inherit:
+                  type: boolean
+                  description: Use inheritance.
+                Paths:
+                  items:
+                    type: string
+                  type: array
+                  description: Path to the file.
+              required:
+              - Inherit
+              - Paths
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Gets ACLs on a file
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetFileAces'
+      operationId: postAclGetFileAces
+      x-operation-id-source: derived
+  /Acl/GetRowAces:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                RowKey:
+                  type: string
+                  description: The unique identifier.
+                ReduceSysadmin:
+                  type: boolean
+                  description: Prevent generic cloud admin accounts from having access (default=false).
+                Inherit:
+                  type: boolean
+                  description: Use inheritance (default=true).
+                Table:
+                  type: string
+                  description: The sql table to examine.
+              required:
+              - RowKey
+              - Table
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Gets the access rights for a row
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AclGetRowAces'
+      operationId: postAclGetRowAces
+      x-operation-id-source: derived
+  /AuthProfile/DeleteProfile:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: Authentication UUID.
+        name: uuid
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload21'
+      x-centrify-anon: false
+      summary: Deletes an authentication profile
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileDeleteProfile'
+      operationId: postAuthProfileDeleteProfile
+      x-operation-id-source: derived
+  /AuthProfile/GetProfile:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: Profile UUID
+        name: uuid
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload21'
+      x-centrify-anon: false
+      description: The profile get uses the uuid passed in by method call or as part of the payload.
+      summary: Gets an authentication profile
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileGetProfile'
+      operationId: postAuthProfileGetProfile
+      x-operation-id-source: derived
+  /AuthProfile/GetProfileList:
+    post:
+      tags:
+      - Authentication
+      x-centrify-anon: false
+      summary: Gets a list of Authentication profiles
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileGetProfileList'
+      operationId: postAuthProfileGetProfileList
+      x-operation-id-source: derived
+  /AuthProfile/SaveProfile:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                settings:
+                  properties:
+                    Challenges:
+                      items:
+                        type: string
+                      type: array
+                      description: Selected authentication mechanisms.
+                    AdditionalData:
+                      type: object
+                      description: DataEntity with additional data (default=null).
+                    Uuid:
+                      type: string
+                      description: Profile UUID.
+                    DurationInMinutes:
+                      type: integer
+                      description: How many minutes the profile is valid.
+                    Name:
+                      type: string
+                      description: Profile name.
+                  type: object
+                  description: The authentication profile.
+              required:
+              - settings
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: If the profile contains a UUID an update is performed, otherwise it's a write.
+      summary: Saves an authentication profile
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileSaveProfile'
+      operationId: postAuthProfileSaveProfile
+      x-operation-id-source: derived
+  /CDirectoryService/RefreshToken:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: User UUID to refresh
+        name: ID
+        schema:
+          type: string
+      - required: false
+        in: query
+        description: UUID of the user's directory service (default=null)
+        name: directoryServiceUuid
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'You must be a system administrator or have user management permissions. User cached identity in the cloud is reloaded from their directory service.
+
+        Useful when user details have changed in their remote directory service, but have not yet been pushed to the cloud.'
+      summary: Refresh a user's cached identity
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CDirectoryServiceRefreshToken'
+      operationId: postCDirectoryServiceRefreshToken
+      x-operation-id-source: derived
+  /Collection/IsMember:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                directHint:
+                  type: boolean
+                  description: ''
+                ID:
+                  type: integer
+                  description: The uuid reference to a collection.
+                recurse:
+                  type: boolean
+                  description: Look for children (default=false).
+                Table:
+                  type: string
+                  description: Member table.
+                Key:
+                  type: string
+                  description: The key to use when examining the table.
+              required:
+              - ID
+              - Table
+              - Key
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Gets the members with access to the set
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionIsMember'
+      operationId: postCollectionIsMember
+      x-operation-id-source: derived
+  /OAuth2/Authorize:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: Value used to determine if authentication has occured.
+        name: bounce
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      description: 'Calls defined by RFC(s). May alternately redirect to another login page or throw an exceptoin depending on success.
+
+        See the OAuth2 spec https://oauth.net/2/'
+      summary: Authenticates a request
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2Authorize'
+      operationId: postOAuth2Authorize
+      x-operation-id-source: derived
+  /OAuth2/Confirm:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: Value used to determine if authentication has occured.
+        name: bounce
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: Has user denied confirmation.
+        name: result
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: Comma delimited list of scope ids.
+        name: scopes
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'Calls defined by RFC(s).
+
+        See the OAuth2 spec https://oauth.net/2/'
+      summary: Confirm
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2Confirm'
+      operationId: postOAuth2Confirm
+      x-operation-id-source: derived
+  /OAuth2/EndSession:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: ''
+        name: post_logout_redirect_uri
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: ''
+        name: state
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: ''
+        name: id_token_hint
+        schema:
+          type: string
+      x-centrify-anon: true
+      summary: https://openid.net/specs/openid-connect-session-1_0.html#RPLogout
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2EndSession'
+      operationId: postOAuth2EndSession
+      x-operation-id-source: derived
+  /OAuth2/Introspect:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                token:
+                  type: string
+                  description: The authentication token to process.
+              required:
+              - token
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: See the OAuth2 spec https://oauth.net/2/
+      summary: Introspect
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2Introspect'
+      operationId: postOAuth2Introspect
+      x-operation-id-source: derived
+  /OAuth2/Keys:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        $ref: '#/components/requestBodies/Payload31'
+      x-centrify-anon: true
+      description: See the OAuth2 spec https://oauth.net/2/
+      summary: Keys
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2Keys'
+      operationId: postOAuth2Keys
+      x-operation-id-source: derived
+  /OAuth2/Revoke:
+    post:
+      tags:
+      - Authentication
+      x-centrify-anon: true
+      description: See the OAuth2 spec https://oauth.net/2/
+      summary: Revoke
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2Revoke'
+      operationId: postOAuth2Revoke
+      x-operation-id-source: derived
+  /OAuth2/Token:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                grant_type:
+                  type: string
+                  description: Grant what type of token.
+              required:
+              - grant_type
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: See the OAuth2 spec https://oauth.net/2/
+      summary: Gets a token based on grant type
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2Token'
+      operationId: postOAuth2Token
+      x-operation-id-source: derived
+  /OAuth2/UserInfo:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Scopes:
+                  items:
+                    type: string
+                    description: A scope id.
+                  type: array
+                  description: A list of scope ids.
+              required:
+              - Scopes
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'Not anonymous.
+
+        See the OAuth2 spec https://oauth.net/2/'
+      summary: This returns the contents of the bearer token used
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2UserInfo'
+      operationId: postOAuth2UserInfo
+      x-operation-id-source: derived
+  /OAuth2Man/CreateClientToken:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                AppID:
+                  type: string
+                  description: The application id.
+                ClientSecret:
+                  type: string
+                  description: The client secret.
+                ClientID:
+                  type: string
+                  description: The client id.
+              required:
+              - AppID
+              - ClientSecret
+              - ClientID
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Creates a client token
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/OAuth2ManCreateClientToken'
+      operationId: postOAuth2ManCreateClientToken
+      x-operation-id-source: derived
+  /Security/AdvanceAuthentication:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                TenantId:
+                  type: string
+                  description: Tenant ID/suffix returned by the call that started the authentication session
+                Action:
+                  type: string
+                  description: What action to take with respect to the supplied MechanismId (answer it, send ood challenge, wait for oob response, etc.).
+                PersistentLogin:
+                  type: boolean
+                  description: Flag indicating if the user's session should persist after closing the browser
+                SessionId:
+                  type: string
+                  description: Session ID returned by the call that started the authentication session
+                MechanismId:
+                  type: string
+                  description: Mechanism ID that you wish to advance.
+                Answer:
+                  type: string
+                  description: For answerable mechanisms, the value that will satisfy the qustion (password, security code, etc.)
+              required:
+              - Action
+              - SessionId
+              - MechanismId
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: 'When things are going smoothly, you can expect to get a ''StartNextChallenge'' or ''LoginSuccess'' response, however the system may (at any time)
+
+        return a new Mfa Package which may add, remove or change challenges. Failure cases typically result in an ''Undefined'' error message when things are
+
+        misconfigured and a "LoginFailure'' message when incorrect answers have terminated the session (which may have been sent in previous calls to this API).'
+      summary: Attempt to advance the state of an authentication session
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityAdvanceAuthentication'
+      operationId: postSecurityAdvanceAuthentication
+      x-operation-id-source: derived
+  /Security/AdvanceForgotUsername:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                TenantId:
+                  type: string
+                  description: The tenant id.
+                Action:
+                  type: string
+                  description: The payload key action.
+                Answer:
+                  type: string
+                  description: The answer.
+              required:
+              - TenantId
+              - Action
+              - Answer
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: Handles and mfa-like package with a single challenge (special case 'ForgotUsername' package).
+      summary: Advances a forgot username session (similar to MFA advance authentication)
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityAdvanceForgotUsername'
+      operationId: postSecurityAdvanceForgotUsername
+      x-operation-id-source: derived
+  /Security/AnswerOOBChallenge:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The answer to verify against.
+        name: answer
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      description: 'Invoked by 3rd party services for answering out of band challenges.
+
+        (text messages or email, not PhoneFactor)
+
+        Supports the click on link scenario.'
+      summary: 'MultiFactor Auth support: answer out of band challenge'
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityAnswerOOBChallenge'
+      operationId: postSecurityAnswerOOBChallenge
+      x-operation-id-source: derived
+  /Security/ChallengeUser:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: What authentication profile to use.
+        name: profileName
+        schema:
+          type: string
+      x-centrify-anon: false
+      description: 'ie. a challenge based on the passed authentication profile.
+
+        Pattern: Allow AuthChallengeHelper to check challenge and throw an AuthChallengeException if challenge is needed
+
+        JsonRest.StandardJsonResult will catch the exception and transform it to a challenge response.'
+      summary: Determines if user needs step-up authentication
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityChallengeUser'
+      operationId: postSecurityChallengeUser
+      x-operation-id-source: derived
+  /Security/CleanupAuthentication:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                TenantId:
+                  type: string
+                  description: Tenant ID/suffix returned by the call that started the authentication session
+                SessionId:
+                  type: string
+                  description: Session ID returned by the call that started the authentication session
+              required:
+              - TenantId
+              - SessionId
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: Does not affect completed authentication sessions.
+      summary: Terminate an incomplete session started with StartAuthentication or…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityCleanupAuthentication'
+      operationId: postSecurityCleanupAuthentication
+      x-operation-id-source: derived
+  /Security/GetOneTimePassword:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: What's the password being used for.
+        name: use
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Fetches a one-time passcode for the specified use
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityGetOneTimePassword'
+      operationId: postSecurityGetOneTimePassword
+      x-operation-id-source: derived
+  /Security/GetRiskAnalysisLevels:
+    post:
+      tags:
+      - Authentication
+      x-centrify-anon: false
+      summary: Gets a list of risk levels
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityGetRiskAnalysisLevels'
+      operationId: postSecurityGetRiskAnalysisLevels
+      x-operation-id-source: derived
+  /Security/Login:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The customer processing the login.
+        name: systemID
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: The user trying to login.
+        name: user
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: The user password.
+        name: password
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: The persist state given to the cookie.
+        name: persist
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      deprecated: true
+      description: Please use StartAuthentication/AdvanceAuthentication.
+      summary: Deprecated -- User login
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityLogin'
+      operationId: postSecurityLogin
+      x-operation-id-source: derived
+  /Security/Logout:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: Where to go next.
+        name: redirectUrl
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: Allow windows authentication.
+        name: allowIWA
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      description: 'The user will be redirected to redirectUrl if it is present.
+
+        RedirectUrl can be external or relative.'
+      summary: Logout current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityLogout'
+      operationId: postSecurityLogout
+      x-operation-id-source: derived
+  /Security/OnDemandChallenge:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                User:
+                  type: string
+                  description: Username of the user to challenge on behalf of.
+                ChallengeMode:
+                  default: false
+                  type: boolean
+                  description: Use challenge mode (pass through) authentication.
+                PolicyModifier:
+                  type: string
+                  description: The policy modifier key to use for deterministic selection of an Authentication Profile.
+              required:
+              - User
+              - PolicyModifier
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: Uses custom policy key modifiers to choose auth rules and profiles.
+      summary: Allows OAuth2 clients to perform on-demand step-up authentication challenges
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityOnDemandChallenge'
+      operationId: postSecurityOnDemandChallenge
+      x-operation-id-source: derived
+  /Security/RefreshToken:
+    post:
+      tags:
+      - Authentication
+      x-centrify-anon: false
+      description: User cached identity in the cloud is reloaded from their directory service. Useful when user details have changed in their remote directory service, but have not yet been pushed to the cloud.
+      summary: Refresh current user's cached identity
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityRefreshToken'
+      operationId: postSecurityRefreshToken
+      x-operation-id-source: derived
+  /Security/ResumeFromExtIdpAuth:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The current Idp challenge state.
+        name: ExtIdpAuthChallengeState
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ExtIdpAuthChallengeState:
+                  type: string
+                  description: The Idp authentication challenge state.
+              required:
+              - ExtIdpAuthChallengeState
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: Continued after receiving authentication results from the identity provider.
+      summary: Continues user authentication
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityResumeFromExtIdpAuth'
+      operationId: postSecurityResumeFromExtIdpAuth
+      x-operation-id-source: derived
+  /Security/StartAuthentication:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                TenantId:
+                  type: string
+                  description: Tenant ID/suffix of the user who is logging in. If this field is not provided, the user name must identify the tenant
+                Version:
+                  type: string
+                  description: 'Version of the data being sent. Options: 1.0'
+                ApplicationId:
+                  type: string
+                  description: Placeholder - unused at this time
+                MfaRequestor:
+                  type: string
+                  description: Placeholder - unused at this time
+                User:
+                  type: string
+                  description: Name of the user who is attempting to authenticate.
+              required:
+              - Version
+              - User
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: 'The authentication package returned is a complex structure that guides the caller through the authentication process. Multiple calls to AdvanceAuthentication
+
+        may be required to complete the process.'
+      summary: Starts a user authentication session
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityStartAuthentication'
+      operationId: postSecurityStartAuthentication
+      x-operation-id-source: derived
+  /Security/StartChallenge:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Version:
+                  type: string
+                  description: 'Version of the data being sent. Options: 1.0'
+                ChallengeStateId:
+                  type: string
+                  description: ChallengeId returned by other REST calls.
+              required:
+              - Version
+              - ChallengeStateId
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'The authentication package returned is a complex structure that guides the caller through the authentication process. Multiple calls to AdvanceAuthentication
+
+        may be required to complete the process.'
+      summary: Starts a step-up authentication challenge session
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityStartChallenge'
+      operationId: postSecurityStartChallenge
+      x-operation-id-source: derived
+  /Security/StartForgotUsername:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Version:
+                  type: string
+                  description: The payload key version.
+              required:
+              - Version
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: Returns an mfa package with a single challenge (special case 'ForgotUsername' package). The tenant Id is derived from the URL - there is no way to specify it otherwise.
+      summary: Starts a forgot username session that looks similar to an MFA authentication…
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityStartForgotUsername'
+      operationId: postSecurityStartForgotUsername
+      x-operation-id-source: derived
+  /Security/StartSocialAuthentication:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                PostExtIdpAuthCallbackUrl:
+                  type: string
+                  description: Where the Idp should send the user after authentication.
+                IdpName:
+                  type: string
+                  description: The identity provider name (Facebook, Google, Twitter, LinkedIn, Microsoft).
+              required:
+              - PostExtIdpAuthCallbackUrl
+              - IdpName
+              type: object
+        required: true
+      x-centrify-anon: true
+      summary: Start social authentication
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityStartSocialAuthentication'
+      operationId: postSecurityStartSocialAuthentication
+      x-operation-id-source: derived
+  /Security/SubmitOathOtpCode:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: OATH One time password.
+        name: otpCode
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: Uuid for the authentication user.
+        name: userUuid
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                otpCode:
+                  type: string
+                  description: OATH One time password.
+                userUuid:
+                  type: string
+                  description: Uuid for the authentication user.
+              required:
+              - otpCode
+              - userUuid
+              type: object
+        required: true
+      x-centrify-anon: true
+      description: The request must be made using a tenant-specific URL.
+      summary: Submit OATH OTP code for the specify user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecuritySubmitOathOtpCode'
+      operationId: postSecuritySubmitOathOtpCode
+      x-operation-id-source: derived
+  /Security/TaskCheck:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The task.
+        name: Task
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Checks to see if user has execute rights on the task
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTaskCheck'
+      operationId: postSecurityTaskCheck
+      x-operation-id-source: derived
+  /Security/TaskChecks:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                tasks:
+                  items:
+                    type: string
+                  type: array
+                  description: A list of tasks.
+              required:
+              - tasks
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Checks to see if user has execute rights on a list of tasks
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTaskChecks'
+      operationId: postSecurityTaskChecks
+      x-operation-id-source: derived
+  /Security/TwilioPhoneChallengeCompleted:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        $ref: '#/components/requestBodies/Payload14'
+      x-centrify-anon: true
+      description: Invoked by 3rd party services answering twilio messages.
+      summary: Looks for the multi auth customer response
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTwilioPhoneChallengeCompleted'
+      operationId: postSecurityTwilioPhoneChallengeCompleted
+      x-operation-id-source: derived
+  /Security/TwilioPhoneChallengeNotAnswered:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        $ref: '#/components/requestBodies/Payload14'
+      x-centrify-anon: true
+      description: Invoked by 3rd party services answering twilio messages.
+      summary: Looks for the multi auth customer response
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityTwilioPhoneChallengeNotAnswered'
+      operationId: postSecurityTwilioPhoneChallengeNotAnswered
+      x-operation-id-source: derived
+  /Security/WhoAmI:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: Not used.
+        name: challenge
+        schema:
+          type: string
+      x-centrify-anon: true
+      summary: Confirms user authentication state
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SecurityWhoAmI'
+      operationId: postSecurityWhoAmI
+      x-operation-id-source: derived
+  /ServerAgent/VerifyPassword:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Password:
+                  type: string
+                  description: Password of a CUS user.
+                AllowPasswordExpiration:
+                  type: boolean
+                  description: Allow to authenticate expired password.
+                Username:
+                  type: string
+                  description: Username of a CUS user in UPN.
+              required:
+              - Password
+              - Username
+              type: object
+        required: true
+      x-centrify-anon: false
+      deprecated: true
+      summary: Verify username and password
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServerAgentVerifyPassword'
+      operationId: postServerAgentVerifyPassword
+      x-operation-id-source: derived
+  /ServerAgent/VerifyPasswordV2:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Password:
+                  type: string
+                  description: Password of the user.
+                AllowPasswordExpiration:
+                  type: boolean
+                  description: If true, an expired password will be considered valid. Otherwise, an expired password is considered an error.
+                Uuid:
+                  type: string
+                  description: UUID/GUID of the user.
+              required:
+              - Password
+              - Uuid
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'Verify that the given password is correct for the given user.
+
+        Similar to VerifyPassword, but this API is preferred.'
+      summary: Verify password
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServerAgentVerifyPasswordV2'
+      operationId: postServerAgentVerifyPasswordV2
+      x-operation-id-source: derived
+  /ServerAgent/VerifyUserCanLogin:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                UUID:
+                  type: string
+                  description: The user's unique identifier.
+              required:
+              - UUID
+              type: object
+        required: true
+      x-centrify-anon: false
+      description: 'Verifies that a given user can login to the system corresponding to the calling service user.
+
+        Should only be called by a service user of an enrolled agent.'
+      summary: Verify user can login
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServerAgentVerifyUserCanLogin'
+      operationId: postServerAgentVerifyUserCanLogin
+      x-operation-id-source: derived
+  /U2f/AnswerRegistrationChallenge:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The raw registation response.
+        name: rawRegisterResponse
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                ClientData:
+                  type: string
+                  description: The client data.
+                RegistrationData:
+                  type: string
+                  description: The registration data.
+                Challenge:
+                  type: string
+                  description: The registration challenge.
+              required:
+              - ClientData
+              - RegistrationData
+              - Challenge
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Answer registration challenge
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/U2fAnswerRegistrationChallenge'
+      operationId: postU2fAnswerRegistrationChallenge
+      x-operation-id-source: derived
+  /U2f/DeleteU2fDevice:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The device key to delete.
+        name: keyHandle
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Deletes the U2f device
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/U2fDeleteU2fDevice'
+      operationId: postU2fDeleteU2fDevice
+      x-operation-id-source: derived
+  /U2f/DeleteU2fDevices:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                KeyHandles:
+                  items:
+                    type: string
+                  type: array
+                  description: A list of handles to U2f devices.
+              required:
+              - KeyHandles
+              type: object
+        required: true
+      x-centrify-anon: false
+      summary: Delete a list of U2f devices
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/U2fDeleteU2fDevices'
+      operationId: postU2fDeleteU2fDevices
+      x-operation-id-source: derived
+  /U2f/Facets:
+    post:
+      tags:
+      - Authentication
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: true
+      summary: Get the trusted facet list for the tenant
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/U2fFacets'
+      operationId: postU2fFacets
+      x-operation-id-source: derived
+  /U2f/GetRegistrationChallenge:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The user defined name.
+        name: userDefinedName
+        schema:
+          type: string
+      - required: true
+        in: query
+        description: The type of authenticator
+        name: authenticatortype
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/Payload15'
+      x-centrify-anon: false
+      summary: Get registration challenge
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/U2fGetRegistrationChallenge'
+      operationId: postU2fGetRegistrationChallenge
+      x-operation-id-source: derived
+  /U2f/GetU2fDevices:
+    post:
+      tags:
+      - Authentication
+      x-centrify-anon: false
+      summary: Gets a list of U2f devices
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/U2fGetU2fDevices'
+      operationId: postU2fGetU2fDevices
+      x-operation-id-source: derived
+  /U2f/GetU2fDevicesForUser:
+    post:
+      tags:
+      - Authentication
+      parameters:
+      - required: true
+        in: query
+        description: The authenticator type
+        name: type
+        schema:
+          type: string
+      x-centrify-anon: false
+      summary: Gets a list of U2f devices for the current user
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/U2fGetU2fDevicesForUser'
+      operationId: postU2fGetU2fDevicesForUser
+      x-operation-id-source: derived
+components:
+  schemas:
+    AclGetAce:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The ace object.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTaskCheck:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Does the user have execute rights on the task.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetCollectionAces:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of access collections.
+          type: array
+          items:
+            description: An access collection.
+            type: object
+            properties:
+              Principal:
+                description: Entity with set access rights.
+                type: string
+              PrincipalType:
+                description: The type of entity.
+                type: string
+              PrincipalName:
+                description: The principal name.
+                type: string
+              GrantStr:
+                description: The name of the right being granted.
+                type: string
+              Grant:
+                description: What right to grant.
+                type: integer
+              StartTime:
+                description: Start time of the access right.
+                type: string
+              EndTime:
+                description: End time of the access right.
+                type: string
+              AceID:
+                description: The access right id.
+                type: string
+              Inherited:
+                description: Is inheritence being used (default=false).
+                type: boolean
+              ObjectType:
+                description: The object type.
+                type: string
+              PrincipalObjectType:
+                description: The principal object type.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityCleanupAuthentication:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AuthProfileDeleteProfile:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Success or failure of the delete
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2Introspect:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Normalized information about the token.
+          type: object
+          properties:
+            exp:
+              type: string
+              description: When does the token expire.
+            scope:
+              type: string
+              description: The scope of the token.
+            sub:
+              type: string
+              description: The user's unique identifier.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2Confirm:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: ActionResult from saving user confirmation.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2Token:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The token
+          type: object
+          properties:
+            expires_in:
+              type: integer
+              description: How long is the token good.
+            scope:
+              type: string
+              description: The scope of the token.
+            access_token:
+              type: string
+              description: The token unique identifier.
+            token_type:
+              type: string
+              description: The type of token.
+            id_token:
+              type: string
+              description: The token id.
+            refresh_token:
+              type: string
+              description: The token refresh.
+            state:
+              type: string
+              description: The state of the token.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2Revoke:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the revoke work.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityStartChallenge:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Login success (or error) message or an Authentication package to guide client through the MFA process.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetFileAces:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: List of access files.
+          type: array
+          items:
+            type: object
+            description: An access file.
+            properties:
+              Principal:
+                description: Entity with file access rights.
+                type: string
+              PrincipalType:
+                description: The type of entity.
+                type: string
+              PrincipalName:
+                description: The principal name.
+                type: string
+              GrantStr:
+                description: The name of the right being granted.
+                type: string
+              Grant:
+                description: What right to grant.
+                type: integer
+              StartTime:
+                description: Start time of the access right.
+                type: string
+              EndTime:
+                description: End time of the access right.
+                type: string
+              AceID:
+                description: The access right id.
+                type: string
+              Inherited:
+                description: Is inheritence being used (default=false).
+                type: boolean
+              ObjectType:
+                description: The object type.
+                type: string
+              PrincipalObjectType:
+                description: The principal object type.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2Keys:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of keys
+          type: array
+          items:
+            description: A certificate key
+            type: object
+            properties:
+              kty:
+                description: The type of key.
+                type: string
+              alg:
+                description: The algorithm of the key.
+                type: string
+              use:
+                description: The use of key.
+                type: string
+              kid:
+                description: The thumbprint of key.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecuritySubmitOathOtpCode:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard JSON response.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    ServerAgentVerifyUserCanLogin:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the user verify.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityChallengeUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Has the user satisfied the required security mechanisms.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetEffectiveRowRights:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of user rights.
+          type: array
+          items:
+            type: object
+            description: A user right.
+            properties:
+              Table:
+                description: Database table name.
+                type: string
+              RowKey:
+                description: The unique identifier.
+                type: string
+              GrantStr:
+                description: The right being granted.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetEffectiveFileRights:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: List of file rights.
+          type: array
+          items:
+            type: object
+            description: A file right.
+            properties:
+              Path:
+                description: The file name.
+                type: string
+              GrantStr:
+                description: The right being granted.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2UserInfo:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The contents of the bearer token.
+          type: object
+          properties:
+            aud:
+              type: string
+              description: The profile client id.
+            Uuid:
+              type: string
+              description: The unique identifier for the user.
+            unique_name:
+              type: string
+              description: The user name.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CDirectoryServiceRefreshToken:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    U2fFacets:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The trusted facets for the tenant.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityOnDemandChallenge:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Login success (or error) message or an Authentication package to guide client through the MFA process.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    U2fAnswerRegistrationChallenge:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard JSON response.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    U2fGetU2fDevices:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The list of U2f devices in UI Query Response format.
+          type: array
+          items:
+            type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetEffectiveDirRights:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of directory rights.
+          type: array
+          items:
+            type: object
+            description: A directory right.
+            properties:
+              Path:
+                description: The directory name.
+                type: string
+              GrantStr:
+                description: The right being granted.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTaskChecks:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The list of tasks with the task check result.
+          type: object
+          properties:
+            execute:
+              type: boolean
+              description: Does user have execute rights on this task.
+            task:
+              type: string
+              description: A task.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    U2fDeleteU2fDevice:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard JSON response.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclCheckRowRight:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the row right check succeed.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetDirAces:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: List of directory access rights.
+          type: array
+          items:
+            type: object
+            description: A directory access right.
+            properties:
+              Principal:
+                description: Entity with directory access rights.
+                type: string
+              PrincipalType:
+                description: The type of entity.
+                type: string
+              PrincipalName:
+                description: The principal name.
+                type: string
+              GrantStr:
+                description: The name of the right being granted.
+                type: string
+              Grant:
+                description: What right to grant.
+                type: integer
+              StartTime:
+                description: Start time of the access right.
+                type: string
+              EndTime:
+                description: End time of the access right.
+                type: string
+              AceID:
+                description: The access right id.
+                type: string
+              Inherited:
+                description: Is inheritence being used (default=false).
+                type: boolean
+              ObjectType:
+                description: The object type.
+                type: string
+              PrincipalObjectType:
+                description: The principal object type.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTwilioPhoneChallengeNotAnswered:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The response xml found in the request.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityStartForgotUsername:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: An Authentication package to guide client through the Forgot Username MFA process.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityStartSocialAuthentication:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the social authentication start.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2EndSession:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Resulting object, if any, of the call
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityStartAuthentication:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Login success (or error) message or an Authentication package to guide client through the MFA process.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AuthProfileSaveProfile:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: An authentication profile.
+          type: object
+          properties:
+            Challenges:
+              items:
+                type: string
+              type: array
+              description: Selected authentication mechanisms.
+            AdditionalData:
+              type: object
+              description: DataEntity with additional data (default=null).
+            Uuid:
+              type: string
+              description: Profile UUID.
+            DurationInMinutes:
+              type: integer
+              description: How many minutes the profile is valid.
+            Name:
+              type: string
+              description: Profile name.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    ServerAgentVerifyPassword:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The results from verifying the user information.
+          type: object
+          properties:
+            PasswordExpDate:
+              type: string
+              description: Expiry date of the password in UTC (in ISO 8601 format).
+            Success:
+              type: boolean
+              description: The user name and password is authenticated.
+            IsPasswordExpired:
+              type: boolean
+              description: The password is expired.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    U2fDeleteU2fDevices:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard JSON response.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityAdvanceForgotUsername:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: An MFA return code (for success or failure).
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AuthProfileGetProfile:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Authentication profile.
+          type: object
+          properties:
+            Challenges:
+              items:
+                type: string
+              type: array
+              description: Selected authentication mechanisms.
+            AdditionalData:
+              type: object
+              description: DataEntity with additional data (default=null).
+            Uuid:
+              type: string
+              description: Profile UUID.
+            DurationInMinutes:
+              type: integer
+              description: How many minutes the profile is valid.
+            Name:
+              type: string
+              description: Profile name.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityAdvanceAuthentication:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Login complete, login failed, move to next challenge or an updated authentication package.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityAnswerOOBChallenge:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Redirect to answer challenge page.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AuthProfileGetProfileList:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: List of Authentication profiles.
+          type: array
+          items:
+            type: object
+            description: An Authentication profile.
+            properties:
+              Uuid:
+                description: Profile UUID.
+                type: string
+              Name:
+                description: Profile name.
+                type: string
+              DurationInMinutes:
+                description: How many minutes the profile is valid.
+                type: integer
+              Challenges:
+                description: Selected authentication mechanisms.
+                type: array
+                items:
+                  type: string
+              AdditionalData:
+                description: DataEntity with additional data (default=null).
+                type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityLogin:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the user login succeed.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    CollectionIsMember:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Does the member have access to the set.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityGetOneTimePassword:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The password.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    AclGetRowAces:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: List of row rights.
+          type: array
+          items:
+            type: object
+            description: A row right.
+            properties:
+              Principal:
+                description: Entity with access rights.
+                type: string
+              PrincipalType:
+                description: The type of entity.
+                type: string
+              PrincipalName:
+                description: The principal name.
+                type: string
+              GrantStr:
+                description: The name of the right being granted.
+                type: string
+              Grant:
+                description: What right to grant.
+                type: integer
+              StartTime:
+                description: Start time of the access right.
+                type: string
+              EndTime:
+                description: End time of the access right.
+                type: string
+              AceID:
+                description: The access right id.
+                type: string
+              Inherited:
+                description: Is inheritence being used (default=false).
+                type: boolean
+              ObjectType:
+                description: The object type.
+                type: string
+              PrincipalObjectType:
+                description: The principal object type.
+                type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    ServerAgentVerifyPasswordV2:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Results from verifying the password.
+          type: object
+          properties:
+            PasswordExpDate:
+              type: string
+              description: Expiry date and time of the password in UTC (in ISO 8601 format).
+            Success:
+              type: boolean
+              description: Whether the user and password are authenticated.
+            IsPasswordExpired:
+              type: boolean
+              description: Whether the password is expired.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityResumeFromExtIdpAuth:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The next step (if there is one) for the user authentication.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityWhoAmI:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Is the user authenticated.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    U2fGetU2fDevicesForUser:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The list of U2f devices for the current user in UI Query Response format.
+          type: array
+          items:
+            type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2Authorize:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: ActionResult from processing the request.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityTwilioPhoneChallengeCompleted:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The response xml found in the request.
+          type: string
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityGetRiskAnalysisLevels:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A list of risk levels.
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityRefreshToken:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Standard result
+          type: object
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    U2fGetRegistrationChallenge:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: The registration challenge.
+          type: object
+          properties:
+            AppId:
+              type: string
+              description: The application id.
+            Devices:
+              items:
+                type: object
+              type: array
+              description: A list of devices.
+            Challenge:
+              type: string
+              description: The challenge.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    SecurityLogout:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: Did the user logout succeed.
+          type: boolean
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+    OAuth2ManCreateClientToken:
+      properties:
+        ErrorID:
+          type: string
+          description: Unique support identifier for this occurrence of an error
+        Result:
+          description: A client token.
+          type: object
+          properties:
+            AppID:
+              type: string
+              description: The application id.
+            Tenant:
+              type: string
+              description: The tenant id.
+            ClientSecret:
+              type: string
+              description: The client secret.
+            ClientID:
+              type: string
+              description: The client id.
+            Scopes:
+              items:
+                type: string
+                description: A scope.
+              type: array
+              description: The scopes of the token.
+        Message:
+          type: string
+          description: Error message text on failure, may be null
+        success:
+          type: boolean
+          description: Indicates API success or failure
+      type: object
+  requestBodies:
+    Payload21:
+      content:
+        application/json:
+          schema:
+            properties:
+              uuid:
+                type: string
+                description: The authentication profile uuid either passed in by method call or as part of the payload.
+            required:
+            - uuid
+            type: object
+      required: true
+    Payload15:
+      content:
+        application/json:
+          schema:
+            properties: {}
+            type: object
+      required: true
+    Payload14:
+      content:
+        application/json:
+          schema:
+            properties:
+              ResponseXml:
+                type: string
+                description: The multi auth digit response from the customer.
+            type: object
+      required: true
+    Payload31:
+      content:
+        application/json:
+          schema:
+            properties:
+              customerid:
+                type: object
+                description: The id used to determine the tenant.
+            type: object
+      required: true
+x-explorer-enabled: false
+x-provenance:
+  method: searched
+  source: https://developer.delinea.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.delinea.com/reference/post_acl-checkrowright.md
+  - https://developer.delinea.com/reference/post_acl-getace.md
+  - https://developer.delinea.com/reference/post_acl-getcollectionaces.md
+  - https://developer.delinea.com/reference/post_acl-getdiraces.md
+  - https://developer.delinea.com/reference/post_acl-geteffectivedirrights.md
+  - https://developer.delinea.com/reference/post_acl-geteffectivefilerights.md
+  - https://developer.delinea.com/reference/post_acl-geteffectiverowrights.md
+  - https://developer.delinea.com/reference/post_acl-getfileaces.md
+  - https://developer.delinea.com/reference/post_acl-getrowaces.md
+  - https://developer.delinea.com/reference/post_authprofile-deleteprofile.md
+  - https://developer.delinea.com/reference/post_authprofile-getprofile.md
+  - https://developer.delinea.com/reference/post_authprofile-getprofilelist.md
+  - https://developer.delinea.com/reference/post_authprofile-saveprofile.md
+  - https://developer.delinea.com/reference/post_aws-addaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-deleteaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-deployconnector.md
+  - https://developer.delinea.com/reference/post_aws-getaccesskeys.md
+  - https://developer.delinea.com/reference/post_aws-getavailabilityzones.md
+  - https://developer.delinea.com/reference/post_aws-getcentrifyawsaccountinfo.md
+  - https://developer.delinea.com/reference/post_aws-getconnectorsforregions.md
+  - https://developer.delinea.com/reference/post_aws-getec2iamroles.md
+  - https://developer.delinea.com/reference/post_aws-getkeypairs.md
+  - https://developer.delinea.com/reference/post_aws-getregionnames.md
+  - https://developer.delinea.com/reference/post_aws-getregions.md
+  - https://developer.delinea.com/reference/post_aws-getsecuritygroups.md
+  - https://developer.delinea.com/reference/post_aws-getsubnets.md
+  - https://developer.delinea.com/reference/post_aws-getsubnetsforregions.md
+  - https://developer.delinea.com/reference/post_aws-getvpcs.md
+  - https://developer.delinea.com/reference/post_aws-importaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-retrieveaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-verifyaccesskey.md
+  - https://developer.delinea.com/reference/post_aws-verifyaccesskeyforuseraccount.md
+  - https://developer.delinea.com/reference/post_aws-verifyassumeroleconfiguration.md
+  - https://developer.delinea.com/reference/post_aws-verifysqsqueueconfiguration.md
+  - https://developer.delinea.com/reference/post_brand-info.md
+  - https://developer.delinea.com/reference/post_brand-mybrand.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-bulkdeleteusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-changeuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuserbulk.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createuserquick.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-createusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-delete.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-deleteuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-exemptuserfrommfa.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getbulkimportwithextatt.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-gettechsupportuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuser.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuserattributes.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getuserbyname.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getusers.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-getusersfromcsvfile.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-grantaccess.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-refreshtoken.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-removeauthsource.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-removefederationauthsource.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-setuserpicture.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-setuserstate.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-standardjsonresultwithpermissioncheck.md
+  - https://developer.delinea.com/reference/post_cdirectoryservice-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_cloudprovider-addcloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-deletecloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-deletecloudproviders.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getallcloudproviders.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudprovider.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudprovidercollectionpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-getcloudproviderpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-setcloudprovidercollectionpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-setcloudproviderpermissions.md
+  - https://developer.delinea.com/reference/post_cloudprovider-updatecloudprovider.md
+  - https://developer.delinea.com/reference/post_collection-createdynamiccollection.md
+  - https://developer.delinea.com/reference/post_collection-createmanualcollection.md
+  - https://developer.delinea.com/reference/post_collection-deletecollection.md
+  - https://developer.delinea.com/reference/post_collection-getbucketcontents.md
+  - https://developer.delinea.com/reference/post_collection-getcollection.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionreferences.md
+  - https://developer.delinea.com/reference/post_collection-getcollectionrights.md
+  - https://developer.delinea.com/reference/post_collection-getcollectiontemplate.md
+  - https://developer.delinea.com/reference/post_collection-getmembers.md
+  - https://developer.delinea.com/reference/post_collection-getobjectcollections.md
+  - https://developer.delinea.com/reference/post_collection-getobjectcollectionsandfilters.md
+  - https://developer.delinea.com/reference/post_collection-ismember.md
+  - https://developer.delinea.com/reference/post_collection-setcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_collection-updatecollection.md
+  - https://developer.delinea.com/reference/post_collection-updatememberscollection.md
+  - https://developer.delinea.com/reference/post_core-addblockediprange.md
+  - https://developer.delinea.com/reference/post_core-addpremdetectrange.md
+  - https://developer.delinea.com/reference/post_core-assigndirectoryfilerightstoroles.md
+  - https://developer.delinea.com/reference/post_core-assigndirectoryrightstoroles.md
+  - https://developer.delinea.com/reference/post_core-assignfilerightstoroles.md
+  - https://developer.delinea.com/reference/post_core-checkproxyhealth-1.md
+  - https://developer.delinea.com/reference/post_core-createdirectory.md
+  - https://developer.delinea.com/reference/post_core-createtenantreportsdirectory.md
+  - https://developer.delinea.com/reference/post_core-createuserhomereportsdirectory.md
+  - https://developer.delinea.com/reference/post_core-delblockediprange.md
+  - https://developer.delinea.com/reference/post_core-deletealias.md
+  - https://developer.delinea.com/reference/post_core-deletealiases.md
+  - https://developer.delinea.com/reference/post_core-deletecertificate.md
+  - https://developer.delinea.com/reference/post_core-deletedirectory.md
+  - https://developer.delinea.com/reference/post_core-deletefile.md
+  - https://developer.delinea.com/reference/post_core-deletefiles.md
+  - https://developer.delinea.com/reference/post_core-deleteproxies.md
+  - https://developer.delinea.com/reference/post_core-deleteproxy.md
+  - https://developer.delinea.com/reference/post_core-deleteproxycode.md
+  - https://developer.delinea.com/reference/post_core-deleteproxycodes.md
+  - https://developer.delinea.com/reference/post_core-deletetenantconfig.md
+  - https://developer.delinea.com/reference/post_core-delpremdetectrange.md
+  - https://developer.delinea.com/reference/post_core-directoryexists.md
+  - https://developer.delinea.com/reference/post_core-downloadcertificate.md
+  - https://developer.delinea.com/reference/post_core-downloadfile.md
+  - https://developer.delinea.com/reference/post_core-fileexists.md
+  - https://developer.delinea.com/reference/post_core-generatenewproxycode.md
+  - https://developer.delinea.com/reference/post_core-generatepassword.md
+  - https://developer.delinea.com/reference/post_core-getadloginsuffixesbyforest.md
+  - https://developer.delinea.com/reference/post_core-getadtopology.md
+  - https://developer.delinea.com/reference/post_core-getaliasesfortenant.md
+  - https://developer.delinea.com/reference/post_core-getassignedadministrativerights.md
+  - https://developer.delinea.com/reference/post_core-getblockedipranges.md
+  - https://developer.delinea.com/reference/post_core-getcacertchain.md
+  - https://developer.delinea.com/reference/post_core-getcdsaliasesfortenant.md
+  - https://developer.delinea.com/reference/post_core-getcloudcacert.md
+  - https://developer.delinea.com/reference/post_core-getconnectorlog4netconfig.md
+  - https://developer.delinea.com/reference/post_core-getcurrentiwajsonpurl.md
+  - https://developer.delinea.com/reference/post_core-getcurrentiwaurl.md
+  - https://developer.delinea.com/reference/post_core-getdefaultglobalappsigningcert.md
+  - https://developer.delinea.com/reference/post_core-getdirectories.md
+  - https://developer.delinea.com/reference/post_core-getdirectorycontents.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryfilerolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryinfo.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryrolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getdirectoryservices.md
+  - https://developer.delinea.com/reference/post_core-getdomaincontrollersfordomain.md
+  - https://developer.delinea.com/reference/post_core-getdownloadurls.md
+  - https://developer.delinea.com/reference/post_core-getfileinfo.md
+  - https://developer.delinea.com/reference/post_core-getfilerolesandrights.md
+  - https://developer.delinea.com/reference/post_core-getiwatrustrootcert.md
+  - https://developer.delinea.com/reference/post_core-getloctag.md
+  - https://developer.delinea.com/reference/post_core-getoutreecontents.md
+  - https://developer.delinea.com/reference/post_core-getpremdetectranges.md
+  - https://developer.delinea.com/reference/post_core-getproxies.md
+  - https://developer.delinea.com/reference/post_core-getproxycode.md
+  - https://developer.delinea.com/reference/post_core-getproxycodes.md
+  - https://developer.delinea.com/reference/post_core-getproxyiwahostcertificatefile.md
+  - https://developer.delinea.com/reference/post_core-getproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-getpurchasedlicenses.md
+  - https://developer.delinea.com/reference/post_core-getreportsdirectorycontents.md
+  - https://developer.delinea.com/reference/post_core-getsupportedcultures-1.md
+  - https://developer.delinea.com/reference/post_core-gettenantcacert.md
+  - https://developer.delinea.com/reference/post_core-gettenantconfig.md
+  - https://developer.delinea.com/reference/post_core-getuniquefilename.md
+  - https://developer.delinea.com/reference/post_core-getusersettings.md
+  - https://developer.delinea.com/reference/post_core-getzsocertauthority.md
+  - https://developer.delinea.com/reference/post_core-getzsohostinfo.md
+  - https://developer.delinea.com/reference/post_core-handletwiliosmsreceipt.md
+  - https://developer.delinea.com/reference/post_core-issueusercert.md
+  - https://developer.delinea.com/reference/post_core-issuezsousercert.md
+  - https://developer.delinea.com/reference/post_core-listdirectory.md
+  - https://developer.delinea.com/reference/post_core-makefile.md
+  - https://developer.delinea.com/reference/post_core-movedirectory.md
+  - https://developer.delinea.com/reference/post_core-notifyenvironment.md
+  - https://developer.delinea.com/reference/post_core-processproxyiwacloudredirect.md
+  - https://developer.delinea.com/reference/post_core-readfile.md
+  - https://developer.delinea.com/reference/post_core-reissueiwahostcertificate.md
+  - https://developer.delinea.com/reference/post_core-renamecertificate.md
+  - https://developer.delinea.com/reference/post_core-setconnectorlog4netconfig.md
+  - https://developer.delinea.com/reference/post_core-setdefaultcertificate.md
+  - https://developer.delinea.com/reference/post_core-setproxyiwahostcertificatefile.md
+  - https://developer.delinea.com/reference/post_core-setproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-settenantconfig.md
+  - https://developer.delinea.com/reference/post_core-startservice.md
+  - https://developer.delinea.com/reference/post_core-stopservice.md
+  - https://developer.delinea.com/reference/post_core-storealias.md
+  - https://developer.delinea.com/reference/post_core-storeuser.md
+  - https://developer.delinea.com/reference/post_core-storeusersetting.md
+  - https://developer.delinea.com/reference/post_core-updatedirectoryservicesprecedence.md
+  - https://developer.delinea.com/reference/post_core-updateproxycode.md
+  - https://developer.delinea.com/reference/post_core-updateproxyiwasettings.md
+  - https://developer.delinea.com/reference/post_core-uploadcertificate.md
+  - https://developer.delinea.com/reference/post_core-writefile.md
+  - https://developer.delinea.com/reference/post_cssintegration-dzdoexecute.md
+  - https://developer.delinea.com/reference/post_cssintegration-getchallengeprofiles.md
+  - https://developer.delinea.com/reference/post_cssintegration-mfalogin.md
+  - https://developer.delinea.com/reference/post_cssintegration-setchallengeprofiles.md
+  - https://developer.delinea.com/reference/post_dashaccount-adddiscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-canceldiscovery.md
+  - https://developer.delinea.com/reference/post_dashaccount-clearowneraccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-commitdiscoveredaccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-commitdiscoveredaccounts.md
+  - https://developer.delinea.com/reference/post_dashaccount-deletediscoveredaccounts.md
+  - https://developer.delinea.com/reference/post_dashaccount-deletediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-getdiscoveryprofile.md
+  - https://developer.delinea.com/reference/post_dashaccount-getdiscoveryprofiles.md
+  - https://developer.delinea.com/reference/post_dashaccount-getmydashaaccountswithcheckout.md
+  - https://developer.delinea.com/reference/post_dashaccount-getprofilerights.md
+  - https://developer.delinea.com/reference/post_dashaccount-rundiscovery.md
+  - https://developer.delinea.com/reference/post_dashaccount-setdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_dashaccount-updatediscoveredaccount.md
+  - https://developer.delinea.com/reference/post_dashaccount-updatediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_discovery-adddiscoveryaccount.md
+  - https://developer.delinea.com/reference/post_discovery-anydiscoveryaccountsreferenced.md
+  - https://developer.delinea.com/reference/post_discovery-deleteblacklistedcomputer.md
+  - https://developer.delinea.com/reference/post_discovery-deletediscoveryaccount.md
+  - https://developer.delinea.com/reference/post_discovery-deleteexcludedaccount.md
+  - https://developer.delinea.com/reference/post_discovery-getdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_discovery-getexcludedaccounts.md
+  - https://developer.delinea.com/reference/post_discovery-gethistory.md
+  - https://developer.delinea.com/reference/post_discovery-getreferencedvpcs.md
+  - https://developer.delinea.com/reference/post_discovery-getvpcname.md
+  - https://developer.delinea.com/reference/post_discovery-setdiscoveryprofilepermissions.md
+  - https://developer.delinea.com/reference/post_discovery-updatediscoveryaccount.md
+  - https://developer.delinea.com/reference/post_extdata-getcolumn.md
+  - https://developer.delinea.com/reference/post_extdata-getcolumns.md
+  - https://developer.delinea.com/reference/post_extdata-getschema.md
+  - https://developer.delinea.com/reference/post_extdata-setcolumn.md
+  - https://developer.delinea.com/reference/post_extdata-setcolumns.md
+  - https://developer.delinea.com/reference/post_extdata-updateschema.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-addcertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-downloadcertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-getcertauthorities.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-removecertauthority.md
+  - https://developer.delinea.com/reference/post_externalcamgmt-updatecertauthority.md
+  - https://developer.delinea.com/reference/post_federation-addglobalgroupassertionmapping.md
+  - https://developer.delinea.com/reference/post_federation-createfederation.md
+  - https://developer.delinea.com/reference/post_federation-deletefederation.md
+  - https://developer.delinea.com/reference/post_federation-deleteglobalgroupassertionmapping.md
+  - https://developer.delinea.com/reference/post_federation-federationmetadata.md
+  - https://developer.delinea.com/reference/post_federation-getfederatedgroupmembers.md
+  - https://developer.delinea.com/reference/post_federation-getfederatedgroupsforuser.md
+  - https://developer.delinea.com/reference/post_federation-getfederation.md
+  - https://developer.delinea.com/reference/post_federation-getfederationgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-getfederations.md
+  - https://developer.delinea.com/reference/post_federation-getfederationsignaturetypes.md
+  - https://developer.delinea.com/reference/post_federation-getfederationtypes.md
+  - https://developer.delinea.com/reference/post_federation-getglobalfederationsettings.md
+  - https://developer.delinea.com/reference/post_federation-getglobalgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-getgroups.md
+  - https://developer.delinea.com/reference/post_federation-removeuserfromfederatedgroup.md
+  - https://developer.delinea.com/reference/post_federation-spsigningcertificate.md
+  - https://developer.delinea.com/reference/post_federation-spsigningcertificateauthority.md
+  - https://developer.delinea.com/reference/post_federation-updatefederation.md
+  - https://developer.delinea.com/reference/post_federation-updatefederationgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_federation-updateglobalgroupassertionmappings.md
+  - https://developer.delinea.com/reference/post_googledirectory-authcallback.md
+  - https://developer.delinea.com/reference/post_googledirectory-getauthtokenstate.md
+  - https://developer.delinea.com/reference/post_googledirectory-getdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_googledirectory-getserviceloginurlinfo.md
+  - https://developer.delinea.com/reference/post_googledirectory-removedirectoryservice.md
+  - https://developer.delinea.com/reference/post_googledirectory-updatedirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_health-check.md
+  - https://developer.delinea.com/reference/post_health-supportinfo.md
+  - https://developer.delinea.com/reference/post_health-supportinfofile.md
+  - https://developer.delinea.com/reference/post_home-getlogindata.md
+  - https://developer.delinea.com/reference/post_jobflow-deletejob.md
+  - https://developer.delinea.com/reference/post_jobflow-event.md
+  - https://developer.delinea.com/reference/post_jobflow-getjob.md
+  - https://developer.delinea.com/reference/post_jobflow-getjobs.md
+  - https://developer.delinea.com/reference/post_jobflow-getmyjobs.md
+  - https://developer.delinea.com/reference/post_jobflow-startjob.md
+  - https://developer.delinea.com/reference/post_jsmanage-getdashboardrolesandrights.md
+  - https://developer.delinea.com/reference/post_jsmanage-getreportrolesandrights.md
+  - https://developer.delinea.com/reference/post_kmip-configure.md
+  - https://developer.delinea.com/reference/post_kmip-deleteconfig.md
+  - https://developer.delinea.com/reference/post_kmip-getconfig.md
+  - https://developer.delinea.com/reference/post_kmip-passwordstoredremotely.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-addldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-deleteldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getcloudconnectors.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getdirectoryserviceversion.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getldapdirectoryserviceuuidbyname.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getmappableattributelist.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-getscriptingpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-modifyldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-setpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-setscriptingpropertytoattributemappings.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-testuserlookup.md
+  - https://developer.delinea.com/reference/post_ldapdirectoryservice-verifyldapdirectoryserviceconfig.md
+  - https://developer.delinea.com/reference/post_libonlyvfs-getfile.md
+  - https://developer.delinea.com/reference/post_mobilepas-deletedevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-disablesso.md
+  - https://developer.delinea.com/reference/post_mobilepas-enablesso.md
+  - https://developer.delinea.com/reference/post_mobilepas-lockclientapp.md
+  - https://developer.delinea.com/reference/post_mobilepas-pingdevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-reapplydevicepolicy.md
+  - https://developer.delinea.com/reference/post_mobilepas-resetclientapplockpin.md
+  - https://developer.delinea.com/reference/post_mobilepas-setdevicepermissions.md
+  - https://developer.delinea.com/reference/post_mobilepas-setprimarydevice.md
+  - https://developer.delinea.com/reference/post_mobilepas-updatedevicepolicy.md
+  - https://developer.delinea.com/reference/post_oath-addorupdateprofile.md
+  - https://developer.delinea.com/reference/post_oath-deleteprofiles.md
+  - https://developer.delinea.com/reference/post_oath-getdatafromcsvfile.md
+  - https://developer.delinea.com/reference/post_oath-getimportprofilelist.md
+  - https://developer.delinea.com/reference/post_oath-getprofilelist.md
+  - https://developer.delinea.com/reference/post_oath-getprofilelistfordevice.md
+  - https://developer.delinea.com/reference/post_oath-resetcentrifyoathprofile.md
+  - https://developer.delinea.com/reference/post_oath-resynchronizeoathtoken.md
+  - https://developer.delinea.com/reference/post_oath-saveprofile.md
+  - https://developer.delinea.com/reference/post_oath-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_oath-updateoathprofilecounter.md
+  - https://developer.delinea.com/reference/post_oath-validateotpcode.md
+  - https://developer.delinea.com/reference/post_oauth2-authorize.md
+  - https://developer.delinea.com/reference/post_oauth2-confirm.md
+  - https://developer.delinea.com/reference/post_oauth2-endsession.md
+  - https://developer.delinea.com/reference/post_oauth2-getmeta.md
+  - https://developer.delinea.com/reference/post_oauth2-introspect.md
+  - https://developer.delinea.com/reference/post_oauth2-keys.md
+  - https://developer.delinea.com/reference/post_oauth2-revoke.md
+  - https://developer.delinea.com/reference/post_oauth2-token.md
+  - https://developer.delinea.com/reference/post_oauth2-userinfo.md
+  - https://developer.delinea.com/reference/post_oauth2man-createclienttoken.md
+  - https://developer.delinea.com/reference/post_pki-login.md
+  - https://developer.delinea.com/reference/post_policy-addauthpolicymodifier.md
+  - https://developer.delinea.com/reference/post_policy-deleteauthpolicymodifier.md
+  - https://developer.delinea.com/reference/post_policy-deletepolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getauthpolicymodifiers.md
+  - https://developer.delinea.com/reference/post_policy-getniceplinks.md
+  - https://developer.delinea.com/reference/post_policy-getnicepolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getoathotpclientname.md
+  - https://developer.delinea.com/reference/post_policy-getpasswordcomplexityrequirements.md
+  - https://developer.delinea.com/reference/post_policy-getplinks.md
+  - https://developer.delinea.com/reference/post_policy-getpolicyblock.md
+  - https://developer.delinea.com/reference/post_policy-getpolicybool.md
+  - https://developer.delinea.com/reference/post_policy-getpolicyint.md
+  - https://developer.delinea.com/reference/post_policy-getpolicymetadata.md
+  - https://developer.delinea.com/reference/post_policy-getpolicystring.md
+  - https://developer.delinea.com/reference/post_policy-getrsop.md
+  - https://developer.delinea.com/reference/post_policy-getu2fclientname.md
+  - https://developer.delinea.com/reference/post_policy-getusingcloudmobilegp.md
+  - https://developer.delinea.com/reference/post_policy-policychecks.md
+  - https://developer.delinea.com/reference/post_policy-savepolicyblock2.md
+  - https://developer.delinea.com/reference/post_policy-savepolicyblock3.md
+  - https://developer.delinea.com/reference/post_policy-setplinks.md
+  - https://developer.delinea.com/reference/post_policy-setplinksv2.md
+  - https://developer.delinea.com/reference/post_policy-setusingcloudmobilegp.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-canmanageprivilegeelevation.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getassignmentsbyscope.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getchallenges.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-getcommands.md
+  - https://developer.delinea.com/reference/post_privilegeelevation-submitworkflowrequest.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-add.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-addassignment.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-delete.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-deleteassignment.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getassignments.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getprivilegeelevationcommandcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-getprivilegeelevationcommandpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-listassignments.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-setprivilegeelevationcommandcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-setprivilegeelevationcommandpermissions.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-update.md
+  - https://developer.delinea.com/reference/post_privilegeelevationcommand-updateassignment.md
+  - https://developer.delinea.com/reference/post_quickstart-getstate.md
+  - https://developer.delinea.com/reference/post_quickstart-manageaccounts.md
+  - https://developer.delinea.com/reference/post_quickstart-rundiscovery.md
+  - https://developer.delinea.com/reference/post_quickstart-verifyadminaccount.md
+  - https://developer.delinea.com/reference/post_radius-getclients.md
+  - https://developer.delinea.com/reference/post_radius-getconfig.md
+  - https://developer.delinea.com/reference/post_radius-getservers.md
+  - https://developer.delinea.com/reference/post_radius-getuseridentifierattributes.md
+  - https://developer.delinea.com/reference/post_radius-removeclients.md
+  - https://developer.delinea.com/reference/post_radius-removeservers.md
+  - https://developer.delinea.com/reference/post_radius-setclient.md
+  - https://developer.delinea.com/reference/post_radius-setconfig.md
+  - https://developer.delinea.com/reference/post_radius-setserver.md
+  - https://developer.delinea.com/reference/post_registration-customerinfo.md
+  - https://developer.delinea.com/reference/post_registration-registernewtenant.md
+  - https://developer.delinea.com/reference/post_report-addreport.md
+  - https://developer.delinea.com/reference/post_report-addreports.md
+  - https://developer.delinea.com/reference/post_report-copyreport.md
+  - https://developer.delinea.com/reference/post_report-deletereport.md
+  - https://developer.delinea.com/reference/post_report-deletereports.md
+  - https://developer.delinea.com/reference/post_report-emailreport.md
+  - https://developer.delinea.com/reference/post_report-getdefaultreportcategories.md
+  - https://developer.delinea.com/reference/post_report-getreport.md
+  - https://developer.delinea.com/reference/post_report-getreportcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_report-getreportpermissions.md
+  - https://developer.delinea.com/reference/post_report-getreportrights.md
+  - https://developer.delinea.com/reference/post_report-getreports.md
+  - https://developer.delinea.com/reference/post_report-setreportcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_report-setreportpermissions.md
+  - https://developer.delinea.com/reference/post_report-updatereport.md
+  - https://developer.delinea.com/reference/post_resourceprofile-addresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-deleteresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-exportresourceprofilepackage.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getallresourceprofiles.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofile.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofilecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-getresourceprofilepermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-openresourceprofilepackage.md
+  - https://developer.delinea.com/reference/post_resourceprofile-setresourceprofilecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-setresourceprofilepermissions.md
+  - https://developer.delinea.com/reference/post_resourceprofile-updateresourceprofile.md
+  - https://developer.delinea.com/reference/post_roles-getpagedrolemembers.md
+  - https://developer.delinea.com/reference/post_roles-updaterole-1.md
+  - https://developer.delinea.com/reference/post_saasmanage-addusersandgroupstorole.md
+  - https://developer.delinea.com/reference/post_saasmanage-assignsuperrights.md
+  - https://developer.delinea.com/reference/post_saasmanage-checkifappshaveupdates.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleteapplication.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleterole.md
+  - https://developer.delinea.com/reference/post_saasmanage-deleteroles.md
+  - https://developer.delinea.com/reference/post_saasmanage-getallupdatableapps.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappcreds.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappidbyservicename.md
+  - https://developer.delinea.com/reference/post_saasmanage-getapplication.md
+  - https://developer.delinea.com/reference/post_saasmanage-getappunsupportedlist.md
+  - https://developer.delinea.com/reference/post_saasmanage-getrole.md
+  - https://developer.delinea.com/reference/post_saasmanage-getrolemembers.md
+  - https://developer.delinea.com/reference/post_saasmanage-gettemplatesandcategories.md
+  - https://developer.delinea.com/reference/post_saasmanage-importappfromtemplate.md
+  - https://developer.delinea.com/reference/post_saasmanage-isapplicationavailableincatalog-1.md
+  - https://developer.delinea.com/reference/post_saasmanage-refreshapplicationbinaryfilemetadata.md
+  - https://developer.delinea.com/reference/post_saasmanage-removeusersandgroupsfromrole.md
+  - https://developer.delinea.com/reference/post_saasmanage-requestappuploadurl.md
+  - https://developer.delinea.com/reference/post_saasmanage-setapplicationpermissions.md
+  - https://developer.delinea.com/reference/post_saasmanage-setrolepolicy.md
+  - https://developer.delinea.com/reference/post_saasmanage-storerole.md
+  - https://developer.delinea.com/reference/post_saasmanage-unassignsuperrights.md
+  - https://developer.delinea.com/reference/post_saasmanage-updateapplicationde.md
+  - https://developer.delinea.com/reference/post_saasmanage-updaterole.md
+  - https://developer.delinea.com/reference/post_schedulerhistory-deletejobhistory.md
+  - https://developer.delinea.com/reference/post_schedulerhistory-getjobreport.md
+  - https://developer.delinea.com/reference/post_security-advanceauthentication.md
+  - https://developer.delinea.com/reference/post_security-advanceforgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-amiauthenticated.md
+  - https://developer.delinea.com/reference/post_security-answeroobchallenge.md
+  - https://developer.delinea.com/reference/post_security-challengeuser.md
+  - https://developer.delinea.com/reference/post_security-cleanupauthentication.md
+  - https://developer.delinea.com/reference/post_security-doihaveright.md
+  - https://developer.delinea.com/reference/post_security-forgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-getonetimepassword.md
+  - https://developer.delinea.com/reference/post_security-getriskanalysislevels.md
+  - https://developer.delinea.com/reference/post_security-login.md
+  - https://developer.delinea.com/reference/post_security-logout.md
+  - https://developer.delinea.com/reference/post_security-multiauthlogin.md
+  - https://developer.delinea.com/reference/post_security-ondemandchallenge.md
+  - https://developer.delinea.com/reference/post_security-refreshtoken.md
+  - https://developer.delinea.com/reference/post_security-resumefromextidpauth.md
+  - https://developer.delinea.com/reference/post_security-startauthentication.md
+  - https://developer.delinea.com/reference/post_security-startchallenge.md
+  - https://developer.delinea.com/reference/post_security-startforgotusername-1.md
+  - https://developer.delinea.com/reference/post_security-startsocialauthentication.md
+  - https://developer.delinea.com/reference/post_security-submitoathotpcode.md
+  - https://developer.delinea.com/reference/post_security-taskcheck.md
+  - https://developer.delinea.com/reference/post_security-taskchecks.md
+  - https://developer.delinea.com/reference/post_security-twiliophonechallengecompleted.md
+  - https://developer.delinea.com/reference/post_security-twiliophonechallengenotanswered.md
+  - https://developer.delinea.com/reference/post_security-whoami.md
+  - https://developer.delinea.com/reference/post_serveragent-addconfigfile.md
+  - https://developer.delinea.com/reference/post_serveragent-addenrollmentcode.md
+  - https://developer.delinea.com/reference/post_serveragent-convertmachineaccount.md
+  - https://developer.delinea.com/reference/post_serveragent-cssextension.md
+  - https://developer.delinea.com/reference/post_serveragent-deleteconfigfile-2.md
+  - https://developer.delinea.com/reference/post_serveragent-deleteenrollmentcode.md
+  - https://developer.delinea.com/reference/post_serveragent-disablefeatures.md
+  - https://developer.delinea.com/reference/post_serveragent-enablefeatures.md
+  - https://developer.delinea.com/reference/post_serveragent-enablefeaturesv2.md
+  - https://developer.delinea.com/reference/post_serveragent-enroll.md
+  - https://developer.delinea.com/reference/post_serveragent-enrollv2.md
+  - https://developer.delinea.com/reference/post_serveragent-enrollv3.md
+  - https://developer.delinea.com/reference/post_serveragent-getallconfigfiles-2.md
+  - https://developer.delinea.com/reference/post_serveragent-getallenrollmentcodes.md
+  - https://developer.delinea.com/reference/post_serveragent-getcertificate.md
+  - https://developer.delinea.com/reference/post_serveragent-getconfigsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getdirectauditconfiguration.md
+  - https://developer.delinea.com/reference/post_serveragent-geteffectivelocalgroups.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupbyid.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupbyname.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupmembers.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopeallowedroles.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopenamesforrole-2.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopesforrole.md
+  - https://developer.delinea.com/reference/post_serveragent-getgroupscopesfortype.md
+  - https://developer.delinea.com/reference/post_serveragent-getofflineotpsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getsettings.md
+  - https://developer.delinea.com/reference/post_serveragent-getuserbyid.md
+  - https://developer.delinea.com/reference/post_serveragent-getuserbyname.md
+  - https://developer.delinea.com/reference/post_serveragent-getusergroups.md
+  - https://developer.delinea.com/reference/post_serveragent-pushconfigfile.md
+  - https://developer.delinea.com/reference/post_serveragent-register.md
+  - https://developer.delinea.com/reference/post_serveragent-registerv2.md
+  - https://developer.delinea.com/reference/post_serveragent-registerv3.md
+  - https://developer.delinea.com/reference/post_serveragent-setfeaturestate-3.md
+  - https://developer.delinea.com/reference/post_serveragent-unenroll.md
+  - https://developer.delinea.com/reference/post_serveragent-unenrollagents.md
+  - https://developer.delinea.com/reference/post_serveragent-updategroupscopes.md
+  - https://developer.delinea.com/reference/post_serveragent-updateinformation.md
+  - https://developer.delinea.com/reference/post_serveragent-updatesettings.md
+  - https://developer.delinea.com/reference/post_serveragent-validateagent.md
+  - https://developer.delinea.com/reference/post_serveragent-verifypassword.md
+  - https://developer.delinea.com/reference/post_serveragent-verifypasswordv2.md
+  - https://developer.delinea.com/reference/post_serveragent-verifyusercanlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-addaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-addaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-addcomputer.md
+  - https://developer.delinea.com/reference/post_servermanage-adddatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-adddatabases.md
+  - https://developer.delinea.com/reference/post_servermanage-adddomain.md
+  - https://developer.delinea.com/reference/post_servermanage-adddomains.md
+  - https://developer.delinea.com/reference/post_servermanage-addresource.md
+  - https://developer.delinea.com/reference/post_servermanage-addresources.md
+  - https://developer.delinea.com/reference/post_servermanage-addsecret.md
+  - https://developer.delinea.com/reference/post_servermanage-addsecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-addsshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-addsshkeyfile.md
+  - https://developer.delinea.com/reference/post_servermanage-candeletesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-checkinpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-checkofflineotpexist.md
+  - https://developer.delinea.com/reference/post_servermanage-checkoutpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-creatediscoveryprofile.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-deletedatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-deletedomain.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteresource.md
+  - https://developer.delinea.com/reference/post_servermanage-deleteresources.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-deletesshkeys.md
+  - https://developer.delinea.com/reference/post_servermanage-downloadsecretfileinchunks.md
+  - https://developer.delinea.com/reference/post_servermanage-extendcheckout.md
+  - https://developer.delinea.com/reference/post_servermanage-generatesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-generatesshkeyfile.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsfordatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsforlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-getaccountsforresource.md
+  - https://developer.delinea.com/reference/post_servermanage-getagentprofile.md
+  - https://developer.delinea.com/reference/post_servermanage-getauditinfo.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputerchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputerrights.md
+  - https://developer.delinea.com/reference/post_servermanage-getcomputersforsshkeyaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-getdatabasecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdatabasepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdiscoveryprofiles.md
+  - https://developer.delinea.com/reference/post_servermanage-getdomaincollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getdomainpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getmfatokencode.md
+  - https://developer.delinea.com/reference/post_servermanage-getmfatokensettings.md
+  - https://developer.delinea.com/reference/post_servermanage-getmysessions.md
+  - https://developer.delinea.com/reference/post_servermanage-getmyworkspaceaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-getofflineotp.md
+  - https://developer.delinea.com/reference/post_servermanage-getresourcecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getresourcepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getretiredpassword.md
+  - https://developer.delinea.com/reference/post_servermanage-getrsop.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecret.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretapprovers.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretfolderscanmoveto.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsandfolders.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsfolderrights.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecretsfolderrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsecrettobereplaced.md
+  - https://developer.delinea.com/reference/post_servermanage-getsessions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeycollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyinfo.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeypermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyrightsandchallenges.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeysforlogin.md
+  - https://developer.delinea.com/reference/post_servermanage-getsshkeyusage.md
+  - https://developer.delinea.com/reference/post_servermanage-logjustificationevent-2.md
+  - https://developer.delinea.com/reference/post_servermanage-manageaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-movefolder.md
+  - https://developer.delinea.com/reference/post_servermanage-movesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-multiaccountdelete-1.md
+  - https://developer.delinea.com/reference/post_servermanage-multiaccountpasswordrotation-1.md
+  - https://developer.delinea.com/reference/post_servermanage-patchresource.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckdatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckdomain.md
+  - https://developer.delinea.com/reference/post_servermanage-precheckout.md
+  - https://developer.delinea.com/reference/post_servermanage-provisionreconciliationaccounts.md
+  - https://developer.delinea.com/reference/post_servermanage-refreshhealthstatus.md
+  - https://developer.delinea.com/reference/post_servermanage-removemfatoken.md
+  - https://developer.delinea.com/reference/post_servermanage-requestsecretdownloadurl.md
+  - https://developer.delinea.com/reference/post_servermanage-requestsecretuploadurl.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesecretcontents.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesecretmetadata.md
+  - https://developer.delinea.com/reference/post_servermanage-retrievesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-rotatepassword.md
+  - https://developer.delinea.com/reference/post_servermanage-rotatepasswords.md
+  - https://developer.delinea.com/reference/post_servermanage-setaccountcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setaccountpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setconnectorsystem.md
+  - https://developer.delinea.com/reference/post_servermanage-setdatabasecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdatabasepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdomaincollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setdomainpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setescrowkeyfromfile.md
+  - https://developer.delinea.com/reference/post_servermanage-setmfatoken.md
+  - https://developer.delinea.com/reference/post_servermanage-setresourcecollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setresourcepermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsecretsfolderpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsshkeycollectionpermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-setsshkeypermissions.md
+  - https://developer.delinea.com/reference/post_servermanage-terminatesession.md
+  - https://developer.delinea.com/reference/post_servermanage-updateaccount.md
+  - https://developer.delinea.com/reference/post_servermanage-updatedatabase.md
+  - https://developer.delinea.com/reference/post_servermanage-updatedomain.md
+  - https://developer.delinea.com/reference/post_servermanage-updatepassword.md
+  - https://developer.delinea.com/reference/post_servermanage-updateresource.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesecret.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesecretsfolder.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesettings.md
+  - https://developer.delinea.com/reference/post_servermanage-updatesshkey.md
+  - https://developer.delinea.com/reference/post_servermanage-uploadsecretfileinchunks.md
+  - https://developer.delinea.com/reference/post_servermanage-verifyaccountpasswordmanagementsettings.md
+  - https://developer.delinea.com/reference/post_serversession-getloginurl.md
+  - https://developer.delinea.com/reference/post_socialauth-facebookauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-googleauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-linkedinauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-microsoftactauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauth-twitterauthcallback.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getallcustomconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getapplicationclientsecret.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-getcustomconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-resetauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-setauthconfig.md
+  - https://developer.delinea.com/reference/post_socialauthmgmt-setcustomconfig.md
+  - https://developer.delinea.com/reference/post_subscriptions-addsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-creatempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-deletempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-deletesubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-getalllaggers.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccountpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccountrights.md
+  - https://developer.delinea.com/reference/post_subscriptions-getmultiplexedaccounts.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptioncollectionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-getsubscriptionrights.md
+  - https://developer.delinea.com/reference/post_subscriptions-pushsubscription.md
+  - https://developer.delinea.com/reference/post_subscriptions-setmultiplexedaccountpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-setsubscriptioncollectionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-setsubscriptionpermissions.md
+  - https://developer.delinea.com/reference/post_subscriptions-sync.md
+  - https://developer.delinea.com/reference/post_subscriptions-updatempaccount.md
+  - https://developer.delinea.com/reference/post_subscriptions-updatesubscription.md
+  - https://developer.delinea.com/reference/post_sysinfo-about.md
+  - https://developer.delinea.com/reference/post_sysinfo-dummy.md
+  - https://developer.delinea.com/reference/post_sysinfo-getmysession.md
+  - https://developer.delinea.com/reference/post_sysinfo-version.md
+  - https://developer.delinea.com/reference/post_task-canceljob.md
+  - https://developer.delinea.com/reference/post_task-createonetimejob.md
+  - https://developer.delinea.com/reference/post_task-emailreport.md
+  - https://developer.delinea.com/reference/post_task-getjobhistory.md
+  - https://developer.delinea.com/reference/post_task-getsinglejobhistory.md
+  - https://developer.delinea.com/reference/post_task-jobreport.md
+  - https://developer.delinea.com/reference/post_tenantcnames-get.md
+  - https://developer.delinea.com/reference/post_tenantcnames-getdomaininfo.md
+  - https://developer.delinea.com/reference/post_tenantcnames-register.md
+  - https://developer.delinea.com/reference/post_tenantcnames-setpreferred.md
+  - https://developer.delinea.com/reference/post_tenantcnames-uiget.md
+  - https://developer.delinea.com/reference/post_tenantcnames-unregister.md
+  - https://developer.delinea.com/reference/post_tenantconfig-deleteadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-deleteadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadminsecurityquestions.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getcustomerconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemailtemplates.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemessagetemplate.md
+  - https://developer.delinea.com/reference/post_tenantconfig-geteditablemessagetemplates.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getgooglekey.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getmobileconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-getsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-gettwilioconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-resetportalconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-sendtestmessagetemplate.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setadminsecurityquestion.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setadvancedconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setcustomerconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setgooglekey.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setmobileconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setpasswordpersistance.md
+  - https://developer.delinea.com/reference/post_tenantconfig-setsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-settwilioconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-testsmtpconfig.md
+  - https://developer.delinea.com/reference/post_tenantconfig-testtwilioconfig.md
+  - https://developer.delinea.com/reference/post_u-evaluate.md
+  - https://developer.delinea.com/reference/post_u2f-answerregistrationchallenge.md
+  - https://developer.delinea.com/reference/post_u2f-deleteu2fdevice.md
+  - https://developer.delinea.com/reference/post_u2f-deleteu2fdevices.md
+  - https://developer.delinea.com/reference/post_u2f-facets.md
+  - https://developer.delinea.com/reference/post_u2f-getregistrationchallenge.md
+  - https://developer.delinea.com/reference/post_u2f-getu2fdevices.md
+  - https://developer.delinea.com/reference/post_u2f-getu2fdevicesforuser.md
+  - https://developer.delinea.com/reference/post_unixprofile-getgroupprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-getuserprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-getuserprofilesfromcsvfile.md
+  - https://developer.delinea.com/reference/post_unixprofile-setgroupprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-setuserprofile.md
+  - https://developer.delinea.com/reference/post_unixprofile-submituploadedfile.md
+  - https://developer.delinea.com/reference/post_uprest-getappbykey.md
+  - https://developer.delinea.com/reference/post_uprest-getresultantappsforuser.md
+  - https://developer.delinea.com/reference/post_uprest-gettagsforapp.md
+  - https://developer.delinea.com/reference/post_uprest-getupdata.md
+  - https://developer.delinea.com/reference/post_uprest-setusercredsforapp.md
+  - https://developer.delinea.com/reference/post_uprest-upserttagsforapp.md
+  - https://developer.delinea.com/reference/post_usermgmt-addfavorite.md
+  - https://developer.delinea.com/reference/post_usermgmt-analyzeadaptivemfarisk.md
+  - https://developer.delinea.com/reference/post_usermgmt-canedituserattributes.md
+  - https://developer.delinea.com/reference/post_usermgmt-changeuserattributes-1.md
+  - https://developer.delinea.com/reference/post_usermgmt-changeuserpassword.md
+  - https://developer.delinea.com/reference/post_usermgmt-checkuserprofilechallenge.md
+  - https://developer.delinea.com/reference/post_usermgmt-directoryservicequery.md
+  - https://developer.delinea.com/reference/post_usermgmt-getcachedentity.md
+  - https://developer.delinea.com/reference/post_usermgmt-getcacheduser.md
+  - https://developer.delinea.com/reference/post_usermgmt-getfavorites.md
+  - https://developer.delinea.com/reference/post_usermgmt-getsecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserattributes.md
+  - https://developer.delinea.com/reference/post_usermgmt-getusercertificateinfo.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserhierarchy.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserinfo.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserpicture.md
+  - https://developer.delinea.com/reference/post_usermgmt-getuserpreferences.md
+  - https://developer.delinea.com/reference/post_usermgmt-getusersrolesandadministrativerights.md
+  - https://developer.delinea.com/reference/post_usermgmt-inviteusers.md
+  - https://developer.delinea.com/reference/post_usermgmt-isusercloudlocked.md
+  - https://developer.delinea.com/reference/post_usermgmt-isuserlockedoutbypolicy.md
+  - https://developer.delinea.com/reference/post_usermgmt-isusersubjecttocloudlocks.md
+  - https://developer.delinea.com/reference/post_usermgmt-removefavorite.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeuser.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeusercertificate.md
+  - https://developer.delinea.com/reference/post_usermgmt-removeusers.md
+  - https://developer.delinea.com/reference/post_usermgmt-resetsecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-resetuserpassword.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendloginemail.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendloginemails.md
+  - https://developer.delinea.com/reference/post_usermgmt-sendsmsinvite.md
+  - https://developer.delinea.com/reference/post_usermgmt-setcloudlock.md
+  - https://developer.delinea.com/reference/post_usermgmt-setphonepin.md
+  - https://developer.delinea.com/reference/post_usermgmt-setsecurityquestion.md
+  - https://developer.delinea.com/reference/post_usermgmt-uncacheuserpreferences.md
+  - https://developer.delinea.com/reference/post_usermgmt-updatesecurityquestions.md
+  - https://developer.delinea.com/reference/post_usermgmt-updateuserpreferences.md
+  - https://developer.delinea.com/reference/post_vault-addvault.md
+  - https://developer.delinea.com/reference/post_vault-deletevault.md
+  - https://developer.delinea.com/reference/post_vault-getallvaults.md
+  - https://developer.delinea.com/reference/post_vault-getallvaultsites.md
+  - https://developer.delinea.com/reference/post_vault-getallvaulttemplates.md
+  - https://developer.delinea.com/reference/post_vault-gethistory.md
+  - https://developer.delinea.com/reference/post_vault-getjobhistory.md
+  - https://developer.delinea.com/reference/post_vault-getvault.md
+  - https://developer.delinea.com/reference/post_vault-getvaultsite.md
+  - https://developer.delinea.com/reference/post_vault-setvaultcollectionpermissions.md
+  - https://developer.delinea.com/reference/post_vault-setvaultpermissions.md
+  - https://developer.delinea.com/reference/post_vault-syncvault.md
+  - https://developer.delinea.com/reference/post_vault-updatevault.md
+  - https://developer.delinea.com/reference/post_vault-verifyvault.md
+  - https://developer.delinea.com/reference/post_vfs-getfile.md
+  - https://developer.delinea.com/reference/post_vfs-getfilelower.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-createassignment.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-deleteexpiredassignments.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getallroles.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getapprovers.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getdomainconfiguration.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-getroles.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-refreshresourcezonejoined.md
+  - https://developer.delinea.com/reference/post_zoneroleworkflow-validaterolerequest.md
+  - https://developer.delinea.com/reference/post_zso-authenticatesession.md
+  - https://developer.delinea.com/reference/post_zso-certlogin.md
+  - https://developer.delinea.com/reference/post_zso-clearmacsafarizsocookie.md
+  - https://developer.delinea.com/reference/post_zso-ismacsafarizsocookieset.md
+  - https://developer.delinea.com/reference/post_zso-issessionauthenticated.md
+  - https://developer.delinea.com/reference/post_zso-setmacsafarizsocookie.md
+  merge:
+    pages: 775
+    deduped: 70
+    conflicts_kept_first: 0
