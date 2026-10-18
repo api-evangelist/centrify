@@ -72,6 +72,16 @@ tags:
 - Company
 - Identity
 - Privileged Access Management
+- Identity and Access Management
+- Authentication
+- SSO
+- Multi-Factor Authentication
+- Security
+- Zero Trust
+tags_raw:
+- Company
+- Identity
+- Privileged Access Management
 - Access Management
 - Authentication
 - SSO
@@ -198,7 +208,8 @@ apis:
   description: The Apis API from Centrify — 5 operation(s) for apis.
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
-  tags:
+  tags: []
+  tags_raw:
   - Apis
   properties:
   - type: OpenAPI
@@ -309,6 +320,8 @@ apis:
   humanURL: https://developer.delinea.com/docs
   baseURL: https://developer.delinea.com/reference
   tags:
+  - Datasets
+  tags_raw:
   - Dataset
   properties:
   - type: OpenAPI
