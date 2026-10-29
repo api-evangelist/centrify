@@ -64,6 +64,160 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Centrify is a company surfaced as a portfolio company of accel, mayfield and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Centrify is an identity and privileged access management (PAM) platform now delivered as part of Delinea (the company formed from the Centrify + Thycotic merger). The Centrify Identity Platform / Cloud Suite / Privileged Access Service secures access to applications, servers, network infrastructure, and privileged accounts with adaptive multi-factor authentication, single sign-on, least-privilege enforcement, session auditing, and analytics. The Centrify REST API exposes the full platform programmatically — authentication profiles, users and directories, roles and sets, resources and secrets, privileged access requests, connectors, webhooks, and audit/reporting — authenticated via OAuth2, bearer tokens, or MFA-aware session cookies. centrify.com now redirects to delinea.com and the developer documentation is served at developer.delinea.com.
 
-Backed by: accel, mayfield — http://www.centrify.com/
+**Areas:** Company · Identity · Privileged Access Management · Identity and Access Management · Authentication · SSO · Multi-Factor Authentication · Security · Zero Trust
+
+## Centrify on APIs.io
+
+Everything profiled for Centrify is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/centrify/](https://apis.io/providers/centrify/)** — or go straight to one of the APIs or properties below.
+
+### APIs (26)
+
+- [Centrify Identity Services API](https://apis.io/apis/centrify/centrify-identity-services-api/) — REST API for the Centrify Identity Platform / Cloud Suite (PAS). Programmatic access to authentication profiles, users, directories, roles, sets, resources,…
+- [Centrify APIs API](https://apis.io/apis/centrify/centrify-apis-api/) — The Apis API from Centrify — 5 operation(s) for apis.
+- [Centrify Application Management API](https://apis.io/apis/centrify/centrify-application-management-api/) — Manage applications and SaaS
+- [Centrify Authentication API](https://apis.io/apis/centrify/centrify-authentication-api/) — Authenticate to cloud service, MFA
+- [Centrify Cloud User Management API](https://apis.io/apis/centrify/centrify-cloud-user-management-api/) — Manage users for the Centrify Cloud Directory Service
+- [Centrify Core Services API](https://apis.io/apis/centrify/centrify-core-services-api/) — Utility functions and basic ops
+- [Centrify Dataset API](https://apis.io/apis/centrify/centrify-dataset-api/) — The Dataset API from Centrify — 1 operation(s) for dataset.
+- [Centrify Device Management API](https://apis.io/apis/centrify/centrify-device-management-api/) — Manage devices
+- [Centrify Directory Services API](https://apis.io/apis/centrify/centrify-directory-services-api/) — Manage directory services
+- [Centrify File API](https://apis.io/apis/centrify/centrify-file-api/) — The File API from Centrify — 2 operation(s) for file.
+- [Centrify Get Discovery Profiles API](https://apis.io/apis/centrify/centrify-getdiscoveryprofiles-api/) — The GetDiscoveryProfiles API from Centrify — 1 operation(s) for getdiscoveryprofiles.
+- [Centrify Get Discovery Status API](https://apis.io/apis/centrify/centrify-getdiscoverystatus-api/) — The GetDiscoveryStatus API from Centrify — 1 operation(s) for getdiscoverystatus.
+- [Centrify Get Role Apps API](https://apis.io/apis/centrify/centrify-getroleapps-api/) — The GetRoleApps API from Centrify — 1 operation(s) for getroleapps.
+- [Centrify Get Script API](https://apis.io/apis/centrify/centrify-getscript-api/) — The GetScript API from Centrify — 1 operation(s) for getscript.
+- [Centrify Get SSO Token API](https://apis.io/apis/centrify/centrify-getssotoken-api/) — The GetSSOToken API from Centrify — 1 operation(s) for getssotoken.
+- [Centrify Handle App Click API](https://apis.io/apis/centrify/centrify-handleappclick-api/) — The HandleAppClick API from Centrify — 1 operation(s) for handleappclick.
+- [Centrify Jumpterm API](https://apis.io/apis/centrify/centrify-jumpterm-api/) — The Jumpterm API from Centrify — 1 operation(s) for jumpterm.
+- [Centrify Reports API](https://apis.io/apis/centrify/centrify-reports-api/) — Access Cloud Service database
+- [Centrify Resource Management API](https://apis.io/apis/centrify/centrify-resource-management-api/) — Manage resources and accounts for CPS
+- [Centrify Role Management API](https://apis.io/apis/centrify/centrify-role-management-api/) — Manage roles and admin rights
+- [Centrify Rules API](https://apis.io/apis/centrify/centrify-rules-api/) — The Rules API from Centrify — 5 operation(s) for rules.
+- [Centrify Run Discovery API](https://apis.io/apis/centrify/centrify-rundiscovery-api/) — The RunDiscovery API from Centrify — 1 operation(s) for rundiscovery.
+- [Centrify Server Agent API](https://apis.io/apis/centrify/centrify-serveragent-api/) — The ServerAgent API from Centrify — 1 operation(s) for serveragent.
+- [Centrify Set Application Permissions API](https://apis.io/apis/centrify/centrify-setapplicationpermissions-api/) — The SetApplicationPermissions API from Centrify — 1 operation(s) for setapplicationpermissions.
+- [Centrify User Management API](https://apis.io/apis/centrify/centrify-user-management-api/) — Manage users for all Directory Services (AD, Cloud, LDAP, etc)
+- [Centrify Workflow Management API](https://apis.io/apis/centrify/centrify-workflow-management-api/) — Manage workflows
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [centrify-mcp.yml](https://apis.io/servers/centrify/centrify-mcp-yml/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Centrify Agentic Access](https://apis.io/agentic-access/centrify/centrify-agentic-access/)
+
+#### JSON Schema (6)
+
+The data models the API reads and writes.
+
+- [CoreGetAdTopology](https://apis.io/schemas/centrify/centrify-core-get-ad-topology/)
+- [SaasManageGetApplication](https://apis.io/schemas/centrify/centrify-saas-manage-get-application/)
+- [ServerManageGetDiscoveryProfiles](https://apis.io/schemas/centrify/centrify-server-manage-get-discovery-profiles/)
+- [ServerManageGetMyWorkspaceAccounts](https://apis.io/schemas/centrify/centrify-server-manage-get-my-workspace-accounts/)
+- [UPRestGetResultantAppsForUser](https://apis.io/schemas/centrify/centrify-uprest-get-resultant-apps-for-user/)
+- [UserMgmtGetUserInfo](https://apis.io/schemas/centrify/centrify-user-mgmt-get-user-info/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Centrify Context](https://apis.io/jsonld/centrify/centrify-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Centrify API Rules](https://apis.io/rules/centrify/centrify-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Centrify Authentication](https://apis.io/security/centrify/centrify-authentication/)
+- [Centrify Domain Security](https://apis.io/security/centrify/centrify-domain-security/)
+- [Centrify Trust Center](https://apis.io/security/centrify/centrify-trust-center/)
+- [Centrify Vulnerability Disclosure](https://apis.io/security/centrify/centrify-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.centrify.com/)
+- [Documentation](https://developer.delinea.com/docs)
+- [Getting started](https://developer.delinea.com/docs/getting-access-to-the-api)
+- [API reference](https://developer.delinea.com/reference)
+- [Pricing](https://delinea.com/centrify)
+- [Support](https://support.delinea.com/s/)
+- [Blog](https://delinea.com/blog)
+- [Security](https://trust.delinea.com/)
+- [Compliance](https://trust.delinea.com/)
+- [Terms of service](https://delinea.com/terms-of-use)
+- [Privacy policy](https://delinea.com/privacy-policy)
+- [GitHub](https://github.com/DelineaXPM)
+- [Status](https://status.delinea.com)
+
+## API Evangelist rating
+
+**Kin Score 57.6** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 54.7 |
+| Contract governance | 35.6 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 47.4 |
+
+**Agent readiness 24.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/centrify/](https://apis.io/providers/centrify/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Centrify: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/centrify/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
